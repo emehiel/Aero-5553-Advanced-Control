@@ -1,0 +1,6 @@
+# Frequency Response
+
+## Learning Objectives
+
+- Bode plots
+- Nyquist criterion

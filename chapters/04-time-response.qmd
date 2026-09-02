@@ -1,0 +1,6 @@
+# Time Response
+
+## Learning Objectives
+
+- Analyze second-order systems
+- Compute rise time, overshoot, settling time

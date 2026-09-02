@@ -1,0 +1,28 @@
+project:
+  type: book
+
+book:
+  title: "Aero 5553 - Advanced Control Theory"
+  subtitle: "Course Notes"
+  author: "Eric A. Mehiel, Ph.D."
+  chapters:
+    - index.qmd
+    - chapters/01-dynamic-system-control.qmd
+    - chapters/02-classical-control-highlights.qmd
+    - chapters/03-state-space.qmd
+    - chapters/04-time-response.qmd
+    - chapters/05-feedback.qmd
+    - chapters/06-root-locus.qmd
+    - chapters/07-frequency-response.qmd
+    - chapters/08-pid-design.qmd
+
+format:
+  html:
+    toc: true
+    number-sections: true
+  pdf:
+    documentclass: scrreprt
+    toc: true
+    number-sections: true
+execute:
+  freeze: auto

@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; Classical Control Highlights – Aero 5553 - Advanced Control Theory</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/03-state-space.html" rel="next">
+<link href="../chapters/01-dynamic-system-control.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/02-classical-control-highlights.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Classical Control Highlights</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Aero 5553 - Advanced Control Theory</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Preface</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/01-dynamic-system-control.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Dynamic System Control</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/02-classical-control-highlights.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Classical Control Highlights</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/03-state-space.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">State-Space Models</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/04-time-response.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Time Response</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/05-feedback.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Feedback Control</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/06-root-locus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Root Locus</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/07-frequency-response.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Frequency Response</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/08-pid-design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">PID Design</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#slide-2---motivation-and-learning-outcomes" id="toc-slide-2---motivation-and-learning-outcomes" class="nav-link active" data-scroll-target="#slide-2---motivation-and-learning-outcomes"><span class="header-section-number">3.1</span> Slide 2 - Motivation and Learning Outcomes</a></li>
+  <li><a href="#slide-3---functions-of-a-complex-variable" id="toc-slide-3---functions-of-a-complex-variable" class="nav-link" data-scroll-target="#slide-3---functions-of-a-complex-variable"><span class="header-section-number">3.2</span> Slide 3 - Functions of a Complex Variable</a></li>
+  <li><a href="#slide-4---poles-and-zeros-examples" id="toc-slide-4---poles-and-zeros-examples" class="nav-link" data-scroll-target="#slide-4---poles-and-zeros-examples"><span class="header-section-number">3.3</span> Slide 4 - Poles and Zeros Examples</a></li>
+  <li><a href="#slide-5---the-laplace-transform" id="toc-slide-5---the-laplace-transform" class="nav-link" data-scroll-target="#slide-5---the-laplace-transform"><span class="header-section-number">3.4</span> Slide 5 - The Laplace Transform</a></li>
+  <li><a href="#slide-6---properties-of-the-laplace-transform" id="toc-slide-6---properties-of-the-laplace-transform" class="nav-link" data-scroll-target="#slide-6---properties-of-the-laplace-transform"><span class="header-section-number">3.5</span> Slide 6 - Properties of the Laplace Transform</a></li>
+  <li><a href="#slide-7---useful-theorems" id="toc-slide-7---useful-theorems" class="nav-link" data-scroll-target="#slide-7---useful-theorems"><span class="header-section-number">3.6</span> Slide 7 - Useful Theorems</a></li>
+  <li><a href="#slide-8---why-laplace" id="toc-slide-8---why-laplace" class="nav-link" data-scroll-target="#slide-8---why-laplace"><span class="header-section-number">3.7</span> Slide 8 - Why Laplace?</a></li>
+  <li><a href="#slide-9---another-look-at-the-transfer-function" id="toc-slide-9---another-look-at-the-transfer-function" class="nav-link" data-scroll-target="#slide-9---another-look-at-the-transfer-function"><span class="header-section-number">3.8</span> Slide 9 - Another look at the Transfer Function</a></li>
+  <li><a href="#slide-10---step-response" id="toc-slide-10---step-response" class="nav-link" data-scroll-target="#slide-10---step-response"><span class="header-section-number">3.9</span> Slide 10 - Step Response</a></li>
+  <li><a href="#slide-11---performance-of-the-msd-step-response" id="toc-slide-11---performance-of-the-msd-step-response" class="nav-link" data-scroll-target="#slide-11---performance-of-the-msd-step-response"><span class="header-section-number">3.10</span> Slide 11 - Performance of the MSD Step Response</a></li>
+  <li><a href="#slide-12---performance-metrics" id="toc-slide-12---performance-metrics" class="nav-link" data-scroll-target="#slide-12---performance-metrics"><span class="header-section-number">3.11</span> Slide 12 - Performance Metrics</a></li>
+  <li><a href="#slide-13---performance-and-stability-with-feedback" id="toc-slide-13---performance-and-stability-with-feedback" class="nav-link" data-scroll-target="#slide-13---performance-and-stability-with-feedback"><span class="header-section-number">3.12</span> Slide 13 - Performance and Stability with Feedback</a></li>
+  <li><a href="#slide-14---proportional-feedback" id="toc-slide-14---proportional-feedback" class="nav-link" data-scroll-target="#slide-14---proportional-feedback"><span class="header-section-number">3.13</span> Slide 14 - Proportional Feedback</a></li>
+  <li><a href="#slide-15---final-value-theorem" id="toc-slide-15---final-value-theorem" class="nav-link" data-scroll-target="#slide-15---final-value-theorem"><span class="header-section-number">3.14</span> Slide 15 - Final Value Theorem</a></li>
+  <li><a href="#slide-16---proportional-derivative-feedback" id="toc-slide-16---proportional-derivative-feedback" class="nav-link" data-scroll-target="#slide-16---proportional-derivative-feedback"><span class="header-section-number">3.15</span> Slide 16 - Proportional + Derivative Feedback</a></li>
+  <li><a href="#slide-17---full-pid-feedback" id="toc-slide-17---full-pid-feedback" class="nav-link" data-scroll-target="#slide-17---full-pid-feedback"><span class="header-section-number">3.16</span> Slide 17 - Full PID Feedback</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Classical Control Highlights</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="slide-2---motivation-and-learning-outcomes" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="slide-2---motivation-and-learning-outcomes"><span class="header-section-number">3.1</span> Slide 2 - Motivation and Learning Outcomes</h2>
+<section id="motivation" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="motivation"><span class="header-section-number">3.1.1</span> Motivation</h3>
+<ul>
+<li>Proportional, Integral, Derivative Control</li>
+<li>For “single-input, single-output” systems, PID is often sufficient</li>
+<li>PID has been around a long time and is well understood</li>
+<li>PID is relatively easy to tune with decent performance for linear systems</li>
+<li>Classical Control is done in the “s-domain” (or frequency or Laplace Domain)</li>
+<li>However, PID is not the best choice for non-linear, time-varying, or multi-input, multi-output, or complex systems</li>
+</ul>
+</section>
+<section id="learning-outcomes" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="learning-outcomes"><span class="header-section-number">3.1.2</span> Learning Outcomes</h3>
+<ul>
+<li>Review the Laplace domain and its use in control systems</li>
+<li>Relate solutions of linear ODEs to concepts like, stabilty and peroformance</li>
+<li>Look into the concepts of propotional, integral, and derivative control</li>
+</ul>
+</section>
+</section>
+<section id="slide-3---functions-of-a-complex-variable" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="slide-3---functions-of-a-complex-variable"><span class="header-section-number">3.2</span> Slide 3 - Functions of a Complex Variable</h2>
+<p>Let <span class="math inline">\(s=a+jb\)</span> be a complex number with <span class="math inline">\(j=\sqrt{-1}\)</span>. Notice we typically use <span class="math inline">\(j\)</span> in controls since the Electrical Engineers took <span class="math inline">\(i\)</span> for current.</p>
+<p>We define the <em>rational polynomial</em> <span class="math inline">\(G(s)\)</span> as:</p>
+<p><span class="math display">\[G(s) = \frac{a_0s^m+ a_1s^{m-1} + \cdots + a_m}{s^n+b_1s^{n-1}+ \cdots + b_n}\]</span> <span class="math display">\[= \frac{N(s)}{D(s)}, \ for \ a_i, \ b_i \in \mathbb{R}\]</span></p>
+<p>When <span class="math inline">\(m&lt;n\)</span>, we say that <span class="math inline">\(G(s)\)</span> is <em>strictly proper</em>. When <span class="math inline">\(m=n\)</span>, we say that <span class="math inline">\(G(s)\)</span> is <em>proper</em>. When <span class="math inline">\(m&gt;n\)</span>, we say that <span class="math inline">\(G(s)\)</span> is <em>improper</em>.</p>
+<p>If we factor <span class="math inline">\(G(s)\)</span> into its roots, we can write:</p>
+<p>$<span class="math inline">\(G(s) = K\frac{(s-z_1)(s-z_2)\cdots(s-z_m)}{(s-p_1)(s-p_2)\cdots(s-p_n)}\)</span></p>
+<p>where <span class="math inline">\(z_i\)</span> are the <em>zeros</em> of <span class="math inline">\(G(s)\)</span> and <span class="math inline">\(p_i\)</span> are the <em>poles</em> of <span class="math inline">\(G(s)\)</span>.</p>
+<p>Notice that the poles and zeros are complex numbers, and that the poles are the roots of the denominator polynomial <span class="math inline">\(D(s)\)</span> and the zeros are the roots of the numerator polynomial <span class="math inline">\(N(s)\)</span>.</p>
+<p>In set from <span class="math inline">\({z_i}\)</span> = {s | N(s) = 0} and <span class="math inline">\({p_i}\)</span> = {s | D(s) = 0}. The <em>order</em> of <span class="math inline">\(G(s)\)</span> is the number of poles, <span class="math inline">\(n\)</span>.</p>
+</section>
+<section id="slide-4---poles-and-zeros-examples" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="slide-4---poles-and-zeros-examples"><span class="header-section-number">3.3</span> Slide 4 - Poles and Zeros Examples</h2>
+<p><span class="math display">\[G(s) = \frac{(s+2)(s+10)}{s(s+5)(s+15)^2}\]</span></p>
+<p>Therefore,</p>
+<p><span class="math display">\[z = \left\{ -2, -10 \right\}\]</span></p>
+<p><span class="math display">\[p = \{0, -5, -15, -15\}\]</span></p>
+<p>Another more complex example is:</p>
+<p><span class="math display">\[ G(s) = \frac{(s + 2)(s^2 + s + 5)}{s (s + 5)(s^2 + 5s + 15)}\]</span></p>
+<div id="320116c1" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> control <span class="im">as</span> ct</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the transfer function: G(s) = (s+2)(s^2+s+5) / (s(s+5)(s^2+5s+15))</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>num <span class="op">=</span> np.polymul([<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>])</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>den <span class="op">=</span> np.polymul([<span class="dv">1</span>, <span class="dv">0</span>], np.polymul([<span class="dv">1</span>, <span class="dv">5</span>], np.polymul([<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">15</span>], [<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">15</span>])))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> ct.TransferFunction(num, den)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the poles and zeros</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>ct.pole_zero_plot(G, title<span class="op">=</span><span class="st">'Poles and Zeros of G(s)'</span>, grid<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-classical-control-highlights_files/figure-html/cell-2-output-1.png" width="558" height="455" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="slide-5---the-laplace-transform" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="slide-5---the-laplace-transform"><span class="header-section-number">3.4</span> Slide 5 - The Laplace Transform</h2>
+<p>The Laplace transform converts a time-domain signal into the complex frequency domain. For a causal function <span class="math inline">\(f(t)\)</span> (defined for <span class="math inline">\(t\ge0\)</span>) the unilateral Laplace transform is</p>
+<p><span class="math display">\[F(s)=\mathcal{L}\{f(t)\}=\int_{0}^{\infty} e^{-st}f(t)\,dt\]</span>,</p>
+<p>where <span class="math inline">\(s=\sigma+j\omega\)</span> is a complex variable and the integral converges in the region of convergence (ROC).</p>
+<p>Drawing of mapping from time domain to s-domain and back.</p>
+</section>
+<section id="slide-6---properties-of-the-laplace-transform" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="slide-6---properties-of-the-laplace-transform"><span class="header-section-number">3.5</span> Slide 6 - Properties of the Laplace Transform</h2>
+<p>Key properties:</p>
+<ul>
+<li>Linearity: <span class="math inline">\(\mathcal{L}\{a f(t)+b g(t)\}=aF(s)+bG(s)\)</span>.</li>
+<li>Time shift: <span class="math inline">\(\mathcal{L}\{f(t-a)u(t-a)\}=e^{-as}F(s)\)</span>.</li>
+<li>Frequency shift: <span class="math inline">\(\mathcal{L}\{e^{at}f(t)\}=F(s-a)\)</span>.</li>
+<li>Differentiation (time): <span class="math inline">\(\mathcal{L}\{f'(t)\}=sF(s)-f(0^+)\)</span>.</li>
+<li>Differentiation (time, higher order): <span class="math inline">\(\mathcal{L}\{f^{(n)}(t)\}=s^nF(s)-s^{n-1}f(0^+)-\cdots-f^{(n-1)}(0^+)\)</span>.</li>
+<li>Integration (time): <span class="math inline">\(\mathcal{L}\{\int_0^t f(\tau)\,d\tau\}=\frac{1}{s}F(s)\)</span>.</li>
+<li>Integration (time, higher order): <span class="math inline">\(\mathcal{L}\{\int_0^t \int_0^{\tau_1} \cdots \int_0^{\tau_{n-1}} f(\tau_n)\,d\tau_n \cdots d\tau_2 d\tau_1\}=\frac{1}{s^n}F(s)\)</span>.</li>
+</ul>
+<p>Common transforms (causal signals):</p>
+<ul>
+<li><p><span class="math inline">\(\mathcal{L}\{1\}=\dfrac{1}{s}\)</span></p></li>
+<li><p><span class="math inline">\(\mathcal{L}\{t\}=\dfrac{1}{s^{2}}\)</span></p></li>
+<li><p><span class="math inline">\(\mathcal{L}\{e^{at}\}=\dfrac{1}{s-a}\)</span></p></li>
+<li><p><span class="math inline">\(\mathcal{L}\{\sin(\omega t)\}=\dfrac{\omega}{s^{2}+\omega^{2}}\)</span></p></li>
+<li><p><span class="math inline">\(\mathcal{L}\{\cos(\omega t)\}=\dfrac{s}{s^{2}+\omega^{2}}\)</span></p></li>
+</ul>
+</section>
+<section id="slide-7---useful-theorems" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="slide-7---useful-theorems"><span class="header-section-number">3.6</span> Slide 7 - Useful Theorems</h2>
+<p>Useful theorems:</p>
+<ul>
+<li>Initial value theorem: <span class="math inline">\(f(0^+)=\lim_{s\to\infty} sF(s)\)</span>.</li>
+<li>Final value theorem: <span class="math inline">\(\lim_{t\to\infty} f(t)=\lim_{s\to0} sF(s)\)</span>, when the limits exist (i.e., poles of <span class="math inline">\(sF(s)\)</span> are in the left half-plane).</li>
+</ul>
+<p>Quick example: <span class="math inline">\(f(t)=e^{2t}u(t)\)</span> has transform <span class="math inline">\(F(s)=1/(s-2)\)</span> for <span class="math inline">\(\mathrm{Re}(s)&gt;2\)</span>.</p>
+<p>The Laplace transform is fundamental in linear systems analysis because it turns linear differential equations into algebraic equations in <span class="math inline">\(s\)</span>, simplifying solution and control-design tasks.</p>
+</section>
+<section id="slide-8---why-laplace" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="slide-8---why-laplace"><span class="header-section-number">3.7</span> Slide 8 - Why Laplace?</h2>
+<p>One way to think about the Laplace transform is that it is a generalization of the Fourier transform. The Fourier transform is a special case of the Laplace transform where <span class="math inline">\(s=j\omega\)</span> and <span class="math inline">\(\sigma=0\)</span>. The Laplace transform allows us to analyze systems with exponential growth or decay, which is common in control systems.</p>
+<p>The Laplace Transform is helpful because it transforms differential equations into algebraic equations, making it easier to analyze and design control systems.</p>
+<p>If we can solve the algebraic equations in the Laplace domain, we can then use the inverse Laplace transform to find the solution in the time domain.</p>
+<section id="example---mass-spring-damper-system-msd" class="level3" data-number="3.7.1">
+<h3 data-number="3.7.1" class="anchored" data-anchor-id="example---mass-spring-damper-system-msd"><span class="header-section-number">3.7.1</span> Example - Mass-Spring-Damper System (MSD)</h3>
+<p>Figure of MSD</p>
+<p>The equation of motion for a mass-spring-damper system is given by:</p>
+<p><span class="math display">\[ m\ddot{x}(t) + c\dot{x}(t) + kx(t) = F(t)\]</span></p>
+<p>Let <span class="math inline">\(\omega_n^2 = {k/m}\)</span> where <span class="math inline">\(\omega_n\)</span> is the natural frequency, and <span class="math inline">\(\frac{c}{m} = 2\zeta\omega_n\)</span>, so <span class="math inline">\(\zeta = \frac{c}{2\sqrt{mk}}\)</span> is the damping ratio, and <span class="math inline">\(F=k u(t)\)</span> is the force required to displace the mass some distance, <span class="math inline">\(u(t)\)</span> acoring to Hook’s law. Finally, divide both sides by <span class="math inline">\(m\)</span> to get:</p>
+<p><span class="math display">\[ \ddot{x}(t) + 2\zeta\omega_n \dot{x}(t) + \omega_n^2 x(t) = \omega_n^2 u(t) \]</span></p>
+<p>Now, define the state vector as <span class="math inline">\(\underline{x}(t) = \begin{bmatrix} x(t) \\ \dot{x}(t) \end{bmatrix}\)</span>, and we can write the system in state-space form as:</p>
+<p><span class="math display">\[ \dot{\underline{x}}(t) = \begin{bmatrix} 0 &amp; 1 \\ -\omega_n^2 &amp; -2\zeta\omega_n \end{bmatrix} \underline{x}(t) + \begin{bmatrix} 0 \\ \omega_n^2 \end{bmatrix} \underline{u}(t) \]</span></p>
+<p>In more compact form, we can write this as:</p>
+<p><span class="math display">\[ \dot{\underline{x}}(t) = A\underline{x}(t) + B \underline{u}(t) \]</span></p>
+<p>This is known as the state-space representation or state equation of the system, where <span class="math inline">\(A\)</span> is the system matrix and <span class="math inline">\(B\)</span> is the input matrix.</p>
+<p>where <span class="math inline">\(A = \begin{bmatrix} 0 &amp; 1 \\ -\omega_n^2 &amp; -2\zeta\omega_n \end{bmatrix}\)</span> and <span class="math inline">\(B = \begin{bmatrix} 0 \\ \omega_n^2 \end{bmatrix}\)</span>.</p>
+<p>Assuming we measure the position of the mass, we can define the output as <span class="math display">\[y(t) = C\underline{x}(t)\]</span></p>
+<p>where <span class="math inline">\(C = \begin{bmatrix} 1 &amp; 0 \end{bmatrix}\)</span>. This is know as the <em>output</em> or <em>meansurement</em> equation of the system.</p>
+<p>In control theory, we can generally let the output be a function of the input, i.e., <span class="math inline">\(\underline{y}(t) = C\underline{x}(t) + D\underline{u}(t)\)</span>, where <span class="math inline">\(D\)</span> is a feedthrough term. In this case, we have no feedthrough, so <span class="math inline">\(D=0\)</span>.</p>
+<p>Now, we can take the Laplace transform of the state-space equations to get:</p>
+<p><span class="math display">\[\mathcal{L}\{\dot{\underline{x}}(t)\} = \mathcal{L}\{A\underline{x}(t) + B\underline{u}(t)\}\]</span></p>
+<p><span class="math display">\[ s\underline{X}(s) - \underline{x}(0) = A\underline{X}(s) + B\underline{U}(s) \]</span></p>
+<p>where <span class="math inline">\(\underline{X}(s)\)</span> is the Laplace transform of the state vector <span class="math inline">\(\underline{x}(t)\)</span>, and <span class="math inline">\(\underline{U}(s)\)</span> is the Laplace transform of the input vector <span class="math inline">\(\underline{u}(t)\)</span>.</p>
+<p>Assuming <span class="math inline">\(\underline{x}(0) = 0\)</span>, we can solve for <span class="math inline">\(\underline{X}(s)\)</span>:</p>
+<p>$$ (s) = (sI - A)^{-1}B(s) $</p>
+<p>Finally, we can find the output in the Laplace domain: <span class="math display">\[ \underline{Y}(s) = C\underline{X}(s) = C(sI - A)^{-1}B\underline{U}(s) \]</span></p>
+<p>We define the <em>transfer function</em> of the system <span class="math inline">\(G(s)\)</span> as the ratio of the output to the input in the Laplace domain:</p>
+<p><span class="math display">\[ G(s) = \frac{\underline{Y}(s)}{\underline{U}(s)} = C(sI - A)^{-1}B \]</span></p>
+<p>From before we notice,</p>
+<p><span class="math display">\[ G(s) = \frac{N(s)}{D(s)}\]</span></p>
+<p>Therefore,</p>
+<p><span class="math display">\[ Y(s) = G(s)U(s) = C(sI - A)^{-1}BU(s) = \frac{N(s)}{D(s)}\]</span></p>
+</section>
+</section>
+<section id="slide-9---another-look-at-the-transfer-function" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="slide-9---another-look-at-the-transfer-function"><span class="header-section-number">3.8</span> Slide 9 - Another look at the Transfer Function</h2>
+<p>The transfer function is,</p>
+<p><span class="math display">\[ G(s) = \frac{N(s)}{D(s)}\]</span></p>
+<p>Recall that for any matrix <span class="math inline">\(P\)</span>, the inverse of <span class="math inline">\(P\)</span> is given by,</p>
+<p><span class="math display">\[ P^{-1} = \frac{adj(P)}{det(P)}\]</span></p>
+<p>where <span class="math inline">\(adj(P)\)</span> is the adjugate of <span class="math inline">\(P\)</span> and <span class="math inline">\(det(P)\)</span> is the determinant of <span class="math inline">\(P\)</span>.</p>
+<p>The adjugate of a matrix is the conjugate transpose of the cofactor matrix.</p>
+<p>This is the least efficient way to compute the inverse of a matrix, but it is useful for theoretical analysis.</p>
+<p>Notice the adugate is a matrix of polynomials in <span class="math inline">\(s\)</span>, and is <span class="math inline">\(n \times n\)</span> where <span class="math inline">\(n\)</span> is the order of the system. The determinant is a polynomial in <span class="math inline">\(s\)</span> of order <span class="math inline">\(n\)</span>. Therefore, we can write,</p>
+<p><span class="math display">\[ (sI - A)^{-1} = \frac{adj(sI - A)}{det(sI - A)}\]</span></p>
+<p>For the MSD system the output matrix is <span class="math inline">\(C\)</span> is <span class="math inline">\(1 \times 2\)</span> and the input matrix is <span class="math inline">\(B\)</span> is <span class="math inline">\(2 \times 1\)</span>. Therefore the denominator the transfer function is a scalar polynomial.</p>
+<p>And it is always true that <span class="math inline">\(det(sI - A) = D(s)\)</span>, the denominator of the transfer function. The numerator is a polynomial in <span class="math inline">\(s\)</span> of order <span class="math inline">\(n-1\)</span>.</p>
+<p>What is interesting here is that,</p>
+<p><span class="math display">\[ det(sI-A) = D(s) = \Pi_{i=1}^{n} (s-p_i) = 0\]</span></p>
+<p>where <span class="math inline">\(p_i\)</span> are the poles of the transfer function. Therefore, the poles of the transfer function are the eigenvalues of the system matrix <span class="math inline">\(A\)</span>.</p>
+<p><span class="math display">\[\{Eigenvalues \ of \ A\} = \{ Poles \ of the \ transfer \ function \ G(s) \}\]</span></p>
+</section>
+<section id="slide-10---step-response" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="slide-10---step-response"><span class="header-section-number">3.9</span> Slide 10 - Step Response</h2>
+<p>The step response of a system is the output of the system when the input is a unit step function. The unit step function is defined as:</p>
+<p><span class="math display">\[ u_s(t) = \begin{cases} 0, &amp; t &lt; 0 \\ 1, &amp; t \geq 0 \end{cases} \]</span></p>
+<p>draw the step function</p>
+<p>The Laplace transform of the unit step function is:</p>
+<p><span class="math display">\[ \mathcal{L}\{u_s(t)\} = \frac{1}{s} \]</span></p>
+<p>Therefore, the step response of a system with transfer function <span class="math inline">\(G(s)\)</span> is given by:</p>
+<p><span class="math display">\[ Y(s) = G(s)U(s) = G(s)\frac{1}{s} \]</span></p>
+<p>For the MSD system, we have:</p>
+<p><span class="math display">\[ Y(s) = \frac{\omega_n^2}{s^2 + 2\zeta\omega_n s + \omega_n^2} \frac{1}{s} \]</span></p>
+<p>From a variety of sources, we can find the inverse Laplace transform of this expression to get the step response in the time domain.</p>
+<p>The step response of the MSD system is given by:</p>
+<p><span class="math display">\[ y(t) = 1 - \frac{1}{\sqrt{1-\zeta^2}} e^{-\zeta\omega_n t} \sin(\omega_d t + \phi) \]</span></p>
+<p>where <span class="math inline">\(\omega_d = \omega_n\sqrt{1-\zeta^2}\)</span> is the damped natural frequency and <span class="math inline">\(\phi = \arccos(\zeta)\)</span> is the phase angle.</p>
+<p>We can plot the plot the step response for <span class="math inline">\(\zeta = 0.1, 0.3, 0.5, 0.7, 0.9\)</span> and <span class="math inline">\(\omega_n = 4\)</span> rad/s.</p>
+<div id="a39c7125" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.signal <span class="im">as</span> signal</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># System parameters</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>zeta <span class="op">=</span> [<span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.5</span>, <span class="fl">0.7</span>, <span class="fl">0.9</span>]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>wn <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a figure</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">1000</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, z <span class="kw">in</span> <span class="bu">enumerate</span>(zeta):</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Transfer function coefficients</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    num <span class="op">=</span> [wn<span class="op">**</span><span class="dv">2</span>]</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    den <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span><span class="op">*</span>z<span class="op">*</span>wn, wn<span class="op">**</span><span class="dv">2</span>]</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    sys <span class="op">=</span> signal.TransferFunction(num, den)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute step response over our defined timeline</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    t_out, y <span class="op">=</span> signal.step(sys, T<span class="op">=</span>t)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot step response</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    plt.plot(t_out, y, label<span class="op">=</span><span class="ss">f'ζ = </span><span class="sc">{</span>z<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time (s)'</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Response'</span>)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Step Response of MSD System'</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-classical-control-highlights_files/figure-html/cell-3-output-1.png" width="821" height="525" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In the case of the MSD system, we can find the poles of the transfer function by finding the roots of the characteristic polynomial <span class="math inline">\(D(s) = s^2 + 2\zeta\omega_n s + \omega_n^2\)</span>. The poles are given by:</p>
+<p><span class="math display">\[ p_{1,2} = -\zeta\omega_n \pm j\omega_n\sqrt{1-\zeta^2} \]</span></p>
+<p>or,</p>
+<p><span class="math display">\[ p_{1,2} = -\zeta\omega_n \pm j\omega_d \]</span></p>
+<p>where <span class="math inline">\(\omega_d = \omega_n\sqrt{1-\zeta^2}\)</span> is the damped natural frequency.</p>
+<p>Finally, we can plot the poles of the MSD system for different values of <span class="math inline">\(\zeta\)</span>.</p>
+<div id="e9b7b781" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>zeta <span class="op">=</span> [<span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.5</span>, <span class="fl">0.7</span>, <span class="fl">0.9</span>]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>wn <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a figure</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> z <span class="kw">in</span> zeta:</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate poles</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    p1 <span class="op">=</span> <span class="op">-</span>z<span class="op">*</span>wn <span class="op">+</span> <span class="ot">1j</span><span class="op">*</span>wn<span class="op">*</span>np.sqrt(<span class="dv">1</span><span class="op">-</span>z<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    p2 <span class="op">=</span> <span class="op">-</span>z<span class="op">*</span>wn <span class="op">-</span> <span class="ot">1j</span><span class="op">*</span>wn<span class="op">*</span>np.sqrt(<span class="dv">1</span><span class="op">-</span>z<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    plt.plot(np.real(p1), np.imag(p1), <span class="st">'x'</span>, label<span class="op">=</span><span class="ss">f'ζ = </span><span class="sc">{</span>z<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    plt.plot(np.real(p2), np.imag(p2), <span class="st">'x'</span>, label<span class="op">=</span><span class="ss">f'ζ = </span><span class="sc">{</span>z<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Real'</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Imaginary'</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Poles of MSD System'</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-classical-control-highlights_files/figure-html/cell-4-output-1.png" width="812" height="525" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>If we plot the transfer function as a function of a single parameter, we can see how the poles move in the complex plane as we change the damping ratio <span class="math inline">\(\zeta\)</span>. This is known as a <em>root locus</em> plot. We can plot the root locus for any single variable.</p>
+<p>What happens if the damping ratio is greater than 1? Or negative?</p>
+</section>
+<section id="slide-11---performance-of-the-msd-step-response" class="level2" data-number="3.10">
+<h2 data-number="3.10" class="anchored" data-anchor-id="slide-11---performance-of-the-msd-step-response"><span class="header-section-number">3.10</span> Slide 11 - Performance of the MSD Step Response</h2>
+<p>Plot the step response and call out the different performance metrics, such as rise time, settling time, overshoot, and steady-state error. Discuss how these metrics are affected by the damping ratio <span class="math inline">\(\zeta\)</span> and natural frequency <span class="math inline">\(\omega_n\)</span>.</p>
+<p>Add a figure showing the step response with annotations for rise time, settling time, overshoot, and steady-state error.</p>
+</section>
+<section id="slide-12---performance-metrics" class="level2" data-number="3.11">
+<h2 data-number="3.11" class="anchored" data-anchor-id="slide-12---performance-metrics"><span class="header-section-number">3.11</span> Slide 12 - Performance Metrics</h2>
+<p>Performance:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Quantity</th>
+<th>Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rise Time</td>
+<td><span class="math inline">\(t_r=\frac{\pi-\beta}{\omega_d}\)</span></td>
+</tr>
+<tr class="even">
+<td>Peak Time</td>
+<td><span class="math inline">\(t_p=\frac{\pi}{\omega_d}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Overshoot</td>
+<td><span class="math inline">\(M_p=e^{-\pi\zeta/\sqrt{1-\zeta^2}}\)</span></td>
+</tr>
+<tr class="even">
+<td>Settling Time</td>
+<td><span class="math inline">\(t_s\approx\frac{4}{\zeta\omega_n}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Key point: <span class="math inline">\(\zeta\)</span> and <span class="math inline">\(\omega_n\)</span> tell us about performance and stability of the sytem.</p>
+<p>If we can use feedback to effectively change the poles of the system, we can improve performance and stability.</p>
+</section>
+<section id="slide-13---performance-and-stability-with-feedback" class="level2" data-number="3.12">
+<h2 data-number="3.12" class="anchored" data-anchor-id="slide-13---performance-and-stability-with-feedback"><span class="header-section-number">3.12</span> Slide 13 - Performance and Stability with Feedback</h2>
+<section id="proportional-control" class="level3" data-number="3.12.1">
+<h3 data-number="3.12.1" class="anchored" data-anchor-id="proportional-control"><span class="header-section-number">3.12.1</span> Proportional Control</h3>
+<p>Draw a block diagram of a feedback control system with a plant <span class="math inline">\(G(s)\)</span> and a controller <span class="math inline">\(C(s)\)</span>. With <span class="math inline">\(C(s) = k_p\)</span>. Show how the closed-loop transfer function is given by:</p>
+<p><span class="math display">\[Y(s) = G(s)U(s)\]</span></p>
+<p>Point out the idea of <em>convolution</em> and the inverse Lapalce Transform.</p>
+<p><span class="math display">\[U(s) = C(s)E(s)\]</span></p>
+<p><span class="math display">\[E(s) = U_r(s) - Y(s)\]</span></p>
+<p>Therefore, we can write the closed-loop transfer function as:</p>
+<p><span class="math display">\[Y(s) = G(s)C(s)E(s) = G(s)C(s)(U_r(s) - Y(s))\]</span></p>
+<p>Solving for <span class="math inline">\(Y(s)\)</span>, we get:</p>
+<p><span class="math display">\[Y(s) = \frac{G(s)C(s)}{1 + G(s)C(s)}U_r(s)\]</span></p>
+<p>Draw <em>closed loop</em> block diagram from <span class="math inline">\(U_r(s)\)</span> to <span class="math inline">\(Y(s)\)</span>.</p>
+<p>Now substitute <span class="math inline">\(C(s) = k_p\)</span> and <span class="math inline">\(G(s) = \frac{\omega_n^2}{s^2 + 2\zeta\omega_n s + \omega_n^2}\)</span> to get:</p>
+<p><span class="math display">\[Y(s) = \frac{k_p\omega_n^2}{s^2 + 2\zeta\omega_n s + (1+k_p)\omega_n^2}U_r(s)\]</span></p>
+<p>Notice the poles and Eigenvalues of the closed-loop system are a function of the proportional gain <span class="math inline">\(k_p\)</span>. Therefore, we can use feedback to change the poles of the system and improve performance and stability.</p>
+</section>
+</section>
+<section id="slide-14---proportional-feedback" class="level2" data-number="3.13">
+<h2 data-number="3.13" class="anchored" data-anchor-id="slide-14---proportional-feedback"><span class="header-section-number">3.13</span> Slide 14 - Proportional Feedback</h2>
+<p>Let <span class="math inline">\(\overline{\omega}_n^2 = (1+k_p)\omega_n^2\)</span> and <span class="math inline">\(\overline{\zeta} = \frac{\zeta}{\sqrt{1+k_p}}\)</span>. Then we can write the closed-loop transfer function as:</p>
+<p><span class="math display">\[G_c(s) = \frac{k_p\omega_n^2}{s^2 + 2\overline{\zeta}\overline{\omega}_n s + \overline{\omega}_n^2}\]</span></p>
+</section>
+<section id="slide-15---final-value-theorem" class="level2" data-number="3.14">
+<h2 data-number="3.14" class="anchored" data-anchor-id="slide-15---final-value-theorem"><span class="header-section-number">3.14</span> Slide 15 - Final Value Theorem</h2>
+<p>FVT: <span class="math inline">\(\lim_{t\to\infty} y(t) = \lim_{s\to0} sY(s)\)</span></p>
+<p>Since the Laplace transform of the unit step function is <span class="math inline">\(U(s) = 1/s\)</span>, we can use the final value theorem to write:</p>
+<p><span class="math display">\[ \lim_{t\to\infty} y(t) = \lim_{s\to0} sY(s) = \lim_{s\to0} sG_c(s)U(s) = \lim_{s\to0} G_c(s) \]</span></p>
+<p><span class="math display">\[ \lim_{t\to\infty} y(t) = \lim_{s\to0} G_c(s) = \lim_{s\to0} \frac{k_p\omega_n^2}{s^2 + 2\overline{\zeta}\overline{\omega}_n s + \overline{\omega}_n^2} = \frac{k_p}{\overline{\omega}_n^2}\]</span></p>
+<p><span class="math display">\[ \lim_{t\to\infty} y(t) = \frac{k_p}{(1+k_p)} \ne 1\]</span></p>
+</section>
+<section id="slide-16---proportional-derivative-feedback" class="level2" data-number="3.15">
+<h2 data-number="3.15" class="anchored" data-anchor-id="slide-16---proportional-derivative-feedback"><span class="header-section-number">3.15</span> Slide 16 - Proportional + Derivative Feedback</h2>
+<p>Now, since we have the closed loop Transfer Function, let’s update the control law to a <em>PD</em> control law, where <span class="math inline">\(C(s) = k_p + k_d s\)</span>.</p>
+<p>Notice with this control law, <span class="math inline">\(C(s)E(s) = k_p E(s) + k_d s E(s)\)</span> and in the time domain, this is equivalent to <span class="math inline">\(u(t) = k_p e(t) + k_d \dot{e}(t)\)</span>.</p>
+<p>Then we can write the closed-loop transfer function as:</p>
+<p><span class="math display">\[G_c(s) = \frac{(k_p + k_d s)\omega_n^2}{s^2 + (2\zeta\omega_n + k_d\omega_n^2)s + (1+k_p)\omega_n^2}\]</span></p>
+<p>Let <span class="math inline">\(\overline{\omega}_n^2 = (1+k_p)\omega_n^2\)</span> and <span class="math inline">\(\overline{\zeta} = \frac{2\zeta\omega_n + k_d\omega_n^2}{2\overline{\omega}_n}\)</span>, then we can write the closed-loop transfer function as:</p>
+<p><span class="math display">\[G_c(s) = \frac{(k_p + k_d s)\omega_n^2}{s^2 + 2\overline{\zeta}\overline{\omega}_n s + \overline{\omega}_n^2}\]</span></p>
+<p>So we can modify the closed-loop damping ratio and natural frequency by changing the proportional and derivative gains, <span class="math inline">\(k_p\)</span> and <span class="math inline">\(k_d\)</span>. We are also moving the poles around.</p>
+<p>Notice we also added a zero which chnages the transient response of the system. The zero is located at <span class="math inline">\(s = -k_p/k_d\)</span>.</p>
+<p>Finally, applying the final value theorem, we can see that the steady-state error is still non-zero:</p>
+<p><span class="math display">\[ \lim_{t\to\infty} y(t) = \lim_{s\to0} G_c(s) = \frac{k_p}{(1+k_p)} \]</span></p>
+</section>
+<section id="slide-17---full-pid-feedback" class="level2" data-number="3.16">
+<h2 data-number="3.16" class="anchored" data-anchor-id="slide-17---full-pid-feedback"><span class="header-section-number">3.16</span> Slide 17 - Full PID Feedback</h2>
+<p>Let <span class="math inline">\(C(s) = k_p + k_d s + \frac{k_i}{s}\)</span>, then we can write the closed-loop transfer function as:</p>
+<p><span class="math display">\[G_c(s) = \frac{(k_p + k_d s + \frac{k_i}{s})\omega_n^2}{s^2 + (2\zeta\omega_n + k_d\omega_n^2)s + (1+k_p)\omega_n^2 + k_i\omega_n^2}\]</span></p>
+<p>or</p>
+<p><span class="math display">\[G_c(s) = \frac{(k_d s^2 + k_p s + k_i)\omega_n^2}{s^3 + (2\zeta\omega_n + k_d\omega_n^2)s^2 + (1+k_p)\omega_n^2 s + k_i\omega_n^2}\]</span></p>
+<p>Notice we added two zeros and a pole. But applying the Final Value Theorem, we can see that the steady-state error is now zero:</p>
+<p><span class="math display">\[ \lim_{t\to\infty} y(t) = \lim_{s\to0} G_c(s) = 1 \]</span></p>
+<p>There are many ways to tune a PID controller, but one of the most common methods is the Ziegler-Nichols method. This method involves finding the ultimate gain and ultimate period of the system, and then using these values to calculate the PID gains.</p>
+<p>We can also use the root locus method to tune a PID controller. This method involves plotting the root locus of the system and then selecting the desired closed-loop poles based on the desired performance specifications.</p>
+<p>Or we can use frequency response methods, such as Bode plots or Nyquist plots, to tune a PID controller. These methods involve analyzing the frequency response of the system and then selecting the PID gains based on the desired performance specifications.</p>
+<p>Or we can use optimization methods, such as genetic algorithms or particle swarm optimization, to tune a PID controller. These methods involve defining a cost function based on the desired performance specifications and then using an optimization algorithm to find the PID gains that minimize the cost function.</p>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/01-dynamic-system-control.html" class="pagination-link" aria-label="Dynamic System Control">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Dynamic System Control</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/03-state-space.html" class="pagination-link" aria-label="State-Space Models">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">State-Space Models</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Classical Control Highlights"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-depth: 2</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="an">jupyter:</span><span class="co"> python3</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 2 - Motivation and Learning Outcomes</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">### Motivation</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Proportional, Integral, Derivative Control</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>For “single-input, single-output” systems, PID is often sufficient</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>PID has been around a long time and is well understood</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>PID is relatively easy to tune with decent performance for linear systems</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Classical Control is done in the “s-domain” (or frequency or Laplace Domain)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>However, PID is not the best choice for non-linear, time-varying, or multi-input, multi-output, or complex systems</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### Learning Outcomes</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Review the Laplace domain and its use in control systems</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Relate solutions of linear ODEs to concepts like, stabilty and peroformance</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Look into the concepts of propotional, integral, and derivative control</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 3 - Functions of a Complex Variable</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>Let $s=a+jb$ be a complex number with $j=\sqrt{-1}$.   Notice we typically use $j$ in controls since the Electrical Engineers took $i$ for current.</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>We define the _rational polynomial_ $G(s)$ as:</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>$$G(s) = \frac{a_0s^m+ a_1s^{m-1} + \cdots + a_m}{s^n+b_1s^{n-1}+ \cdots + b_n}$$</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>$$= \frac{N(s)}{D(s)}, \ for \ a_i, \ b_i \in \mathbb{R}$$</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>When $m&lt;n$, we say that $G(s)$ is _strictly proper_.  When $m=n$, we say that $G(s)$ is _proper_.  When $m&gt;n$, we say that $G(s)$ is _improper_.</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>If we factor $G(s)$ into its roots, we can write:</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>$$G(s) = K\frac{(s-z_1)(s-z_2)\cdots(s-z_m)}{(s-p_1)(s-p_2)\cdots(s-p_n)}$</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>where $z_i$ are the _zeros_ of $G(s)$ and $p_i$ are the _poles_ of $G(s)$.</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>Notice that the poles and zeros are complex numbers, and that the poles are the roots of the denominator polynomial $D(s)$ and the zeros are the roots of the numerator polynomial $N(s)$.</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>In set from ${z_i}$ = {s | N(s) = 0} and ${p_i}$ = {s | D(s) = 0}.  The _order_ of $G(s)$ is the number of poles, $n$.</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 4 - Poles and Zeros Examples</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>$$G(s) = \frac{(s+2)(s+10)}{s(s+5)(s+15)^2}$$</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>Therefore, </span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>$$z = \left<span class="sc">\{</span> -2, -10 \right<span class="sc">\}</span>$$</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>$$p = <span class="sc">\{</span>0, -5, -15, -15<span class="sc">\}</span>$$</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>Another more complex example is:</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>$$ G(s) = \frac{(s + 2)(s^2 + s + 5)}{s (s + 5)(s^2 + 5s + 15)}$$</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> control <span class="im">as</span> ct</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the transfer function: G(s) = (s+2)(s^2+s+5) / (s(s+5)(s^2+5s+15))</span></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>num <span class="op">=</span> np.polymul([<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>])</span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>den <span class="op">=</span> np.polymul([<span class="dv">1</span>, <span class="dv">0</span>], np.polymul([<span class="dv">1</span>, <span class="dv">5</span>], np.polymul([<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">15</span>], [<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">15</span>])))</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> ct.TransferFunction(num, den)</span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the poles and zeros</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>ct.pole_zero_plot(G, title<span class="op">=</span><span class="st">'Poles and Zeros of G(s)'</span>, grid<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 5 - The Laplace Transform</span></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>The Laplace transform converts a time-domain signal into the complex frequency domain. For a causal function $f(t)$ (defined for $t\ge0$) the unilateral Laplace transform is</span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>$$F(s)=\mathcal{L}<span class="sc">\{</span>f(t)<span class="sc">\}</span>=\int_{0}^{\infty} e^{-st}f(t)\,dt$$,</span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>where $s=\sigma+j\omega$ is a complex variable and the integral converges in the region of convergence (ROC).</span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>Drawing of mapping from time domain to s-domain and back.</span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 6 - Properties of the Laplace Transform</span></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>Key properties:</span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Linearity: $\mathcal{L}<span class="sc">\{</span>a f(t)+b g(t)<span class="sc">\}</span>=aF(s)+bG(s)$.</span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Time shift: $\mathcal{L}<span class="sc">\{</span>f(t-a)u(t-a)<span class="sc">\}</span>=e^{-as}F(s)$.</span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Frequency shift: $\mathcal{L}<span class="sc">\{</span>e^{at}f(t)<span class="sc">\}</span>=F(s-a)$.</span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Differentiation (time): $\mathcal{L}<span class="sc">\{</span>f'(t)<span class="sc">\}</span>=sF(s)-f(0^+)$.</span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Differentiation (time, higher order): $\mathcal{L}<span class="sc">\{</span>f^{(n)}(t)<span class="sc">\}</span>=s^nF(s)-s^{n-1}f(0^+)-\cdots-f^{(n-1)}(0^+)$.</span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Integration (time): $\mathcal{L}<span class="sc">\{</span>\int_0^t f(\tau)\,d\tau<span class="sc">\}</span>=\frac{1}{s}F(s)$.</span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Integration (time, higher order): $\mathcal{L}<span class="sc">\{</span>\int_0^t \int_0^{\tau_1} \cdots \int_0^{\tau_{n-1}} f(\tau_n)\,d\tau_n \cdots d\tau_2 d\tau_1<span class="sc">\}</span>=\frac{1}{s^n}F(s)$.</span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>Common transforms (causal signals):</span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$\mathcal{L}<span class="sc">\{</span>1<span class="sc">\}</span>=\dfrac{1}{s}$</span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$\mathcal{L}<span class="sc">\{</span>t<span class="sc">\}</span>=\dfrac{1}{s^{2}}$</span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$\mathcal{L}<span class="sc">\{</span>e^{at}<span class="sc">\}</span>=\dfrac{1}{s-a}$</span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$\mathcal{L}<span class="sc">\{</span>\sin(\omega t)<span class="sc">\}</span>=\dfrac{\omega}{s^{2}+\omega^{2}}$</span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$\mathcal{L}<span class="sc">\{</span>\cos(\omega t)<span class="sc">\}</span>=\dfrac{s}{s^{2}+\omega^{2}}$</span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 7 - Useful Theorems</span></span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>Useful theorems:</span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Initial value theorem: $f(0^+)=\lim_{s\to\infty} sF(s)$.</span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Final value theorem: $\lim_{t\to\infty} f(t)=\lim_{s\to0} sF(s)$, when the limits exist (i.e., poles of $sF(s)$ are in the left half-plane).</span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>Quick example: $f(t)=e^{2t}u(t)$ has transform $F(s)=1/(s-2)$ for $\mathrm{Re}(s)&gt;2$.</span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>The Laplace transform is fundamental in linear systems analysis because it turns linear differential equations into algebraic equations in $s$, simplifying solution and control-design tasks.</span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 8 - Why Laplace?</span></span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a>One way to think about the Laplace transform is that it is a generalization of the Fourier transform.  The Fourier transform is a special case of the Laplace transform where $s=j\omega$ and $\sigma=0$.  The Laplace transform allows us to analyze systems with exponential growth or decay, which is common in control systems.</span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>The Laplace Transform is helpful because it transforms differential equations into algebraic equations, making it easier to analyze and design control systems.</span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a>If we can solve the algebraic equations in the Laplace domain, we can then use the inverse Laplace transform to find the solution in the time domain.</span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a><span class="fu">### Example - Mass-Spring-Damper System (MSD)</span></span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a>Figure of MSD</span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a>The equation of motion for a mass-spring-damper system is given by:</span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a>$$ m\ddot{x}(t) + c\dot{x}(t) + kx(t) = F(t)$$</span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>Let $\omega_n^2 = {k/m}$ where $\omega_n$ is the natural frequency, and $\frac{c}{m} = 2\zeta\omega_n$, so $\zeta = \frac{c}{2\sqrt{mk}}$ is the damping ratio, and $F=k u(t)$ is the force required to displace the mass some distance, $u(t)$ acoring to Hook's law.  Finally, divide both sides by $m$ to get:</span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a>$$ \ddot{x}(t) + 2\zeta\omega_n \dot{x}(t) + \omega_n^2 x(t) = \omega_n^2 u(t) $$</span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a>Now, define the state vector as $\underline{x}(t) = \begin{bmatrix} x(t) <span class="sc">\\</span> \dot{x}(t) \end{bmatrix}$, and we can write the system in state-space form as:</span>
+<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a>$$ \dot{\underline{x}}(t) = \begin{bmatrix} 0 &amp; 1 <span class="sc">\\</span> -\omega_n^2 &amp; -2\zeta\omega_n \end{bmatrix} \underline{x}(t) + \begin{bmatrix} 0 <span class="sc">\\</span> \omega_n^2 \end{bmatrix} \underline{u}(t) $$</span>
+<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a>In more compact form, we can write this as:</span>
+<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a>$$ \dot{\underline{x}}(t) = A\underline{x}(t) + B \underline{u}(t) $$</span>
+<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a>This is known as the state-space representation or state equation of the system, where $A$ is the system matrix and $B$ is the input matrix.</span>
+<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a>where $A = \begin{bmatrix} 0 &amp; 1 <span class="sc">\\</span> -\omega_n^2 &amp; -2\zeta\omega_n \end{bmatrix}$ and $B = \begin{bmatrix} 0 <span class="sc">\\</span> \omega_n^2 \end{bmatrix}$.</span>
+<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a>Assuming we measure the position of the mass, we can define the output as </span>
+<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a>$$y(t) = C\underline{x}(t)$$</span>
+<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a>where $C = \begin{bmatrix} 1 &amp; 0 \end{bmatrix}$.  This is know as the _output_ or _meansurement_ equation of the system.</span>
+<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a>In control theory, we can generally let the output be a function of the input, i.e., $\underline{y}(t) = C\underline{x}(t) + D\underline{u}(t)$, where $D$ is a feedthrough term.  In this case, we have no feedthrough, so $D=0$.</span>
+<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a>Now, we can take the Laplace transform of the state-space equations to get:</span>
+<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a>$$\mathcal{L}<span class="sc">\{</span>\dot{\underline{x}}(t)<span class="sc">\}</span> = \mathcal{L}<span class="sc">\{</span>A\underline{x}(t) + B\underline{u}(t)<span class="sc">\}</span>$$</span>
+<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a>$$ s\underline{X}(s) - \underline{x}(0) = A\underline{X}(s) + B\underline{U}(s) $$</span>
+<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-174"><a href="#cb4-174" aria-hidden="true" tabindex="-1"></a>where $\underline{X}(s)$ is the Laplace transform of the state vector $\underline{x}(t)$, and $\underline{U}(s)$ is the Laplace transform of the input vector $\underline{u}(t)$.</span>
+<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-176"><a href="#cb4-176" aria-hidden="true" tabindex="-1"></a>Assuming $\underline{x}(0) = 0$, we can solve for $\underline{X}(s)$:</span>
+<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-178"><a href="#cb4-178" aria-hidden="true" tabindex="-1"></a>$$ \underline{X}(s) = (sI - A)^{-1}B\underline{U}(s) $</span>
+<span id="cb4-179"><a href="#cb4-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-180"><a href="#cb4-180" aria-hidden="true" tabindex="-1"></a>Finally, we can find the output in the Laplace domain:</span>
+<span id="cb4-181"><a href="#cb4-181" aria-hidden="true" tabindex="-1"></a>$$ \underline{Y}(s) = C\underline{X}(s) = C(sI - A)^{-1}B\underline{U}(s) $$</span>
+<span id="cb4-182"><a href="#cb4-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-183"><a href="#cb4-183" aria-hidden="true" tabindex="-1"></a>We define the _transfer function_ of the system $G(s)$ as the ratio of the output to the input in the Laplace domain:</span>
+<span id="cb4-184"><a href="#cb4-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-185"><a href="#cb4-185" aria-hidden="true" tabindex="-1"></a>$$ G(s) = \frac{\underline{Y}(s)}{\underline{U}(s)} = C(sI - A)^{-1}B $$</span>
+<span id="cb4-186"><a href="#cb4-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-187"><a href="#cb4-187" aria-hidden="true" tabindex="-1"></a>From before we notice,</span>
+<span id="cb4-188"><a href="#cb4-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-189"><a href="#cb4-189" aria-hidden="true" tabindex="-1"></a>$$ G(s) = \frac{N(s)}{D(s)}$$</span>
+<span id="cb4-190"><a href="#cb4-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-191"><a href="#cb4-191" aria-hidden="true" tabindex="-1"></a>Therefore,</span>
+<span id="cb4-192"><a href="#cb4-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-193"><a href="#cb4-193" aria-hidden="true" tabindex="-1"></a>$$ Y(s) = G(s)U(s) = C(sI - A)^{-1}BU(s) = \frac{N(s)}{D(s)}$$</span>
+<span id="cb4-194"><a href="#cb4-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-195"><a href="#cb4-195" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 9 - Another look at the Transfer Function</span></span>
+<span id="cb4-196"><a href="#cb4-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-197"><a href="#cb4-197" aria-hidden="true" tabindex="-1"></a>The transfer function is,</span>
+<span id="cb4-198"><a href="#cb4-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-199"><a href="#cb4-199" aria-hidden="true" tabindex="-1"></a>$$ G(s) = \frac{N(s)}{D(s)}$$</span>
+<span id="cb4-200"><a href="#cb4-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-201"><a href="#cb4-201" aria-hidden="true" tabindex="-1"></a>Recall that for any matrix $P$, the inverse of $P$ is given by,</span>
+<span id="cb4-202"><a href="#cb4-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-203"><a href="#cb4-203" aria-hidden="true" tabindex="-1"></a>$$ P^{-1} = \frac{adj(P)}{det(P)}$$</span>
+<span id="cb4-204"><a href="#cb4-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-205"><a href="#cb4-205" aria-hidden="true" tabindex="-1"></a>where $adj(P)$ is the adjugate of $P$ and $det(P)$ is the determinant of $P$.</span>
+<span id="cb4-206"><a href="#cb4-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-207"><a href="#cb4-207" aria-hidden="true" tabindex="-1"></a>The adjugate of a matrix is the conjugate transpose of the cofactor matrix.</span>
+<span id="cb4-208"><a href="#cb4-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-209"><a href="#cb4-209" aria-hidden="true" tabindex="-1"></a>This is the least efficient way to compute the inverse of a matrix, but it is useful for theoretical analysis.</span>
+<span id="cb4-210"><a href="#cb4-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-211"><a href="#cb4-211" aria-hidden="true" tabindex="-1"></a>Notice the adugate is a matrix of polynomials in $s$, and is $n \times n$ where $n$ is the order of the system.  The determinant is a polynomial in $s$ of order $n$.  Therefore, we can write,</span>
+<span id="cb4-212"><a href="#cb4-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-213"><a href="#cb4-213" aria-hidden="true" tabindex="-1"></a>$$ (sI - A)^{-1} = \frac{adj(sI - A)}{det(sI - A)}$$</span>
+<span id="cb4-214"><a href="#cb4-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-215"><a href="#cb4-215" aria-hidden="true" tabindex="-1"></a>For the MSD system the output matrix is $C$ is $1 \times 2$ and the input matrix is $B$ is $2 \times 1$. Therefore the denominator the transfer function is a scalar polynomial.</span>
+<span id="cb4-216"><a href="#cb4-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-217"><a href="#cb4-217" aria-hidden="true" tabindex="-1"></a>And it is always true that $det(sI - A) = D(s)$, the denominator of the transfer function.  The numerator is a polynomial in $s$ of order $n-1$.</span>
+<span id="cb4-218"><a href="#cb4-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-219"><a href="#cb4-219" aria-hidden="true" tabindex="-1"></a>What is interesting here is that,</span>
+<span id="cb4-220"><a href="#cb4-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-221"><a href="#cb4-221" aria-hidden="true" tabindex="-1"></a>$$ det(sI-A) = D(s) = \Pi_{i=1}^{n} (s-p_i) = 0$$</span>
+<span id="cb4-222"><a href="#cb4-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-223"><a href="#cb4-223" aria-hidden="true" tabindex="-1"></a>where $p_i$ are the poles of the transfer function.  Therefore, the poles of the transfer function are the eigenvalues of the system matrix $A$.</span>
+<span id="cb4-224"><a href="#cb4-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-225"><a href="#cb4-225" aria-hidden="true" tabindex="-1"></a>$$<span class="sc">\{</span>Eigenvalues \ of \ A<span class="sc">\}</span> = <span class="sc">\{</span> Poles \ of the \ transfer \ function \ G(s) <span class="sc">\}</span>$$</span>
+<span id="cb4-226"><a href="#cb4-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-227"><a href="#cb4-227" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 10 - Step Response</span></span>
+<span id="cb4-228"><a href="#cb4-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-229"><a href="#cb4-229" aria-hidden="true" tabindex="-1"></a>The step response of a system is the output of the system when the input is a unit step function.  The unit step function is defined as:</span>
+<span id="cb4-230"><a href="#cb4-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-231"><a href="#cb4-231" aria-hidden="true" tabindex="-1"></a>$$ u_s(t) = \begin{cases} 0, &amp; t &lt; 0 <span class="sc">\\</span> 1, &amp; t \geq 0 \end{cases} $$</span>
+<span id="cb4-232"><a href="#cb4-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-233"><a href="#cb4-233" aria-hidden="true" tabindex="-1"></a>draw the step function</span>
+<span id="cb4-234"><a href="#cb4-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-235"><a href="#cb4-235" aria-hidden="true" tabindex="-1"></a>The Laplace transform of the unit step function is:</span>
+<span id="cb4-236"><a href="#cb4-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-237"><a href="#cb4-237" aria-hidden="true" tabindex="-1"></a>$$ \mathcal{L}<span class="sc">\{</span>u_s(t)<span class="sc">\}</span> = \frac{1}{s} $$</span>
+<span id="cb4-238"><a href="#cb4-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-239"><a href="#cb4-239" aria-hidden="true" tabindex="-1"></a>Therefore, the step response of a system with transfer function $G(s)$ is given by:</span>
+<span id="cb4-240"><a href="#cb4-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-241"><a href="#cb4-241" aria-hidden="true" tabindex="-1"></a>$$ Y(s) = G(s)U(s) = G(s)\frac{1}{s} $$</span>
+<span id="cb4-242"><a href="#cb4-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-243"><a href="#cb4-243" aria-hidden="true" tabindex="-1"></a>For the MSD system, we have:</span>
+<span id="cb4-244"><a href="#cb4-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-245"><a href="#cb4-245" aria-hidden="true" tabindex="-1"></a>$$ Y(s) = \frac{\omega_n^2}{s^2 + 2\zeta\omega_n s + \omega_n^2} \frac{1}{s} $$</span>
+<span id="cb4-246"><a href="#cb4-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-247"><a href="#cb4-247" aria-hidden="true" tabindex="-1"></a>From a variety of sources, we can find the inverse Laplace transform of this expression to get the step response in the time domain.</span>
+<span id="cb4-248"><a href="#cb4-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-249"><a href="#cb4-249" aria-hidden="true" tabindex="-1"></a>The step response of the MSD system is given by:</span>
+<span id="cb4-250"><a href="#cb4-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-251"><a href="#cb4-251" aria-hidden="true" tabindex="-1"></a>$$ y(t) = 1 - \frac{1}{\sqrt{1-\zeta^2}} e^{-\zeta\omega_n t} \sin(\omega_d t + \phi) $$</span>
+<span id="cb4-252"><a href="#cb4-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-253"><a href="#cb4-253" aria-hidden="true" tabindex="-1"></a>where $\omega_d = \omega_n\sqrt{1-\zeta^2}$ is the damped natural frequency and $\phi = \arccos(\zeta)$ is the phase angle.</span>
+<span id="cb4-254"><a href="#cb4-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-255"><a href="#cb4-255" aria-hidden="true" tabindex="-1"></a>We can plot the plot the step response for $\zeta = 0.1, 0.3, 0.5, 0.7, 0.9$ and $\omega_n = 4$ rad/s.</span>
+<span id="cb4-256"><a href="#cb4-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-259"><a href="#cb4-259" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb4-260"><a href="#cb4-260" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-261"><a href="#cb4-261" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.signal <span class="im">as</span> signal</span>
+<span id="cb4-262"><a href="#cb4-262" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-263"><a href="#cb4-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-264"><a href="#cb4-264" aria-hidden="true" tabindex="-1"></a><span class="co"># System parameters</span></span>
+<span id="cb4-265"><a href="#cb4-265" aria-hidden="true" tabindex="-1"></a>zeta <span class="op">=</span> [<span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.5</span>, <span class="fl">0.7</span>, <span class="fl">0.9</span>]</span>
+<span id="cb4-266"><a href="#cb4-266" aria-hidden="true" tabindex="-1"></a>wn <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb4-267"><a href="#cb4-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-268"><a href="#cb4-268" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a figure</span></span>
+<span id="cb4-269"><a href="#cb4-269" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb4-270"><a href="#cb4-270" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">1000</span>)</span>
+<span id="cb4-271"><a href="#cb4-271" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, z <span class="kw">in</span> <span class="bu">enumerate</span>(zeta):</span>
+<span id="cb4-272"><a href="#cb4-272" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Transfer function coefficients</span></span>
+<span id="cb4-273"><a href="#cb4-273" aria-hidden="true" tabindex="-1"></a>    num <span class="op">=</span> [wn<span class="op">**</span><span class="dv">2</span>]</span>
+<span id="cb4-274"><a href="#cb4-274" aria-hidden="true" tabindex="-1"></a>    den <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span><span class="op">*</span>z<span class="op">*</span>wn, wn<span class="op">**</span><span class="dv">2</span>]</span>
+<span id="cb4-275"><a href="#cb4-275" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-276"><a href="#cb4-276" aria-hidden="true" tabindex="-1"></a>    sys <span class="op">=</span> signal.TransferFunction(num, den)</span>
+<span id="cb4-277"><a href="#cb4-277" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-278"><a href="#cb4-278" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute step response over our defined timeline</span></span>
+<span id="cb4-279"><a href="#cb4-279" aria-hidden="true" tabindex="-1"></a>    t_out, y <span class="op">=</span> signal.step(sys, T<span class="op">=</span>t)</span>
+<span id="cb4-280"><a href="#cb4-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-281"><a href="#cb4-281" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot step response</span></span>
+<span id="cb4-282"><a href="#cb4-282" aria-hidden="true" tabindex="-1"></a>    plt.plot(t_out, y, label<span class="op">=</span><span class="ss">f'ζ = </span><span class="sc">{</span>z<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb4-283"><a href="#cb4-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-284"><a href="#cb4-284" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time (s)'</span>)</span>
+<span id="cb4-285"><a href="#cb4-285" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Response'</span>)</span>
+<span id="cb4-286"><a href="#cb4-286" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Step Response of MSD System'</span>)</span>
+<span id="cb4-287"><a href="#cb4-287" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb4-288"><a href="#cb4-288" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb4-289"><a href="#cb4-289" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb4-290"><a href="#cb4-290" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-291"><a href="#cb4-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-292"><a href="#cb4-292" aria-hidden="true" tabindex="-1"></a>In the case of the MSD system, we can find the poles of the transfer function by finding the roots of the characteristic polynomial $D(s) = s^2 + 2\zeta\omega_n s + \omega_n^2$.  The poles are given by:</span>
+<span id="cb4-293"><a href="#cb4-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-294"><a href="#cb4-294" aria-hidden="true" tabindex="-1"></a>$$ p_{1,2} = -\zeta\omega_n \pm j\omega_n\sqrt{1-\zeta^2} $$</span>
+<span id="cb4-295"><a href="#cb4-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-296"><a href="#cb4-296" aria-hidden="true" tabindex="-1"></a>or,</span>
+<span id="cb4-297"><a href="#cb4-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-298"><a href="#cb4-298" aria-hidden="true" tabindex="-1"></a>$$ p_{1,2} = -\zeta\omega_n \pm j\omega_d $$</span>
+<span id="cb4-299"><a href="#cb4-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-300"><a href="#cb4-300" aria-hidden="true" tabindex="-1"></a>where $\omega_d = \omega_n\sqrt{1-\zeta^2}$ is the damped natural frequency.</span>
+<span id="cb4-301"><a href="#cb4-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-302"><a href="#cb4-302" aria-hidden="true" tabindex="-1"></a>Finally, we can plot the poles of the MSD system for different values of $\zeta$.</span>
+<span id="cb4-303"><a href="#cb4-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-306"><a href="#cb4-306" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb4-307"><a href="#cb4-307" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-308"><a href="#cb4-308" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-309"><a href="#cb4-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-310"><a href="#cb4-310" aria-hidden="true" tabindex="-1"></a>zeta <span class="op">=</span> [<span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.5</span>, <span class="fl">0.7</span>, <span class="fl">0.9</span>]</span>
+<span id="cb4-311"><a href="#cb4-311" aria-hidden="true" tabindex="-1"></a>wn <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb4-312"><a href="#cb4-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-313"><a href="#cb4-313" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a figure</span></span>
+<span id="cb4-314"><a href="#cb4-314" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb4-315"><a href="#cb4-315" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> z <span class="kw">in</span> zeta:</span>
+<span id="cb4-316"><a href="#cb4-316" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate poles</span></span>
+<span id="cb4-317"><a href="#cb4-317" aria-hidden="true" tabindex="-1"></a>    p1 <span class="op">=</span> <span class="op">-</span>z<span class="op">*</span>wn <span class="op">+</span> <span class="ot">1j</span><span class="op">*</span>wn<span class="op">*</span>np.sqrt(<span class="dv">1</span><span class="op">-</span>z<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb4-318"><a href="#cb4-318" aria-hidden="true" tabindex="-1"></a>    p2 <span class="op">=</span> <span class="op">-</span>z<span class="op">*</span>wn <span class="op">-</span> <span class="ot">1j</span><span class="op">*</span>wn<span class="op">*</span>np.sqrt(<span class="dv">1</span><span class="op">-</span>z<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb4-319"><a href="#cb4-319" aria-hidden="true" tabindex="-1"></a>    plt.plot(np.real(p1), np.imag(p1), <span class="st">'x'</span>, label<span class="op">=</span><span class="ss">f'ζ = </span><span class="sc">{</span>z<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb4-320"><a href="#cb4-320" aria-hidden="true" tabindex="-1"></a>    plt.plot(np.real(p2), np.imag(p2), <span class="st">'x'</span>, label<span class="op">=</span><span class="ss">f'ζ = </span><span class="sc">{</span>z<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb4-321"><a href="#cb4-321" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Real'</span>)</span>
+<span id="cb4-322"><a href="#cb4-322" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Imaginary'</span>)</span>
+<span id="cb4-323"><a href="#cb4-323" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Poles of MSD System'</span>)</span>
+<span id="cb4-324"><a href="#cb4-324" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb4-325"><a href="#cb4-325" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb4-326"><a href="#cb4-326" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb4-327"><a href="#cb4-327" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-328"><a href="#cb4-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-329"><a href="#cb4-329" aria-hidden="true" tabindex="-1"></a>If we plot the transfer function as a function of a single parameter, we can see how the poles move in the complex plane as we change the damping ratio $\zeta$.  This is known as a _root locus_ plot.  We can plot the root locus for any single variable.</span>
+<span id="cb4-330"><a href="#cb4-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-331"><a href="#cb4-331" aria-hidden="true" tabindex="-1"></a>What happens if the damping ratio is greater than 1?  Or negative?</span>
+<span id="cb4-332"><a href="#cb4-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-333"><a href="#cb4-333" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 11 - Performance of the MSD Step Response</span></span>
+<span id="cb4-334"><a href="#cb4-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-335"><a href="#cb4-335" aria-hidden="true" tabindex="-1"></a>Plot the step response and call out the different performance metrics, such as rise time, settling time, overshoot, and steady-state error.  Discuss how these metrics are affected by the damping ratio $\zeta$ and natural frequency $\omega_n$.</span>
+<span id="cb4-336"><a href="#cb4-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-337"><a href="#cb4-337" aria-hidden="true" tabindex="-1"></a>Add a figure showing the step response with annotations for rise time, settling time, overshoot, and steady-state error.</span>
+<span id="cb4-338"><a href="#cb4-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-339"><a href="#cb4-339" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 12 - Performance Metrics</span></span>
+<span id="cb4-340"><a href="#cb4-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-341"><a href="#cb4-341" aria-hidden="true" tabindex="-1"></a>Performance:</span>
+<span id="cb4-342"><a href="#cb4-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-343"><a href="#cb4-343" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Quantity <span class="pp">|</span> Formula <span class="pp">|</span></span>
+<span id="cb4-344"><a href="#cb4-344" aria-hidden="true" tabindex="-1"></a><span class="pp">|----------|---------|</span></span>
+<span id="cb4-345"><a href="#cb4-345" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Rise Time <span class="pp">|</span> $t_r=\frac{\pi-\beta}{\omega_d}$ <span class="pp">|</span></span>
+<span id="cb4-346"><a href="#cb4-346" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Peak Time <span class="pp">|</span> $t_p=\frac{\pi}{\omega_d}$ <span class="pp">|</span></span>
+<span id="cb4-347"><a href="#cb4-347" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Overshoot <span class="pp">|</span> $M_p=e^{-\pi\zeta/\sqrt{1-\zeta^2}}$ <span class="pp">|</span></span>
+<span id="cb4-348"><a href="#cb4-348" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Settling Time <span class="pp">|</span> $t_s\approx\frac{4}{\zeta\omega_n}$ <span class="pp">|</span></span>
+<span id="cb4-349"><a href="#cb4-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-350"><a href="#cb4-350" aria-hidden="true" tabindex="-1"></a>Key point: $\zeta$ and $\omega_n$ tell us about performance and stability of the sytem.</span>
+<span id="cb4-351"><a href="#cb4-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-352"><a href="#cb4-352" aria-hidden="true" tabindex="-1"></a>If we can use feedback to effectively change the poles of the system, we can improve performance and stability.</span>
+<span id="cb4-353"><a href="#cb4-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-354"><a href="#cb4-354" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 13 - Performance and Stability with Feedback</span></span>
+<span id="cb4-355"><a href="#cb4-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-356"><a href="#cb4-356" aria-hidden="true" tabindex="-1"></a><span class="fu">### Proportional Control</span></span>
+<span id="cb4-357"><a href="#cb4-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-358"><a href="#cb4-358" aria-hidden="true" tabindex="-1"></a>Draw a block diagram of a feedback control system with a plant $G(s)$ and a controller $C(s)$.  With $C(s) = k_p$.  Show how the closed-loop transfer function is given by:</span>
+<span id="cb4-359"><a href="#cb4-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-360"><a href="#cb4-360" aria-hidden="true" tabindex="-1"></a>$$Y(s) = G(s)U(s)$$</span>
+<span id="cb4-361"><a href="#cb4-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-362"><a href="#cb4-362" aria-hidden="true" tabindex="-1"></a>Point out the idea of _convolution_ and the inverse Lapalce Transform.</span>
+<span id="cb4-363"><a href="#cb4-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-364"><a href="#cb4-364" aria-hidden="true" tabindex="-1"></a>$$U(s) = C(s)E(s)$$</span>
+<span id="cb4-365"><a href="#cb4-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-366"><a href="#cb4-366" aria-hidden="true" tabindex="-1"></a>$$E(s) = U_r(s) - Y(s)$$</span>
+<span id="cb4-367"><a href="#cb4-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-368"><a href="#cb4-368" aria-hidden="true" tabindex="-1"></a>Therefore, we can write the closed-loop transfer function as:</span>
+<span id="cb4-369"><a href="#cb4-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-370"><a href="#cb4-370" aria-hidden="true" tabindex="-1"></a>$$Y(s) = G(s)C(s)E(s) = G(s)C(s)(U_r(s) - Y(s))$$</span>
+<span id="cb4-371"><a href="#cb4-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-372"><a href="#cb4-372" aria-hidden="true" tabindex="-1"></a>Solving for $Y(s)$, we get:</span>
+<span id="cb4-373"><a href="#cb4-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-374"><a href="#cb4-374" aria-hidden="true" tabindex="-1"></a>$$Y(s) = \frac{G(s)C(s)}{1 + G(s)C(s)}U_r(s)$$</span>
+<span id="cb4-375"><a href="#cb4-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-376"><a href="#cb4-376" aria-hidden="true" tabindex="-1"></a>Draw _closed loop_ block diagram from $U_r(s)$ to $Y(s)$.</span>
+<span id="cb4-377"><a href="#cb4-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-378"><a href="#cb4-378" aria-hidden="true" tabindex="-1"></a>Now substitute $C(s) = k_p$ and $G(s) = \frac{\omega_n^2}{s^2 + 2\zeta\omega_n s + \omega_n^2}$ to get:</span>
+<span id="cb4-379"><a href="#cb4-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-380"><a href="#cb4-380" aria-hidden="true" tabindex="-1"></a>$$Y(s) = \frac{k_p\omega_n^2}{s^2 + 2\zeta\omega_n s + (1+k_p)\omega_n^2}U_r(s)$$</span>
+<span id="cb4-381"><a href="#cb4-381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-382"><a href="#cb4-382" aria-hidden="true" tabindex="-1"></a>Notice the poles and Eigenvalues of the closed-loop system are a function of the proportional gain $k_p$.  Therefore, we can use feedback to change the poles of the system and improve performance and stability.</span>
+<span id="cb4-383"><a href="#cb4-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-384"><a href="#cb4-384" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 14 - Proportional Feedback</span></span>
+<span id="cb4-385"><a href="#cb4-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-386"><a href="#cb4-386" aria-hidden="true" tabindex="-1"></a>Let $\overline{\omega}_n^2 = (1+k_p)\omega_n^2$ and $\overline{\zeta} = \frac{\zeta}{\sqrt{1+k_p}}$.  Then we can write the closed-loop transfer function as:</span>
+<span id="cb4-387"><a href="#cb4-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-388"><a href="#cb4-388" aria-hidden="true" tabindex="-1"></a>$$G_c(s) = \frac{k_p\omega_n^2}{s^2 + 2\overline{\zeta}\overline{\omega}_n s + \overline{\omega}_n^2}$$</span>
+<span id="cb4-389"><a href="#cb4-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-390"><a href="#cb4-390" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 15 - Final Value Theorem</span></span>
+<span id="cb4-391"><a href="#cb4-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-392"><a href="#cb4-392" aria-hidden="true" tabindex="-1"></a>FVT: $\lim_{t\to\infty} y(t) = \lim_{s\to0} sY(s)$</span>
+<span id="cb4-393"><a href="#cb4-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-394"><a href="#cb4-394" aria-hidden="true" tabindex="-1"></a>Since the Laplace transform of the unit step function is $U(s) = 1/s$, we can use the final value theorem to write:</span>
+<span id="cb4-395"><a href="#cb4-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-396"><a href="#cb4-396" aria-hidden="true" tabindex="-1"></a>$$ \lim_{t\to\infty} y(t) = \lim_{s\to0} sY(s) = \lim_{s\to0} sG_c(s)U(s) = \lim_{s\to0} G_c(s) $$</span>
+<span id="cb4-397"><a href="#cb4-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-398"><a href="#cb4-398" aria-hidden="true" tabindex="-1"></a>$$ \lim_{t\to\infty} y(t) = \lim_{s\to0} G_c(s) = \lim_{s\to0} \frac{k_p\omega_n^2}{s^2 + 2\overline{\zeta}\overline{\omega}_n s + \overline{\omega}_n^2} = \frac{k_p}{\overline{\omega}_n^2}$$</span>
+<span id="cb4-399"><a href="#cb4-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-400"><a href="#cb4-400" aria-hidden="true" tabindex="-1"></a>$$ \lim_{t\to\infty} y(t) = \frac{k_p}{(1+k_p)} \ne 1$$</span>
+<span id="cb4-401"><a href="#cb4-401" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-402"><a href="#cb4-402" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 16 - Proportional + Derivative Feedback</span></span>
+<span id="cb4-403"><a href="#cb4-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-404"><a href="#cb4-404" aria-hidden="true" tabindex="-1"></a>Now, since we have the closed loop Transfer Function, let's update the control law to a *PD* control law, where $C(s) = k_p + k_d s$.</span>
+<span id="cb4-405"><a href="#cb4-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-406"><a href="#cb4-406" aria-hidden="true" tabindex="-1"></a>Notice with this control law, $C(s)E(s) = k_p E(s) + k_d s E(s)$ and in the time domain, this is equivalent to $u(t) = k_p e(t) + k_d \dot{e}(t)$.</span>
+<span id="cb4-407"><a href="#cb4-407" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-408"><a href="#cb4-408" aria-hidden="true" tabindex="-1"></a>Then we can write the closed-loop transfer function as:</span>
+<span id="cb4-409"><a href="#cb4-409" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-410"><a href="#cb4-410" aria-hidden="true" tabindex="-1"></a>$$G_c(s) = \frac{(k_p + k_d s)\omega_n^2}{s^2 + (2\zeta\omega_n + k_d\omega_n^2)s + (1+k_p)\omega_n^2}$$</span>
+<span id="cb4-411"><a href="#cb4-411" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-412"><a href="#cb4-412" aria-hidden="true" tabindex="-1"></a>Let $\overline{\omega}_n^2 = (1+k_p)\omega_n^2$ and $\overline{\zeta} = \frac{2\zeta\omega_n + k_d\omega_n^2}{2\overline{\omega}_n}$, then we can write the closed-loop transfer function as:</span>
+<span id="cb4-413"><a href="#cb4-413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-414"><a href="#cb4-414" aria-hidden="true" tabindex="-1"></a>$$G_c(s) = \frac{(k_p + k_d s)\omega_n^2}{s^2 + 2\overline{\zeta}\overline{\omega}_n s + \overline{\omega}_n^2}$$</span>
+<span id="cb4-415"><a href="#cb4-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-416"><a href="#cb4-416" aria-hidden="true" tabindex="-1"></a>So we can modify the closed-loop damping ratio and natural frequency by changing the proportional and derivative gains, $k_p$ and $k_d$.  We are also moving the poles around.</span>
+<span id="cb4-417"><a href="#cb4-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-418"><a href="#cb4-418" aria-hidden="true" tabindex="-1"></a>Notice we also added a zero which chnages the transient response of the system.  The zero is located at $s = -k_p/k_d$.</span>
+<span id="cb4-419"><a href="#cb4-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-420"><a href="#cb4-420" aria-hidden="true" tabindex="-1"></a>Finally, applying the final value theorem, we can see that the steady-state error is still non-zero:</span>
+<span id="cb4-421"><a href="#cb4-421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-422"><a href="#cb4-422" aria-hidden="true" tabindex="-1"></a>$$ \lim_{t\to\infty} y(t) = \lim_{s\to0} G_c(s) = \frac{k_p}{(1+k_p)} $$</span>
+<span id="cb4-423"><a href="#cb4-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-424"><a href="#cb4-424" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 17 - Full PID Feedback</span></span>
+<span id="cb4-425"><a href="#cb4-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-426"><a href="#cb4-426" aria-hidden="true" tabindex="-1"></a>Let $C(s) = k_p + k_d s + \frac{k_i}{s}$, then we can write the closed-loop transfer function as:</span>
+<span id="cb4-427"><a href="#cb4-427" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-428"><a href="#cb4-428" aria-hidden="true" tabindex="-1"></a>$$G_c(s) = \frac{(k_p + k_d s + \frac{k_i}{s})\omega_n^2}{s^2 + (2\zeta\omega_n + k_d\omega_n^2)s + (1+k_p)\omega_n^2 + k_i\omega_n^2}$$</span>
+<span id="cb4-429"><a href="#cb4-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-430"><a href="#cb4-430" aria-hidden="true" tabindex="-1"></a>or</span>
+<span id="cb4-431"><a href="#cb4-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-432"><a href="#cb4-432" aria-hidden="true" tabindex="-1"></a>$$G_c(s) = \frac{(k_d s^2 + k_p s + k_i)\omega_n^2}{s^3 + (2\zeta\omega_n + k_d\omega_n^2)s^2 + (1+k_p)\omega_n^2 s + k_i\omega_n^2}$$</span>
+<span id="cb4-433"><a href="#cb4-433" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-434"><a href="#cb4-434" aria-hidden="true" tabindex="-1"></a>Notice we added two zeros and a pole.  Where are the new poles and zeros located?  How does this change the transient response of the system?</span>
+<span id="cb4-435"><a href="#cb4-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-436"><a href="#cb4-436" aria-hidden="true" tabindex="-1"></a>Plot the pzmap of the new closed-loop transfer function and discuss how the poles and zeros have changed.</span>
+<span id="cb4-437"><a href="#cb4-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-438"><a href="#cb4-438" aria-hidden="true" tabindex="-1"></a>But applying the Final Value Theorem, we can see that the steady-state error is now zero:</span>
+<span id="cb4-439"><a href="#cb4-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-440"><a href="#cb4-440" aria-hidden="true" tabindex="-1"></a>$$ \lim_{t\to\infty} y(t) = \lim_{s\to0} G_c(s) = 1 $$</span>
+<span id="cb4-441"><a href="#cb4-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-442"><a href="#cb4-442" aria-hidden="true" tabindex="-1"></a>There are many ways to tune a PID controller, but one of the most common methods is the Ziegler-Nichols method.  This method involves finding the ultimate gain and ultimate period of the system, and then using these values to calculate the PID gains.</span>
+<span id="cb4-443"><a href="#cb4-443" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-444"><a href="#cb4-444" aria-hidden="true" tabindex="-1"></a>We can also use the root locus method to tune a PID controller.  This method involves plotting the root locus of the system and then selecting the desired closed-loop poles based on the desired performance specifications.</span>
+<span id="cb4-445"><a href="#cb4-445" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-446"><a href="#cb4-446" aria-hidden="true" tabindex="-1"></a>Or we can use frequency response methods, such as Bode plots or Nyquist plots, to tune a PID controller.  These methods involve analyzing the frequency response of the system and then selecting the PID gains based on the desired performance specifications.</span>
+<span id="cb4-447"><a href="#cb4-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-448"><a href="#cb4-448" aria-hidden="true" tabindex="-1"></a>Or we can use optimization methods, such as genetic algorithms or particle swarm optimization, to tune a PID controller.  These methods involve defining a cost function based on the desired performance specifications and then using an optimization algorithm to find the PID gains that minimize the cost function.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

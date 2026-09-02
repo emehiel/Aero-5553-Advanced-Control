@@ -1,0 +1,35 @@
+{
+  "chapters/01-transfer-functions.qmd": {
+    "01-transfer-functions.html": "621607e0"
+  },
+  "index.qmd": {
+    "index.html": "07eaa280"
+  },
+  "chapters/02-laplace.qmd": {
+    "02-laplace.html": "4cceab89"
+  },
+  "chapters/03-state-space.qmd": {
+    "03-state-space.html": "a1e47da0"
+  },
+  "chapters/04-time-response.qmd": {
+    "04-time-response.html": "301c7049"
+  },
+  "chapters/05-feedback.qmd": {
+    "05-feedback.html": "0545c13e"
+  },
+  "chapters/06-root-locus.qmd": {
+    "06-root-locus.html": "6db00ede"
+  },
+  "chapters/07-frequency-response.qmd": {
+    "07-frequency-response.html": "ef667f6e"
+  },
+  "chapters/08-pid-design.qmd": {
+    "08-pid-design.html": "1b1616d6"
+  },
+  "chapters/01-dynamic-system-control.qmd": {
+    "01-dynamic-system-control.html": "e157151b"
+  },
+  "chapters/02-classical-control-highlights.qmd": {
+    "02-classical-control-highlights.html": "6bf5232f"
+  }
+}

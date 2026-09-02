@@ -1,0 +1,17 @@
+# Preface
+
+These notes accompany a graduate course in Advanced Control Systems at Cal Poly, San Luis Obispo. The course is taught by Dr. E. Mehiel and is based on several books.  Primarily, the course is based on the book,
+
+* "Feedback Systems: An Introduction for Scientists and Engineers" by Karl J. Åström and Richard M. Murray, Princeton University Press, 2008,
+* "Linear System Theory: Second Edition" by J. Hespanha, Princeton University Press, 2018,
+* "Robust and Adaptive Control: With Aerospace Applications" by E. Lavretsky and K. Wise, Springer, 2013.
+
+The course is designed to provide students with a solid foundation in modern control theory and its applications. 
+
+Each chapter contains:
+
+* Learning objectives
+* Theory
+* Worked examples
+* Summary
+* Exercises
