@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Dynamic System Control – Aero 5553 - Advanced Control Theory</title>
+<title>4&nbsp; System Modeling – Aero 5553 - Advanced Control Theory</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -68,8 +68,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/02-classical-control-highlights.html" rel="next">
-<link href="../index.html" rel="prev">
+<link href="../chapters/02_1-state-space-modeling.html" rel="next">
+<link href="../chapters/01_1-classical-control-highlights.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -108,6 +108,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -120,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-dynamic-system-control.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Dynamic System Control</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/02_0-system-modeling.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">System Modeling</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -153,50 +182,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/01-dynamic-system-control.html" class="sidebar-item-text sidebar-link active">
+  <a href="../chapters/01_0-dynamic-system-control.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Dynamic System Control</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/02-classical-control-highlights.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/01_1-classical-control-highlights.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Classical Control Highlights</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/03-state-space.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">State-Space Models</span></span></a>
+  <a href="../chapters/02_0-system-modeling.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">System Modeling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/02_1-state-space-modeling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">State Space Modeling</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/04-time-response.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Time Response</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Time Response</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05-feedback.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Feedback Control</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Feedback Control</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06-root-locus.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Root Locus</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Root Locus</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/07-frequency-response.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Frequency Response</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Frequency Response</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/08-pid-design.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">PID Design</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">PID Design</span></span></a>
   </div>
 </li>
     </ul>
@@ -209,18 +244,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul class="collapse">
-  <li><a href="#slide-2---motivation-and-learning-outcomes" id="toc-slide-2---motivation-and-learning-outcomes" class="nav-link active" data-scroll-target="#slide-2---motivation-and-learning-outcomes"><span class="header-section-number">2.1</span> Slide 2 - Motivation and Learning Outcomes</a></li>
-  <li><a href="#slide-3---the-mind-of-a-controls-engineer" id="toc-slide-3---the-mind-of-a-controls-engineer" class="nav-link" data-scroll-target="#slide-3---the-mind-of-a-controls-engineer"><span class="header-section-number">2.2</span> Slide 3 - The ‘mind’ of a controls engineer</a></li>
-  <li><a href="#slide-4---what-is-feedback" id="toc-slide-4---what-is-feedback" class="nav-link" data-scroll-target="#slide-4---what-is-feedback"><span class="header-section-number">2.3</span> Slide 4 - What is feedback?</a></li>
-  <li><a href="#slide-5---the-centrifugal-governor" id="toc-slide-5---the-centrifugal-governor" class="nav-link" data-scroll-target="#slide-5---the-centrifugal-governor"><span class="header-section-number">2.4</span> Slide 5 - The Centrifugal Governor</a></li>
-  <li><a href="#slide-6---steam-engine-as-a-block-diagram" id="toc-slide-6---steam-engine-as-a-block-diagram" class="nav-link" data-scroll-target="#slide-6---steam-engine-as-a-block-diagram"><span class="header-section-number">2.5</span> Slide 6 - Steam Engine as a Block Diagram</a></li>
-  <li><a href="#slide-7---cruise-control" id="toc-slide-7---cruise-control" class="nav-link" data-scroll-target="#slide-7---cruise-control"><span class="header-section-number">2.6</span> Slide 7 - Cruise Control</a></li>
-  <li><a href="#slide-8---biological-and-ecological-systems" id="toc-slide-8---biological-and-ecological-systems" class="nav-link" data-scroll-target="#slide-8---biological-and-ecological-systems"><span class="header-section-number">2.7</span> Slide 8 - Biological and Ecological Systems</a></li>
-  <li><a href="#slide-9---feedback-properties" id="toc-slide-9---feedback-properties" class="nav-link" data-scroll-target="#slide-9---feedback-properties"><span class="header-section-number">2.8</span> Slide 9 - Feedback Properties</a></li>
-  <li><a href="#slide-10---some-notes" id="toc-slide-10---some-notes" class="nav-link" data-scroll-target="#slide-10---some-notes"><span class="header-section-number">2.9</span> Slide 10 - Some Notes</a></li>
-  <li><a href="#slide-11---pid-an-intuitive-approach-for-linear-systems" id="toc-slide-11---pid-an-intuitive-approach-for-linear-systems" class="nav-link" data-scroll-target="#slide-11---pid-an-intuitive-approach-for-linear-systems"><span class="header-section-number">2.10</span> Slide 11 - PID: An Intuitive Approach for Linear Systems</a></li>
-  <li><a href="#slide-12---buckaroo-banzi" id="toc-slide-12---buckaroo-banzi" class="nav-link" data-scroll-target="#slide-12---buckaroo-banzi"><span class="header-section-number">2.11</span> Slide 12 - Buckaroo Banzi</a></li>
-  <li><a href="#slide-13---control-theory-mind-map" id="toc-slide-13---control-theory-mind-map" class="nav-link" data-scroll-target="#slide-13---control-theory-mind-map"><span class="header-section-number">2.12</span> Slide 13 - Control Theory Mind Map</a></li>
+  <li><a href="#slide-2---motivation-and-learning-outcomes" id="toc-slide-2---motivation-and-learning-outcomes" class="nav-link active" data-scroll-target="#slide-2---motivation-and-learning-outcomes"><span class="header-section-number">4.1</span> Slide 2 - Motivation and Learning Outcomes</a></li>
+  <li><a href="#slide-3---the-heritage-of-mechanics" id="toc-slide-3---the-heritage-of-mechanics" class="nav-link" data-scroll-target="#slide-3---the-heritage-of-mechanics"><span class="header-section-number">4.2</span> Slide 3 - The Heritage of Mechanics</a></li>
+  <li><a href="#slide-4---state-time-and-space" id="toc-slide-4---state-time-and-space" class="nav-link" data-scroll-target="#slide-4---state-time-and-space"><span class="header-section-number">4.3</span> Slide 4 - State, Time, and Space</a></li>
+  <li><a href="#slide-5---the-heritage-of-electrical-engineering" id="toc-slide-5---the-heritage-of-electrical-engineering" class="nav-link" data-scroll-target="#slide-5---the-heritage-of-electrical-engineering"><span class="header-section-number">4.4</span> Slide 5 - The Heritage of Electrical Engineering</a></li>
+  <li><a href="#slide-6---step-and-frequency-response" id="toc-slide-6---step-and-frequency-response" class="nav-link" data-scroll-target="#slide-6---step-and-frequency-response"><span class="header-section-number">4.5</span> Slide 6 - Step and Frequency Response</a></li>
+  <li><a href="#slide-7---the-control-view---state-space" id="toc-slide-7---the-control-view---state-space" class="nav-link" data-scroll-target="#slide-7---the-control-view---state-space"><span class="header-section-number">4.6</span> Slide 7 - The Control View - State Space</a></li>
+  <li><a href="#slide-8---summary" id="toc-slide-8---summary" class="nav-link" data-scroll-target="#slide-8---summary"><span class="header-section-number">4.7</span> Slide 8 - Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -229,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Dynamic System Control</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">System Modeling</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -246,90 +276,93 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="slide-2---motivation-and-learning-outcomes" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="slide-2---motivation-and-learning-outcomes"><span class="header-section-number">2.1</span> Slide 2 - Motivation and Learning Outcomes</h2>
-<section id="motivation" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="motivation"><span class="header-section-number">2.1.1</span> Motivation</h3>
+<section id="slide-2---motivation-and-learning-outcomes" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="slide-2---motivation-and-learning-outcomes"><span class="header-section-number">4.1</span> Slide 2 - Motivation and Learning Outcomes</h2>
+<section id="developing-a-models-is-step-zero" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="developing-a-models-is-step-zero"><span class="header-section-number">4.1.1</span> Developing a models is step <em>ZERO</em></h3>
 <ul>
-<li>Control is just “making things work.”</li>
-<li>From a physics perspective the difference between an uncontrolled and controlled dynamic system is irrelevant</li>
-<li>From an engineering perspective, the difference between the two is central to design and performance</li>
-<li>But the mathematical techniques are the same, so, it’s theory…
+<li>Over the years several modeling techniques have been developed.</li>
+<li>We want to explore their roots</li>
+<li>Different methods have better (or worse) applications</li>
+<li>In the Aero/Mechanical world we are generally concerned with:
 <ul>
-<li>Control theory is the mathematical formalism we use to analyze and design (engineer) dynamic systems (things that move).</li>
+<li>Dynamics/Mechanics</li>
+<li>Vibrations</li>
+<li>??</li>
 </ul></li>
-<li>https://en.wikipedia.org/wiki/Control_theory</li>
-</ul>
-</section>
-<section id="learning-outcomes" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="learning-outcomes"><span class="header-section-number">2.1.2</span> Learning Outcomes</h3>
-<ul>
-<li>Look inside the ‘mind’ of a controls engineer</li>
-<li>Discuss important concepts, like feedback, robustness, and Automation</li>
-<li>Develop a conceptual understanding of PID control</li>
 </ul>
 </section>
 </section>
-<section id="slide-3---the-mind-of-a-controls-engineer" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="slide-3---the-mind-of-a-controls-engineer"><span class="header-section-number">2.2</span> Slide 3 - The ‘mind’ of a controls engineer</h2>
+<section id="slide-3---the-heritage-of-mechanics" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="slide-3---the-heritage-of-mechanics"><span class="header-section-number">4.2</span> Slide 3 - The Heritage of Mechanics</h2>
+<p>Free body diagrams and Newton’s description of motion. The Principia: mathematical principles of natural philosophy</p>
+<p><span class="math display">\[\vec{F} = m \vec{a} = \frac{d}{dt} (m \vec{v})\]</span></p>
+<p>For the MSD system,</p>
+<p><span class="math display">\[m \ddot{q} + c \dot{q} + k q = f(t)\]</span></p>
 </section>
-<section id="slide-4---what-is-feedback" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="slide-4---what-is-feedback"><span class="header-section-number">2.3</span> Slide 4 - What is feedback?</h2>
-<p>When we devlop models of dynamic systems with differential equations, other math and physics, we take a reductive approach. When two or more dynamical systems are connected in a way where both systems depend on output from the other system for input, the dynamical systems are in <em>feedback</em>.</p>
-<p>Another way of thinking about feedback is that the connected systems cannot be solved independently from each other. The systems are <em>coupled</em> and must be solved together.</p>
-</section>
-<section id="slide-5---the-centrifugal-governor" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="slide-5---the-centrifugal-governor"><span class="header-section-number">2.4</span> Slide 5 - The Centrifugal Governor</h2>
-<p>An early example of feedback is the centrifugal governor, which was used to control the speed of steam engines. The governor uses feedback to adjust the fuel supply to the engine based on its speed, maintaining a desired speed despite changes in load.</p>
-</section>
-<section id="slide-6---steam-engine-as-a-block-diagram" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="slide-6---steam-engine-as-a-block-diagram"><span class="header-section-number">2.5</span> Slide 6 - Steam Engine as a Block Diagram</h2>
-<p>Block diagrams are a way to represent the relationships between different components of a system. The steam engine can be represented as a block diagram, with the governor and engine as separate blocks that interact through feedback.</p>
-<p>This is a reductive approach to modeling the system which it allows us to analyze and design the system more easily.</p>
-<p>Early object oriented programming was based on this idea of modeling systems as blocks that interact with each other. Modelica is a modern programming language that uses this approach to model complex systems.</p>
-</section>
-<section id="slide-7---cruise-control" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="slide-7---cruise-control"><span class="header-section-number">2.6</span> Slide 7 - Cruise Control</h2>
-<p>Cruise control is a common example of feedback control in modern vehicles. The system uses feedback from the vehicle’s speed to adjust the throttle and maintain a desired speed, even when going up or down hills.</p>
-<p>Cruise control systems started as mechanical systems, but have since evolved into computer-controlled systems that use sensors and algorithms to optimize performance and fuel efficiency.</p>
-</section>
-<section id="slide-8---biological-and-ecological-systems" class="level2" data-number="2.7">
-<h2 data-number="2.7" class="anchored" data-anchor-id="slide-8---biological-and-ecological-systems"><span class="header-section-number">2.7</span> Slide 8 - Biological and Ecological Systems</h2>
-<p>Control theory is not limited to mechanical or electrical systems. Biological and ecological systems also exhibit feedback control, such as the complex chemical systems of cells and how birds fly in formation.</p>
-<p>With the advent of mechanical systems and now computer systems, we can design or program a feedback loop.</p>
-<p>These days control is a mix of design and computer control with embedded or other computer systems.</p>
-</section>
-<section id="slide-9---feedback-properties" class="level2" data-number="2.8">
-<h2 data-number="2.8" class="anchored" data-anchor-id="slide-9---feedback-properties"><span class="header-section-number">2.8</span> Slide 9 - Feedback Properties</h2>
+<section id="slide-4---state-time-and-space" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="slide-4---state-time-and-space"><span class="header-section-number">4.3</span> Slide 4 - State, Time, and Space</h2>
+<p>We plot the response of the MSD system explicitly in time.</p>
+<p>We can also plot the response in state space, where we plot the position and velocity of the system as a function of time. This allows us to visualize the dynamics of the system in a different way.</p>
+<p>We can represent a system of higher order differential equations as a system of first order differential equations. This is the basis of the state space representation of a system.</p>
+<p>This approach lends itself to numerical solving methods like Runge-+Kutta and the tools of vector spaces and Real/Comples analysis.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Do IC plot and Phase Plane Matlab example for the MSD system.</p>
+</div>
+</div>
 <ul>
-<li>Robustness – As mass increases, the car still gets to the desired speed in roughly the same amount of time but with different “performance”.
-<ul>
-<li>Question how much fuel is used? So the cruise control is robust, but there is no consideration of energy.</li>
-</ul></li>
-<li>Design of Dynamics - Use feedback control to change the closed-loop dynamics of the system. Design a vehicle for some set of requirements, and design a controller to meet performance metrics. Example, the Wright Flyer.</li>
-<li>Automation - Combining control theory and dynamics with logic, heuristics, or AI to achieve more complicated control objectives or enhanced performance or robustness.</li>
+<li>State Space gives a sense of flow and the vector field of the system for any initial conditions.</li>
+<li>State Space gives a sense of the stability of the system, and how it will respond to perturbations.</li>
 </ul>
 </section>
-<section id="slide-10---some-notes" class="level2" data-number="2.9">
-<h2 data-number="2.9" class="anchored" data-anchor-id="slide-10---some-notes"><span class="header-section-number">2.9</span> Slide 10 - Some Notes</h2>
+<section id="slide-5---the-heritage-of-electrical-engineering" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="slide-5---the-heritage-of-electrical-engineering"><span class="header-section-number">4.4</span> Slide 5 - The Heritage of Electrical Engineering</h2>
+<p>Fundational to this approach is the idea of input and output of a system. Systems can be reduced to subsystems, etc., and analyzed as a whole. This is the basis of the block diagram approach to modeling systems.</p>
 </section>
-<section id="slide-11---pid-an-intuitive-approach-for-linear-systems" class="level2" data-number="2.10">
-<h2 data-number="2.10" class="anchored" data-anchor-id="slide-11---pid-an-intuitive-approach-for-linear-systems"><span class="header-section-number">2.10</span> Slide 11 - PID: An Intuitive Approach for Linear Systems</h2>
+<section id="slide-6---step-and-frequency-response" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="slide-6---step-and-frequency-response"><span class="header-section-number">4.5</span> Slide 6 - Step and Frequency Response</h2>
+<p>We’ve talked about the step response from a performance perspective, but we can also look at the step response from a modeling perspective. The step response is a fundamental tool for understanding the dynamics of a system.</p>
+<p>The frequency response is another fundamental tool for understanding the dynamics of a system. The frequency response tells us how the system responds to different frequencies of input, and can be used to analyze the stability and performance of the system.</p>
+<p>Mostly we want to understand how the magnitude and phase of the output changes with frequency. This is the basis of Bode plots, which are a fundamental tool for analyzing the frequency response of a system.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Do step response and Bode plot Matlab example for the MSD system.</p>
+</div>
+</div>
+</section>
+<section id="slide-7---the-control-view---state-space" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="slide-7---the-control-view---state-space"><span class="header-section-number">4.6</span> Slide 7 - The Control View - State Space</h2>
+<p><span class="math display">\[ \frac{dx}{dt} = f(x, u), \ y = h(x, u) \]</span></p>
+<p><span class="math inline">\(x\)</span> is the <em>state</em> vector <span class="math inline">\(u\)</span> is the <em>input</em> vector <span class="math inline">\(y\)</span> is the <em>output</em> vector</p>
+<p><span class="math inline">\(f\)</span> is the <em>state function</em> <span class="math inline">\(h\)</span> is the <em>output function</em></p>
+<p>These functions describe how the state of the system evolves over time, and how the output of the system is related to the state and input.</p>
+<p>With these functions and these views, it is natural to ask questions like:</p>
 <ul>
-<li>Proportional - Control for right now</li>
-<li>Derivative - Control for the expecte future</li>
-<li>Integral - Control for the past</li>
-<li>PID - a blend of all three time lines - this works because of Newton’s Laws. How you ended up in your current state is a function of where you were (I), the decision you make right now (P), and where you want to go (D).</li>
+<li><p>Does the state converge? (Stability)</p></li>
+<li><p>What states can the system reach given the proper choice of u(t)? (controllability or reachability)</p></li>
+<li><p>If we don’t measure the whole state, can we reconstruct the state? (observability)</p></li>
+<li><p>Notice the answers to these questions should not depend on the system we are working with, but on properties of the model</p></li>
 </ul>
 </section>
-<section id="slide-12---buckaroo-banzi" class="level2" data-number="2.11">
-<h2 data-number="2.11" class="anchored" data-anchor-id="slide-12---buckaroo-banzi"><span class="header-section-number">2.11</span> Slide 12 - Buckaroo Banzi</h2>
-<p>“No matter how much you push the envelope, it’ll still be stationery.” - Buckaroo Banzai</p>
-<p>“No matter where you go, there you are.” - Buckaroo Banzai</p>
-</section>
-<section id="slide-13---control-theory-mind-map" class="level2" data-number="2.12">
-<h2 data-number="2.12" class="anchored" data-anchor-id="slide-13---control-theory-mind-map"><span class="header-section-number">2.12</span> Slide 13 - Control Theory Mind Map</h2>
-<p>Where are we going in this class?</p>
+<section id="slide-8---summary" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="slide-8---summary"><span class="header-section-number">4.7</span> Slide 8 - Summary</h2>
 
 
 <!-- -->
@@ -790,18 +823,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link" aria-label="Preface">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Preface</span></span>
+      <a href="../chapters/01_1-classical-control-highlights.html" class="pagination-link" aria-label="Classical Control Highlights">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Classical Control Highlights</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/02-classical-control-highlights.html" class="pagination-link" aria-label="Classical Control Highlights">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Classical Control Highlights</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/02_1-state-space-modeling.html" class="pagination-link" aria-label="State Space Modeling">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">State Space Modeling</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Dynamic System Control"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "System Modeling"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: cosmo</span></span>
@@ -814,80 +847,80 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 2 - Motivation and Learning Outcomes</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">### Motivation</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">### Developing a models is step *ZERO*</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Control is just “making things work.”</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>From a physics perspective the difference between an uncontrolled and controlled dynamic system is irrelevant</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>From an engineering perspective, the difference between the two is central to design and performance</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>But the mathematical techniques are the same, so, it’s theory…</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Control theory is the mathematical formalism we use to analyze and design (engineer) dynamic systems (things that move).</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>https://en.wikipedia.org/wiki/Control_theory</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">### Learning Outcomes</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Look inside the 'mind' of a controls engineer</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Discuss important concepts, like feedback, robustness, and Automation</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Develop a conceptual understanding of PID control</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 3 - The 'mind' of a controls engineer</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 4 - What is feedback?</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>When we devlop models of dynamic systems with differential equations, other math and physics, we take a reductive approach.  When two or more dynamical systems are connected in a way where both systems depend on output from the other system for input, the dynamical systems are in _feedback_.</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>Another way of thinking about feedback is that the connected systems cannot be solved independently from each other.  The systems are _coupled_ and must be solved together.</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 5 - The Centrifugal Governor</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>An early example of feedback is the centrifugal governor, which was used to control the speed of steam engines.  The governor uses feedback to adjust the fuel supply to the engine based on its speed, maintaining a desired speed despite changes in load.</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 6 - Steam Engine as a Block Diagram</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>Block diagrams are a way to represent the relationships between different components of a system.  The steam engine can be represented as a block diagram, with the governor and engine as separate blocks that interact through feedback.</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>This is a reductive approach to modeling the system which it allows us to analyze and design the system more easily.</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>Early object oriented programming was based on this idea of modeling systems as blocks that interact with each other. Modelica is a modern programming language that uses this approach to model complex systems.</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 7 - Cruise Control</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Over the years several modeling techniques have been developed.</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>We want to explore their roots</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Different methods have better (or worse) applications</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>In the Aero/Mechanical world we are generally concerned with:</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Dynamics/Mechanics</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Vibrations</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>??</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 3 - The Heritage of Mechanics</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>Free body diagrams and Newton's description of motion. The Principia: mathematical principles of natural philosophy</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>$$\vec{F} = m \vec{a} = \frac{d}{dt} (m \vec{v})$$</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>For the MSD system,</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>$$m \ddot{q} + c \dot{q} + k q = f(t)$$</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 4 - State, Time, and Space</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>We plot the response of the MSD system explicitly in time.</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>We can also plot the response in state space, where we plot the position and velocity of the system as a function of time. This allows us to visualize the dynamics of the system in a different way.</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>We can represent a system of higher order differential equations as a system of first order differential equations. This is the basis of the state space representation of a system.</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>This approach lends itself to numerical solving methods like Runge-+Kutta and the tools of vector spaces and Real/Comples analysis.</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>Do IC plot and Phase Plane Matlab example for the MSD system.</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>State Space gives a sense of flow and the vector field of the system for any initial conditions.</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>State Space gives a sense of the stability of the system, and how it will respond to perturbations.</span>
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>Cruise control is a common example of feedback control in modern vehicles.  The system uses feedback from the vehicle's speed to adjust the throttle and maintain a desired speed, even when going up or down hills.</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 5 - The Heritage of Electrical Engineering</span></span>
 <span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>Cruise control systems started as mechanical systems, but have since evolved into computer-controlled systems that use sensors and algorithms to optimize performance and fuel efficiency.</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>Fundational to this approach is the idea of input and output of a system. Systems can be reduced to subsystems, etc., and analyzed as a whole. This is the basis of the block diagram approach to modeling systems.</span>
 <span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 8 - Biological and Ecological Systems</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 6 - Step and Frequency Response</span></span>
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>Control theory is not limited to mechanical or electrical systems.  Biological and ecological systems also exhibit feedback control, such as the complex chemical systems of cells and how birds fly in formation.</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>We've talked about the step response from a performance perspective, but we can also look at the step response from a modeling perspective. The step response is a fundamental tool for understanding the dynamics of a system.</span>
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>With the advent of mechanical systems and now computer systems, we can design or program a feedback loop.</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>The frequency response is another fundamental tool for understanding the dynamics of a system. The frequency response tells us how the system responds to different frequencies of input, and can be used to analyze the stability and performance of the system.</span>
 <span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>These days control is a mix of design and computer control with embedded or other computer systems.</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>Mostly we want to understand how the magnitude and phase of the output changes with frequency. This is the basis of Bode plots, which are a fundamental tool for analyzing the frequency response of a system.</span>
 <span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 9 - Feedback Properties</span></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Robustness – As mass increases, the car still gets to the desired speed in roughly the same amount of time but with different “performance”.</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Question  how much fuel is used?  So the cruise control is robust, but there is no consideration of energy.</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Design of Dynamics - Use feedback control to change the closed-loop dynamics of the system.  Design a vehicle for some set of requirements, and design a controller to meet performance metrics.  Example, the Wright Flyer.</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Automation - Combining control theory and dynamics with logic, heuristics, or AI to achieve more complicated control objectives or enhanced performance or robustness.</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 10 - Some Notes</span></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 11 - PID: An Intuitive Approach for Linear Systems</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Proportional - Control for right now</span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Derivative - Control for the expecte future</span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Integral - Control for the past</span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>PID - a blend of all three time lines - this works because of Newton's Laws.  How you ended up in your current state is a function of where you were (I), the decision you make right now (P), and where you want to go (D).</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>Do step response and Bode plot Matlab example for the MSD system.</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 7 - The Control View - State Space</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>$$ \frac{dx}{dt} = f(x, u), \ y = h(x, u) $$</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>$x$ is the *state* vector $u$ is the *input* vector $y$ is the *output* vector</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>$f$ is the *state function* $h$ is the *output function*</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>These functions describe how the state of the system evolves over time, and how the output of the system is related to the state and input.</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>With these functions and these views, it is natural to ask questions like:</span>
 <span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 12 - Buckaroo Banzi</span></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Does the state converge? (Stability)</span>
 <span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>"No matter how much you push the envelope, it'll still be stationery." - Buckaroo Banzai</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>What states can the system reach given the proper choice of u(t)? (controllability or reachability)</span>
 <span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>"No matter where you go, there you are." - Buckaroo Banzai</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>If we don’t measure the whole state, can we reconstruct the state? (observability)</span>
 <span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 13 - Control Theory Mind Map</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Notice the answers to these questions should not depend on the system we are working with, but on properties of the model</span>
 <span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>Where are we going in this class?</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="fu">## Slide 8 - Summary</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

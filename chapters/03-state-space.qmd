@@ -1,6 +1,0 @@
-# State-Space Models
-
-## Learning Objectives
-
-- Derive state equations
-- Convert to transfer functions

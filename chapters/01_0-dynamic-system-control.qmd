@@ -1,0 +1,88 @@
+---
+title: "Dynamic System Control"
+format: 
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    code-tools: true
+jupyter: python3
+---
+
+## Slide 2 - Motivation and Learning Outcomes
+
+### Motivation
+
+- Control is just “making things work.”
+- From a physics perspective the difference between an uncontrolled and controlled dynamic system is irrelevant
+- From an engineering perspective, the difference between the two is central to design and performance
+- But the mathematical techniques are the same, so, it’s theory…
+  - Control theory is the mathematical formalism we use to analyze and design (engineer) dynamic systems (things that move).
+- https://en.wikipedia.org/wiki/Control_theory
+
+### Learning Outcomes
+
+- Look inside the 'mind' of a controls engineer
+- Discuss important concepts, like feedback, robustness, and Automation
+- Develop a conceptual understanding of PID control
+
+## Slide 3 - The 'mind' of a controls engineer
+
+## Slide 4 - What is feedback?
+
+When we develop models of dynamic systems with differential equations, other math and physics, we take a reductive approach. When two or more dynamical systems are connected in a way where both systems depend on output from the other system for input, the dynamical systems are in *feedback*.
+
+Another way of thinking about feedback is that the connected systems cannot be solved independently from each other. The systems are *coupled* and must be solved together.
+
+## Slide 5 - The Centrifugal Governor
+
+An early example of feedback is the centrifugal governor, which was used to control the speed of steam engines. The governor uses feedback to adjust the fuel supply to the engine based on its speed, maintaining a desired speed despite changes in load.
+
+## Slide 6 - Steam Engine as a Block Diagram
+
+Block diagrams are a way to represent the relationships between different components of a system. The steam engine can be represented as a block diagram, with the governor and engine as separate blocks that interact through feedback.
+
+This is a reductive approach to modeling the system which it allows us to analyze and design the system more easily.
+
+Early object oriented programming was based on this idea of modeling systems as blocks that interact with each other. Modelica is a modern programming language that uses this approach to model complex systems.
+
+## Slide 7 - Cruise Control
+
+Cruise control is a common example of feedback control in modern vehicles. The system uses feedback from the vehicle's speed to adjust the throttle and maintain a desired speed, even when going up or down hills.
+
+Cruise control systems started as mechanical systems, but have since evolved into computer-controlled systems that use sensors and algorithms to optimize performance and fuel efficiency.
+
+## Slide 8 - Biological and Ecological Systems
+
+Control theory is not limited to mechanical or electrical systems. Biological and ecological systems also exhibit feedback control, such as the complex chemical systems of cells and how birds fly in formation.
+
+With the advent of mechanical systems and now computer systems, we can design or program a feedback loop.
+
+These days control is a mix of design and computer control with embedded or other computer systems.
+
+## Slide 9 - Feedback Properties
+
+- Robustness – As mass increases, the car still gets to the desired speed in roughly the same amount of time but with different “performance”.
+  - Question how much fuel is used? So the cruise control is robust, but there is no consideration of energy.
+- Design of Dynamics - Use feedback control to change the closed-loop dynamics of the system. Design a vehicle for some set of requirements, and design a controller to meet performance metrics. Example, the Wright Flyer.
+- Automation - Combining control theory and dynamics with logic, heuristics, or AI to achieve more complicated control objectives or enhanced performance or robustness.
+
+## Slide 10 - Some Notes
+
+## Slide 11 - PID: An Intuitive Approach for Linear Systems
+
+- Proportional - Control for right now
+- Derivative - Control for the expecte future
+- Integral - Control for the past
+- PID - a blend of all three time lines - this works because of Newton's Laws. How you ended up in your current state is a function of where you were (I), the decision you make right now (P), and where you want to go (D).
+
+## Slide 12 - Buckaroo Banzi
+
+"No matter how much you push the envelope, it'll still be stationery." - Buckaroo Banzai
+
+"No matter where you go, there you are." - Buckaroo Banzai
+
+## Slide 13 - Control Theory Mind Map
+
+Where are we going in this class?

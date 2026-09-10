@@ -1,0 +1,108 @@
+---
+title: "State Space Modeling"
+format: 
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    code-tools: true
+jupyter: python3
+---
+
+## Slide 2 - Motivation and Learning Outcomes
+
+### The Fundamental Abstraction
+
+* Dynamic System Theory as a branch of mathematics gives us a foundational starting point
+* We will rely on a variety of math tools, but primarily Linear Algebra and Analysis
+
+
+## Slide 3 - Start with ODEs
+
+Let:
+
+$$\dot{\underline{x}} = \underline{f}(\underline{x},\underline{u},t) \\
+y = \underline{h}(\underline{x},\underline{u},t)$$
+
+Where $\underline{x} \in \mathbb{R}^n$ is the state vector, $\underline{u} \in \mathbb{R}^q$ is the input vector, and $y \in \mathbb{R}^p$ is the output/measurement vector. The function $\underline{f}$ describes how the state evolves over time, while $\underline{h}$ describes how the output is generated from the state and input.
+
+and $\underline{f}: \mathbb{R}^n \times \mathbb{R}^p \to \mathbb{R}^n$ and $\underline{h}: \mathbb{R}^n \times \mathbb{R}^p \to \mathbb{R}^q$ are vector-valued functions that describe the dynamics of the system.
+
+*This is the State Space Model of a system.*
+
+## Slide 4 - For LTI systems
+
+We have the LTI State Space Model:
+
+$$\dot{\underline{x}} = A \underline{x} + B \underline{u} \\
+y = C \underline{x} + D \underline{u}$$
+
+Where
+$A \in \mathbb{R}^{n \times n}$ is the state or dynamics matrix,
+$B \in \mathbb{R}^{n \times q}$ is the input or control matrix,
+$C \in \mathbb{R}^{p \times n}$ is the output or measurement matrix, and
+$D \in \mathbb{R}^{p \times q}$ is the feedthrough or direct matrix.
+
+The matrices $A$, $B$, $C$, and $D$ are constant for LTI systems.
+
+## Slide 7 - Example - The Inverted Pendulum
+
+::: callout-note
+Draw a figure of the inverted pendulum.  Theta is defined positive counter-clockwise from vertical.
+:::
+
+$$J_t\ddot{\theta} + \gamma\dot{\theta} - mgl\sin(\theta) = u$$
+
+Where $J_t = J + ml^2$ is the total moment of inertia of the pendulum about the pivot point, $\gamma$ is the damping coefficient, $m$ is the mass of the pendulum, $g$ is the acceleration due to gravity, $l$ is the length of the pendulum, and $u$ is the control input (torque applied at the pivot point).
+
+## Slide 8 - State Space Model of the Inverted Pendulum
+
+Let $\underline{x} = \begin{bmatrix} \theta \\ \dot{\theta} \end{bmatrix}$, then we can write the state space model as:
+
+$$ \dot{\underline{x}} = \begin{bmatrix} \dot{\theta} \\ \ddot{\theta} \end{bmatrix} = \begin{bmatrix} \dot{\theta} \\ -\frac{\gamma}{J_t}\dot{\theta} + \frac{mgl}{J_t}\sin(\theta) + \frac{u}{J_t} \end{bmatrix} $$
+
+Where $\underline{f}(\underline{x},\underline{u}) = \begin{bmatrix} \dot{\theta} \\ -\frac{\gamma}{J_t}\dot{\theta} + \frac{mgl}{J_t}\sin(\theta) + \frac{u}{J_t} \end{bmatrix}$.
+
+Now say we measure the horizontal displacement $d$. That gives,
+
+$$\underline{y} = l\sin(\theta)$$
+
+Where $\underline{h}(\underline{x},\underline{u}) = l\sin(\theta)$.
+
+## Slide 9 - Linearization of the Inverted Pendulum
+
+When $\theta \approx 0$, we can linearize the system about the equilibrium point $\theta = 0$ to obtain the LTI state space model:
+
+$$\dot{\underline{x}} = \begin{bmatrix} 0 & 1 \\ \frac{mgl}{J_t} & -\frac{\gamma}{J_t} \end{bmatrix} \underline{x} + \begin{bmatrix} 0 \\ \frac{1}{J_t} \end{bmatrix} u$$
+
+$$\underline{y} = \begin{bmatrix} l & 0 \end{bmatrix} \underline{x}$$
+
+Where $A = \begin{bmatrix} 0 & 1 \\ \frac{mgl}{J_t} & -\frac{\gamma}{J_t} \end{bmatrix}$ and $B = \begin{bmatrix} 0 \\ \frac{1}{J_t} \end{bmatrix}$ and $C = \begin{bmatrix} l & 0 \end{bmatrix}$ and $D = 0$.
+
+## Slide 10 - Simulink Example of the Inverted Pendulum
+
+```{python}
+% Preditor prey simulation
+
+function
+
+```
+
+## Slide 11 - Block Diagrams Overview
+
+## Slide 12 - Summary
+
+### Developing a model is step *ZERO* in the design of a control system.
+
+* Modeling is a key step in developing a control system analysis
+    * Without the model, we have no place to start
+* The State Space approach is generally considered a good place to start
+* We will use a variety of modeling tools
+    * Math, linear analysis, ODEs,
+    * Block diagrams
+    * Matlab and Simulink
+    * Python
+    *…
+* “All models are wrong, but some are useful.” – George E. P. Box
+

@@ -1,0 +1,313 @@
+---
+title: "Matrices and Vector Spaces: A Compact Reference"
+subtitle: "Structure, transformations, decompositions, and numerical sensitivity"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    code-fold: true
+    theme: cosmo
+    html-math-method: mathjax
+date: last-modified
+---
+
+## The unifying idea
+
+A [vector space](https://en.wikipedia.org/wiki/Vector_space) is a collection of objects that can be added and scaled while satisfying the familiar algebraic rules. A [matrix](https://en.wikipedia.org/wiki/Matrix_%28mathematics%29) is a rectangular array of entries, but its more important role in linear algebra is to represent a **linear transformation** after bases have been chosen. This viewpoint connects the topics on this page:
+
+$$\text{vectors}
+\longrightarrow
+\text{linear combinations and subspaces}
+\longrightarrow
+\text{matrix transformations}
+\longrightarrow
+\text{structure and numerical behavior}.$$
+
+For a matrix $A\in\mathbb{F}^{m\times n}$, the associated linear map is
+
+$$A:\mathbb{F}^n\to\mathbb{F}^m,
+\qquad
+x\mapsto Ax,$$
+
+where the field $\mathbb{F}$ is commonly $\mathbb{R}$ or $\mathbb{C}$.
+
+::: {.callout-tip title="Reading matrices as transformations"}
+The columns of $A$ are the images of the coordinate basis vectors. Consequently, $Ax$ is a linear combination of the columns of $A$, with the entries of $x$ supplying the coefficients.
+:::
+
+## Vector spaces, span, and dimension
+
+A vector space $V$ over a field $\mathbb{F}$ is closed under vector addition and scalar multiplication and obeys the standard associativity, commutativity, identity, inverse, and distributive laws. Its elements need not be arrows: vectors may be polynomials, functions, signals, matrices, or state trajectories. See the linked [definition and notation](https://en.wikipedia.org/wiki/Vector_space#Notation_and_definition).
+
+Given vectors $v_1,\ldots,v_k\in V$, their [linear span](https://en.wikipedia.org/wiki/Linear_span) is the set of all linear combinations
+
+$$\operatorname{span}\{v_1,\ldots,v_k\}
+=
+\left\{
+\sum_{i=1}^{k}\alpha_i v_i:\alpha_i\in\mathbb{F}
+\right\}.$$
+
+The span is the smallest subspace containing the listed vectors. A **basis** is a linearly independent set that spans the entire space, and the number of vectors in any finite basis is the **dimension** of the space.
+
+For a matrix $A=[a_1\ \cdots\ a_n]$, the column space is
+
+$$\mathcal{C}(A)=\operatorname{span}\{a_1,\ldots,a_n\}.$$
+
+This makes span the bridge from a list of matrix columns to the subspace of outputs that the transformation can produce.
+
+## Matrices and their basic operations
+
+An $m\times n$ matrix has $m$ rows, $n$ columns, and entries $a_{ij}$:
+
+$$A=[a_{ij}]
+=
+\begin{bmatrix}
+a_{11}&\cdots&a_{1n}\\
+\vdots&\ddots&\vdots\\
+a_{m1}&\cdots&a_{mn}
+\end{bmatrix}.$$
+
+The basic operations summarized in [addition, scalar multiplication, and transposition](https://en.wikipedia.org/wiki/Matrix_%28mathematics%29#Addition,_scalar_multiplication,_and_transposition) are:
+
+| Operation | Definition | Compatibility |
+|------------------------|------------------------|------------------------|
+| Addition | $(A+B)_{ij}=a_{ij}+b_{ij}$ | $A$ and $B$ have the same size |
+| Scalar multiplication | $(\alpha A)_{ij}=\alpha a_{ij}$ | $\alpha\in\mathbb{F}$ |
+| Transpose | $(A^T)_{ij}=a_{ji}$ | $A\in\mathbb{F}^{m\times n}$ gives $A^T\in\mathbb{F}^{n\times m}$ |
+| Matrix multiplication | $(AB)_{ij}=\sum_k a_{ik}b_{kj}$ | inner dimensions agree |
+
+Matrix multiplication represents composition of linear maps. It is associative and distributive but generally **not commutative**: $AB$ need not equal $BA$.
+
+For complex matrices, the [conjugate transpose](https://en.wikipedia.org/wiki/Conjugate_transpose) is
+
+$$A^* = \overline{A}^{,T},
+\qquad
+(A^*)_{ij}=\overline{a_{ji}}.$$
+
+It replaces the ordinary transpose in complex inner-product calculations. A matrix satisfying $A^*=A$ is **Hermitian**; over the real numbers, this reduces to symmetry, $A^T=A$.
+
+### Block matrices
+
+A [block matrix](https://en.wikipedia.org/wiki/Block_matrix) partitions a large matrix into smaller matrices:
+
+$$M=
+\begin{bmatrix}
+A&B\\
+C&D
+\end{bmatrix}.$$
+
+Provided the block dimensions are compatible, many ordinary matrix operations can be carried out blockwise. Block notation exposes system structure and is especially useful for coupled state-space models, partitioned variables, Schur complements, and structured elimination.
+
+## Determinant, rank, invertibility, and degeneracy
+
+These ideas ask related but distinct questions about a transformation.
+
+| Concept | Main question | Key interpretation |
+|------------------------|------------------------|------------------------|
+| [Determinant](https://en.wikipedia.org/wiki/Determinant) | How does a square map scale oriented volume? | $\det(A)=0$ means some dimension is collapsed |
+| [Rank](https://en.wikipedia.org/wiki/Rank_%28linear_algebra%29) | How many independent output directions remain? | $\operatorname{rank}(A)=\dim\mathcal{C}(A)$ |
+| [Invertibility](https://en.wikipedia.org/wiki/Invertible_matrix) | Can every output be uniquely mapped back to an input? | $A^{-1}A=AA^{-1}=I$ |
+| [Degeneracy](https://en.wikipedia.org/wiki/Degeneracy_%28mathematics%29) | Has a normally distinct or full-dimensional case collapsed? | Often appears as zero determinant, deficient rank, or repeated structure |
+
+For a square matrix $A\in\mathbb{F}^{n\times n}$, the following statements are equivalent:
+
+$$\begin{aligned}
+A \text{ is invertible}
+&\iff \det(A)\ne 0\\
+&\iff \operatorname{rank}(A)=n\\
+&\iff \operatorname{null}(A)=\{0\}\\
+&\iff Ax=b \text{ has a unique solution for every }b\\
+&\iff 0 \text{ is not an eigenvalue of }A.
+\end{aligned}$$
+
+The determinant is multiplicative, $\det(AB)=\det(A)\det(B)$, and geometrically gives the signed factor by which a real linear transformation scales volume. Rank is the dimension of either the column space or the row space; the equality of row rank and column rank is fundamental. Elementary row reduction is a common way to compute rank.
+
+“Degenerate” is context dependent. A singular matrix, a zero-volume transformation, a rank-deficient set of constraints, or a quadratic form with a nontrivial null direction may all be described as degenerate. The useful question is therefore: **which expected dimension, distinction, or independence has been lost?**
+
+## Trace, similarity, and diagonalization
+
+The [trace](https://en.wikipedia.org/wiki/Trace_%28linear_algebra%29) of a square matrix is the sum of its diagonal entries:
+
+$$\operatorname{tr}(A)=\sum_{i=1}^{n}a_{ii}.$$
+
+It satisfies
+
+$$\operatorname{tr}(A+B)=\operatorname{tr}(A)+\operatorname{tr}(B),
+\qquad
+\operatorname{tr}(AB)=\operatorname{tr}(BA),$$
+
+and equals the sum of the eigenvalues, counted with algebraic multiplicity.
+
+Two square matrices are [similar](https://en.wikipedia.org/wiki/Matrix_similarity) when
+
+$$B=P^{-1}AP$$
+
+for some invertible $P$. Similar matrices are different coordinate representations of the same linear transformation. They share basis-independent properties including determinant, trace, characteristic polynomial, eigenvalues, and rank.
+
+A matrix is [diagonalizable](https://en.wikipedia.org/wiki/Diagonalizable_matrix) if it is similar to a diagonal matrix:
+
+$$A=PDP^{-1}.$$
+
+The columns of $P$ are then a basis of eigenvectors, and $D$ contains the corresponding eigenvalues. Diagonal form makes powers, exponentials, and linear dynamical systems easier to analyze:
+
+$$A^k=PD^kP^{-1},
+\qquad
+e^{At}=Pe^{Dt}P^{-1}.$$
+
+Not every matrix is diagonalizable. A matrix is diagonalizable precisely when it has enough linearly independent eigenvectors to form a basis.
+
+::: {.callout-note title="Similarity is not the same as equality"}
+$A$ and $B=P^{-1}AP$ generally have different entries. They describe the same transformation in different bases, so their coordinate-dependent appearance changes while their intrinsic linear-algebraic properties remain.
+:::
+
+## Inner products, outer products, and norms
+
+An [inner product](https://en.wikipedia.org/wiki/Inner_product_space) assigns a scalar to a pair of vectors and generalizes the dot product. In $\mathbb{R}^n$ and $\mathbb{C}^n$,
+
+$$\langle x,y\rangle=x^*y.$$
+
+It defines length and angle:
+
+$$\|x\|_2=\sqrt{\langle x,x\rangle},
+\qquad
+\cos\theta=\frac{\langle x,y\rangle}{\|x\|_2\|y\|_2}$$
+
+for nonzero real vectors. The [Cauchy--Schwarz inequality](https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality),
+
+$$|\langle x,y\rangle|\leq \|x\|_2\|y\|_2,$$
+
+guarantees that the normalized inner product behaves like a cosine and underpins the triangle inequality for the induced norm.
+
+The [outer product](https://en.wikipedia.org/wiki/Outer_product) reverses the direction of the construction: two column vectors produce a matrix,
+
+$$xy^*
+=
+\begin{bmatrix}
+x_1\overline{y_1}&\cdots&x_1\overline{y_n}\\
+\vdots&\ddots&\vdots\\
+x_m\overline{y_1}&\cdots&x_m\overline{y_n}
+\end{bmatrix}.$$
+
+When $x$ and $y$ are nonzero, $xy^*$ has rank one. Outer products therefore serve as elementary building blocks for low-rank matrices and decompositions.
+
+A [norm](https://en.wikipedia.org/wiki/Norm_%28mathematics%29) measures magnitude. It must satisfy positivity, absolute homogeneity, and the triangle inequality. Common vector norms are
+
+$$\|x\|_1=\sum_i|x_i|,
+\qquad
+\|x\|_2=\sqrt{\sum_i|x_i|^2},
+\qquad
+\|x\|_\infty=\max_i|x_i|.$$
+
+A [matrix norm](https://en.wikipedia.org/wiki/Matrix_norm) measures the size of a matrix. An induced norm is defined by the maximum amplification of a chosen vector norm:
+
+$$\|A\|=\max_{x\ne0}\frac{\|Ax\|}{\|x\|}.$$
+
+It therefore satisfies the consistency bound $\|Ax\|\leq\|A\|\|x\|$. For the Euclidean norm, the induced matrix norm is the largest singular value: $\|A\|_2=\sigma_{\max}(A)$.
+
+## Singular value decomposition and conditioning
+
+Every real or complex $m\times n$ matrix has a [singular value decomposition](https://en.wikipedia.org/wiki/Singular_value_decomposition):
+
+$$A=U\Sigma V^*,$$
+
+where $U$ and $V$ are unitary (orthogonal in the real case) and $\Sigma$ is diagonal apart from possible extra zero rows or columns. Its nonnegative diagonal entries
+
+$$\sigma_1\geq\sigma_2\geq\cdots\geq0$$
+
+are the singular values. Geometrically, $V^*$ rotates or reflects the input coordinates, $\Sigma$ stretches along orthogonal directions, and $U$ rotates or reflects the result.
+
+The SVD unifies several earlier concepts:
+
+$$\begin{aligned}
+\operatorname{rank}(A)&=\#\{i:\sigma_i>0\},\\
+\|A\|_2&=\sigma_1,\\
+\|A\|_F&=\sqrt{\sum_i\sigma_i^2},\\
+A^\dagger&=V\Sigma^\dagger U^*.
+\end{aligned}$$
+
+Truncating the SVD after $r$ singular values produces a best rank-$r$ approximation in the spectral and Frobenius norms.
+
+The [condition number](https://en.wikipedia.org/wiki/Condition_number) describes sensitivity: how much relative error in inputs or data may be amplified in the output. For an invertible matrix,
+
+$$\kappa(A)=\|A\|\,\|A^{-1}\|.$$
+
+In the 2-norm,
+
+$$\kappa_2(A)=\frac{\sigma_{\max}(A)}{\sigma_{\min}(A)}.$$
+
+A value near $1$ indicates well-balanced scaling. A large value indicates a direction that is strongly compressed relative to another, so solving $Ax=b$ may be sensitive to perturbations. A singular matrix has infinite condition number under the usual convention.
+
+::: {.callout-warning title="Invertible does not mean numerically safe"}
+A matrix can have a nonzero determinant and still be nearly singular. Exact invertibility is an algebraic yes-or-no property; conditioning measures how reliable computations involving that inverse are in finite precision or noisy data.
+:::
+
+## Quadratic forms and definite matrices
+
+A [quadratic form](https://en.wikipedia.org/wiki/Quadratic_form) associated with a real symmetric matrix $A$ is
+
+$$q(x)=x^TAx.$$
+
+For complex vectors, the corresponding Hermitian form is $x^*Ax$. The sign of this scalar leads to the classification of a [definite matrix](https://en.wikipedia.org/wiki/Definite_matrix):
+
+| Classification | Requirement for every $x\ne0$ | Eigenvalues of Hermitian $A$ |
+|------------------------|------------------------|------------------------|
+| Positive definite | $x^*Ax>0$ | all positive |
+| Positive semidefinite | $x^*Ax\geq0$ | all nonnegative |
+| Negative definite | $x^*Ax<0$ | all negative |
+| Negative semidefinite | $x^*Ax\leq0$ | all nonpositive |
+| Indefinite | takes both positive and negative values | both positive and negative |
+
+For a real symmetric or complex Hermitian matrix, definiteness can be checked using eigenvalues; positive definiteness can also be tested with Sylvester's criterion or successful Cholesky factorization. Positive-definite matrices define ellipsoidal level sets and appear in energy functions, least squares, optimization, covariance models, and Lyapunov stability analysis.
+
+Orthogonal or unitary diagonalization makes the geometry explicit:
+
+$$A=Q\Lambda Q^*,
+\qquad
+x^*Ax=(Q^*x)^*\Lambda(Q^*x)
+=\sum_i\lambda_i|z_i|^2.$$
+
+Thus the eigenvalue signs determine the sign of the quadratic form in every direction.
+
+## How the concepts fit together
+
+The main logical connections are:
+
+1.  A basis converts an abstract linear transformation into a matrix.
+2.  Span and rank describe which output directions the matrix can reach.
+3.  Full rank, nonzero determinant, and invertibility coincide for square matrices.
+4.  Similarity changes coordinates while preserving intrinsic properties.
+5.  Diagonalization uses an eigenvector basis when such a basis exists.
+6.  Inner products provide geometry; norms measure size; outer products build rank-one maps.
+7.  The SVD works for every matrix and exposes rank, amplification, approximation, and pseudoinversion.
+8.  The condition number turns singular-value imbalance into a measure of numerical sensitivity.
+9.  Quadratic forms and definiteness connect matrix structure to geometry, energy, convexity, and stability.
+
+::: {.callout-important title="Compact mental model"}
+Use **rank and determinant** to ask whether information is lost; **similarity and diagonalization** to find useful coordinates; **inner products and norms** to measure geometry and size; **SVD and condition number** to understand numerical behavior; and **quadratic forms** to study direction-dependent sign or energy.
+:::
+
+## Source links
+
+- [Matrix: overview and definition](https://en.wikipedia.org/wiki/Matrix_%28mathematics%29)
+- [Matrix operations](https://en.wikipedia.org/wiki/Matrix_%28mathematics%29#Addition,_scalar_multiplication,_and_transposition)
+- [Conjugate transpose](https://en.wikipedia.org/wiki/Conjugate_transpose)
+- [Determinant](https://en.wikipedia.org/wiki/Determinant)
+- [Rank](https://en.wikipedia.org/wiki/Rank_%28linear_algebra%29)
+- [Invertible matrix](https://en.wikipedia.org/wiki/Invertible_matrix)
+- [Degeneracy](https://en.wikipedia.org/wiki/Degeneracy_%28mathematics%29)
+- [Block matrix](https://en.wikipedia.org/wiki/Block_matrix)
+- [Trace](https://en.wikipedia.org/wiki/Trace_%28linear_algebra%29)
+- [Vector space](https://en.wikipedia.org/wiki/Vector_space)
+- [Linear span](https://en.wikipedia.org/wiki/Linear_span)
+- [Matrix similarity](https://en.wikipedia.org/wiki/Matrix_similarity)
+- [Diagonalizable matrix](https://en.wikipedia.org/wiki/Diagonalizable_matrix)
+- [Inner product space](https://en.wikipedia.org/wiki/Inner_product_space)
+- [Cauchy--Schwarz inequality](https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality)
+- [Outer product](https://en.wikipedia.org/wiki/Outer_product)
+- [Norm](https://en.wikipedia.org/wiki/Norm_%28mathematics%29)
+- [Matrix norm](https://en.wikipedia.org/wiki/Matrix_norm)
+- [Condition number](https://en.wikipedia.org/wiki/Condition_number)
+- [Singular value decomposition](https://en.wikipedia.org/wiki/Singular_value_decomposition)
+- [Quadratic form](https://en.wikipedia.org/wiki/Quadratic_form)
+- [Definite matrix](https://en.wikipedia.org/wiki/Definite_matrix)

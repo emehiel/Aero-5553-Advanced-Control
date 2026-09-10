@@ -7,9 +7,10 @@ book:
   author: "Eric A. Mehiel, Ph.D."
   chapters:
     - index.qmd
-    - chapters/01-dynamic-system-control.qmd
-    - chapters/02-classical-control-highlights.qmd
-    - chapters/03-state-space.qmd
+    - chapters/01_0-dynamic-system-control.qmd
+    - chapters/01_1-classical-control-highlights.qmd
+    - chapters/02_0-system-modeling.qmd
+    - chapters/02_1-state-space-modeling.qmd
     - chapters/04-time-response.qmd
     - chapters/05-feedback.qmd
     - chapters/06-root-locus.qmd

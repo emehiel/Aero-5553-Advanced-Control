@@ -31,5 +31,17 @@
   },
   "chapters/02-classical-control-highlights.qmd": {
     "02-classical-control-highlights.html": "6bf5232f"
+  },
+  "chapters/02_0-system-modeling.qmd": {
+    "02_0-system-modeling.html": "190c997c"
+  },
+  "chapters/01_0-dynamic-system-control.qmd": {
+    "01_0-dynamic-system-control.html": "cae145ce"
+  },
+  "chapters/01_1-classical-control-highlights.qmd": {
+    "01_1-classical-control-highlights.html": "b7050bb6"
+  },
+  "chapters/02_1-state-space-modeling.qmd": {
+    "02_1-state-space-modeling.html": "4669aa0f"
   }
 }

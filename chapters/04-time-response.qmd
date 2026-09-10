@@ -1,6 +1,30 @@
-# Time Response
+# Fundamentals of Linear Algebra and Analysis for Control Systems
 
-## Learning Objectives
+references for this chapter:
+https://en.wikipedia.org/wiki/Matrix_(mathematics)
+https://en.wikipedia.org/wiki/Matrix_(mathematics)#Definition
+https://en.wikipedia.org/wiki/Matrix_(mathematics)#Addition,_scalar_multiplication,_and_transposition
+https://en.wikipedia.org/wiki/Conjugate_transpose
+https://en.wikipedia.org/wiki/Determinant
+https://en.wikipedia.org/wiki/Rank_(linear_algebra)
+https://en.wikipedia.org/wiki/Invertible_matrix
+https://en.wikipedia.org/wiki/Degeneracy_(mathematics)
+https://en.wikipedia.org/wiki/Invertible_matrix
+https://en.wikipedia.org/wiki/Block_matrix
+https://en.wikipedia.org/wiki/Trace_(linear_algebra)
+https://en.wikipedia.org/wiki/Vector_space
+https://en.wikipedia.org/wiki/Vector_space#Notation_and_definition
+https://en.wikipedia.org/wiki/Linear_span
+https://en.wikipedia.org/wiki/Matrix_similarity
+https://en.wikipedia.org/wiki/Diagonalizable_matrix
+https://en.wikipedia.org/wiki/Inner_product_space
+https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality
+https://en.wikipedia.org/wiki/Outer_product
+https://en.wikipedia.org/wiki/Norm_(mathematics)
+https://en.wikipedia.org/wiki/Matrix_norm
+https://en.wikipedia.org/wiki/Condition_number
 
-- Analyze second-order systems
-- Compute rise time, overshoot, settling time
+https://en.wikipedia.org/wiki/Singular_value_decomposition
+https://en.wikipedia.org/wiki/Quadratic_form
+https://en.wikipedia.org/wiki/Definite_matrix
+
