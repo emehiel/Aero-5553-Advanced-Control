@@ -14,16 +14,15 @@ jupyter: python3
 
 ### The Fundamental Abstraction
 
-* Dynamic System Theory as a branch of mathematics gives us a foundational starting point
-* We will rely on a variety of math tools, but primarily Linear Algebra and Analysis
-
+- Dynamic System Theory as a branch of mathematics gives us a foundational starting point
+- We will rely on a variety of math tools, but primarily Linear Algebra and Analysis
 
 ## Slide 3 - Start with ODEs
 
 Let:
 
-$$\dot{\underline{x}} = \underline{f}(\underline{x},\underline{u},t) \\
-y = \underline{h}(\underline{x},\underline{u},t)$$
+$$\begin{matrix} \dot{\underline{x}} = \underline{f}(\underline{x},\underline{u},t) \\
+y = \underline{h}(\underline{x},\underline{u},t) \end{matrix}$$
 
 Where $\underline{x} \in \mathbb{R}^n$ is the state vector, $\underline{u} \in \mathbb{R}^q$ is the input vector, and $y \in \mathbb{R}^p$ is the output/measurement vector. The function $\underline{f}$ describes how the state evolves over time, while $\underline{h}$ describes how the output is generated from the state and input.
 
@@ -35,21 +34,17 @@ and $\underline{f}: \mathbb{R}^n \times \mathbb{R}^p \to \mathbb{R}^n$ and $\und
 
 We have the LTI State Space Model:
 
-$$\dot{\underline{x}} = A \underline{x} + B \underline{u} \\
-y = C \underline{x} + D \underline{u}$$
+$$\begin{matrix}\dot{\underline{x}} = A \underline{x} + B \underline{u} \\
+\underline{y} = C \underline{x} + D \underline{u} \end{matrix}$$
 
-Where
-$A \in \mathbb{R}^{n \times n}$ is the state or dynamics matrix,
-$B \in \mathbb{R}^{n \times q}$ is the input or control matrix,
-$C \in \mathbb{R}^{p \times n}$ is the output or measurement matrix, and
-$D \in \mathbb{R}^{p \times q}$ is the feedthrough or direct matrix.
+Where $A \in \mathbb{R}^{n \times n}$ is the state or dynamics matrix, $B \in \mathbb{R}^{n \times q}$ is the input or control matrix, $C \in \mathbb{R}^{p \times n}$ is the output or measurement matrix, and $D \in \mathbb{R}^{p \times q}$ is the feedthrough or direct matrix.
 
 The matrices $A$, $B$, $C$, and $D$ are constant for LTI systems.
 
 ## Slide 7 - Example - The Inverted Pendulum
 
 ::: callout-note
-Draw a figure of the inverted pendulum.  Theta is defined positive counter-clockwise from vertical.
+Draw a figure of the inverted pendulum. Theta is defined positive counter-clockwise from vertical.
 :::
 
 $$J_t\ddot{\theta} + \gamma\dot{\theta} - mgl\sin(\theta) = u$$
@@ -82,27 +77,18 @@ Where $A = \begin{bmatrix} 0 & 1 \\ \frac{mgl}{J_t} & -\frac{\gamma}{J_t} \end{b
 
 ## Slide 10 - Simulink Example of the Inverted Pendulum
 
-```{python}
-% Preditor prey simulation
-
-function
-
-```
-
 ## Slide 11 - Block Diagrams Overview
 
 ## Slide 12 - Summary
 
 ### Developing a model is step *ZERO* in the design of a control system.
 
-* Modeling is a key step in developing a control system analysis
-    * Without the model, we have no place to start
-* The State Space approach is generally considered a good place to start
-* We will use a variety of modeling tools
-    * Math, linear analysis, ODEs,
-    * Block diagrams
-    * Matlab and Simulink
-    * Python
-    *…
-* “All models are wrong, but some are useful.” – George E. P. Box
-
+- Modeling is a key step in developing a control system analysis
+  - Without the model, we have no place to start
+- The State Space approach is generally considered a good place to start
+- We will use a variety of modeling tools
+  - Math, linear analysis, ODEs,
+  - Block diagrams
+  - Matlab and Simulink
+  - Python \*…
+- “All models are wrong, but some are useful.” – George E. P. Box

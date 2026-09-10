@@ -1,5 +1,12 @@
-# Feedback Control
+# Dynamic Behavior - Stabilty
 
-## Learning Objectives
+## Motivation
 
-- Derive closed-loop transfer functions
+- https://en.wikipedia.org/wiki/Stability
+- Stability is an important physical concept that shows up in many places in different ways.
+- For us, Lyapunov literally wrote the book on stability of dynamic systems
+- How and when to show a system is stable (or not) is at the core of control theory
+
+## Slide 3 - Lyapunov Stability Definitions
+
+For the dynamic system, $\underline{\dot{x}} = 
