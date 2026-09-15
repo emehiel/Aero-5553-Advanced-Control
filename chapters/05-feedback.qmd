@@ -9,4 +9,4 @@
 
 ## Slide 3 - Lyapunov Stability Definitions
 
-For the dynamic system, $\underline{\dot{x}} = 
+For the dynamic system, $\underline{\dot{x}} = f(\underline{x})$, with an equilibrium point at $\underline{x} = 0$, we have the following definitions of stability:

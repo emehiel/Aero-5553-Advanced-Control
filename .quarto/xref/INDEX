@@ -43,5 +43,8 @@
   },
   "chapters/02_1-state-space-modeling.qmd": {
     "02_1-state-space-modeling.html": "4669aa0f"
+  },
+  "chapters/A1-matrix-and-vector-spaces.qmd": {
+    "A1-matrix-and-vector-spaces.html": "5f82b215"
   }
 }

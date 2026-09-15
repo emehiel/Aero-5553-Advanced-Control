@@ -16,12 +16,15 @@ book:
     - chapters/06-root-locus.qmd
     - chapters/07-frequency-response.qmd
     - chapters/08-pid-design.qmd
-
+  appendices: 
+    - chapters\A1-matrix-and-vector-spaces.qmd
+    
 format:
   html:
     toc: true
     number-sections: true
     theme: cosmo
+    number-depth: 2
   pdf:
     documentclass: scrreprt
     toc: true
