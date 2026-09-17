@@ -1,6 +1,6 @@
 # Preface {.unnumbered}
 
-HERE IS AN UPDATE
+HERE IS AN UPDATE - for real
 
 These notes accompany a graduate course in Advanced Control Systems at Cal Poly, San Luis Obispo. The course is taught by Dr. E. Mehiel and is based on several books. Primarily, the course is based on the book,
 
