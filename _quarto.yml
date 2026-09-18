@@ -17,7 +17,7 @@ book:
     - chapters/07-frequency-response.qmd
     - chapters/08-pid-design.qmd
   appendices: 
-    - chapters\A1-matrix-and-vector-spaces.qmd
+    - chapters/A1-matrix-and-vector-spaces.qmd
     
 format:
   html:
