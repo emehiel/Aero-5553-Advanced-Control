@@ -82,7 +82,7 @@ Use Matlab pplane to plot the following:
 - $\ddot{x} + 2\zeta\omega_n\dot{x} + \omega_n^2 x = 0$ for various values of $\zeta$ and $\omega_n$.
 - $\ddot{x} + \sin{x} = 0$
 - $\ddot{x} - \sin{x} = 0$
-- $\ddot{x} + \dot{x} + sin{x} = 0$
+- $\ddot{x} + \dot{x} + \sin{x} = 0$
 - $\ddot{x} + (1-x^2)\dot{x} + x = 0$ (Van der Pol Oscillator)
 :::
 

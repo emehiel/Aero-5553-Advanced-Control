@@ -46,5 +46,11 @@
   },
   "chapters/A1-matrix-and-vector-spaces.qmd": {
     "A1-matrix-and-vector-spaces.html": "5f82b215"
+  },
+  "chapters/03_0-dynamic-behavior.qmd": {
+    "03_0-dynamic-behavior.html": "bf775f80"
+  },
+  "chapters/06-linear-systems.qmd": {
+    "06-linear-systems.html": "9a48df6b"
   }
 }
