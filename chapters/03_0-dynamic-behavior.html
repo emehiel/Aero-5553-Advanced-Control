@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6&nbsp; Dynamic Behavior - Stabilty – Aero 5553 - Advanced Control Theory</title>
+<title>5&nbsp; Dynamic Behavior - Stabilty – Aero 5553 - Advanced Control Theory</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -36,8 +36,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/06-root-locus.html" rel="next">
-<link href="../chapters/04-time-response.html" rel="prev">
+<link href="../chapters/06-linear-systems.html" rel="next">
+<link href="../chapters/02_1-state-space-modeling.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -117,7 +117,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/05-feedback.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dynamic Behavior - Stabilty</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/03_0-dynamic-behavior.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Dynamic Behavior - Stabilty</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -174,14 +174,14 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/04-time-response.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fundamentals of Linear Algebra and Analysis for Control Systems</span></span></a>
+  <a href="../chapters/03_0-dynamic-behavior.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Dynamic Behavior - Stabilty</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/05-feedback.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dynamic Behavior - Stabilty</span></span></a>
+  <a href="../chapters/06-linear-systems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Linear Systems</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -229,8 +229,16 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">6.1</span> Motivation</a></li>
-  <li><a href="#slide-3---lyapunov-stability-definitions" id="toc-slide-3---lyapunov-stability-definitions" class="nav-link" data-scroll-target="#slide-3---lyapunov-stability-definitions"><span class="header-section-number">6.2</span> Slide 3 - Lyapunov Stability Definitions</a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">5.1</span> Motivation</a></li>
+  <li><a href="#slide-3---solving" id="toc-slide-3---solving" class="nav-link" data-scroll-target="#slide-3---solving"><span class="header-section-number">5.2</span> Slide 3 - Solving</a></li>
+  <li><a href="#slide-4---examples---finite-escape-time" id="toc-slide-4---examples---finite-escape-time" class="nav-link" data-scroll-target="#slide-4---examples---finite-escape-time"><span class="header-section-number">5.3</span> Slide 4 - Examples - Finite Escape Time</a></li>
+  <li><a href="#slide-5---non-uniqueness-of-solutions" id="toc-slide-5---non-uniqueness-of-solutions" class="nav-link" data-scroll-target="#slide-5---non-uniqueness-of-solutions"><span class="header-section-number">5.4</span> Slide 5 - Non-uniqueness of Solutions</a></li>
+  <li><a href="#slide-6---lipschitz-continuity" id="toc-slide-6---lipschitz-continuity" class="nav-link" data-scroll-target="#slide-6---lipschitz-continuity"><span class="header-section-number">5.5</span> Slide 6 - Lipschitz Continuity</a></li>
+  <li><a href="#slide-7---examples-of-lipschitz-continuity" id="toc-slide-7---examples-of-lipschitz-continuity" class="nav-link" data-scroll-target="#slide-7---examples-of-lipschitz-continuity"><span class="header-section-number">5.6</span> Slide 7 - Examples of Lipschitz Continuity</a></li>
+  <li><a href="#slide-8---qualitatie-analysis---phase-portraits" id="toc-slide-8---qualitatie-analysis---phase-portraits" class="nav-link" data-scroll-target="#slide-8---qualitatie-analysis---phase-portraits"><span class="header-section-number">5.7</span> Slide 8 - Qualitatie Analysis - Phase Portraits</a></li>
+  <li><a href="#slide-9---equilibrium-points" id="toc-slide-9---equilibrium-points" class="nav-link" data-scroll-target="#slide-9---equilibrium-points"><span class="header-section-number">5.8</span> Slide 9 - Equilibrium Points</a></li>
+  <li><a href="#slide-10---examples" id="toc-slide-10---examples" class="nav-link" data-scroll-target="#slide-10---examples"><span class="header-section-number">5.9</span> Slide 10 - Examples</a></li>
+  <li><a href="#slide-11---summary" id="toc-slide-11---summary" class="nav-link" data-scroll-target="#slide-11---summary"><span class="header-section-number">5.10</span> Slide 11 - Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -239,7 +247,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dynamic Behavior - Stabilty</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Dynamic Behavior - Stabilty</span></h1>
 </div>
 
 
@@ -256,18 +264,140 @@ window.Quarto = {
 </header>
 
 
-<section id="motivation" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="motivation"><span class="header-section-number">6.1</span> Motivation</h2>
+<section id="motivation" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="motivation"><span class="header-section-number">5.1</span> Motivation</h2>
 <ul>
-<li>https://en.wikipedia.org/wiki/Stability</li>
-<li>Stability is an important physical concept that shows up in many places in different ways.</li>
-<li>For us, Lyapunov literally wrote the book on stability of dynamic systems</li>
-<li>How and when to show a system is stable (or not) is at the core of control theory</li>
+<li>Understanding Dynamic Systems
+<ul>
+<li>There are several ways of looking at and analyzing dynamic systems</li>
+<li>Each approach reveals different behaviors</li>
+<li>We will look at:
+<ul>
+<li>Existence and Uniqueness of solutions</li>
+<li>Phase portraits, equilibrium and limit cycles</li>
+<li>Stability</li>
+</ul></li>
+</ul></li>
 </ul>
 </section>
-<section id="slide-3---lyapunov-stability-definitions" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="slide-3---lyapunov-stability-definitions"><span class="header-section-number">6.2</span> Slide 3 - Lyapunov Stability Definitions</h2>
-<p>For the dynamic system, <span class="math inline">\(\underline{\dot{x}} = f(\underline{x})\)</span>, with an equilibrium point at <span class="math inline">\(\underline{x} = 0\)</span>, we have the following definitions of stability:</p>
+<section id="slide-3---solving" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="slide-3---solving"><span class="header-section-number">5.2</span> Slide 3 - Solving</h2>
+<p>Recall the general form of a dynamic system: <span class="math inline">\(\underline{\dot{x}} = f(\underline{x}, \underline{u}, t)\)</span> and <span class="math inline">\(\underline{y} = h(\underline{x}, \underline{u}, t)\)</span></p>
+<p>Let <span class="math inline">\(\underline{u} = \alpha{\underline{x}}\)</span> i.e.&nbsp;a function of the state which is a common case in control systems.</p>
+<p><em>Definition</em>: <span class="math inline">\(\underline{x}(t)\)</span> is a solution to the state equation with initial condition <span class="math inline">\(\underline{x}(0) = \underline{x}_0\)</span> for all <span class="math inline">\(t \in \mathbb{R}\)</span> if <span class="math inline">\(\underline{x}(t_0) = \underline{x}_0\)</span> and <span class="math inline">\(\underline{\dot{x}}(t) = f(\underline{x}, \alpha(\underline{x})) = \underline{F}(\underline{x})\)</span> for all <span class="math inline">\(t_0 \leq t \leq t_1\)</span>. In this case, <span class="math inline">\(\{t_0, \ t_1\}\)</span> can be open or closed at <span class="math inline">\(t_1\)</span>.</p>
+</section>
+<section id="slide-4---examples---finite-escape-time" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="slide-4---examples---finite-escape-time"><span class="header-section-number">5.3</span> Slide 4 - Examples - Finite Escape Time</h2>
+<p><span class="math inline">\(\dot{x} = x^2\)</span> with <span class="math inline">\(x(0) = 1\)</span> has a solution <span class="math inline">\(x(t) = \frac{1}{1-t}\)</span> which is valid for <span class="math inline">\(t \in [0, 1)\)</span> and has a finite escape time at <span class="math inline">\(t = 1\)</span>.</p>
+<p>In this case, <span class="math inline">\(x(t) \to \infty\)</span> as <span class="math inline">\(t \to 1\)</span>.</p>
+</section>
+<section id="slide-5---non-uniqueness-of-solutions" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="slide-5---non-uniqueness-of-solutions"><span class="header-section-number">5.4</span> Slide 5 - Non-uniqueness of Solutions</h2>
+<p><span class="math inline">\(\dot{x} = 2\sqrt{x}\)</span> with <span class="math inline">\(x(0) = 0\)</span> has an infinite number of solutions.</p>
+<p><span class="math display">\[x(t) = \begin{cases} 0, &amp; t \in [0, a] \\ (t-a)^2, &amp; t \in (a, \infty) \end{cases}\]</span></p>
+<p>Where <span class="math inline">\(a\)</span> is any positive number.</p>
+<p>For verification, <span class="math inline">\(\frac{dx}{dt}(t-a)^2 = 2(t-a) = 2\sqrt{(t-a)^2} = 2\sqrt{x}\)</span> for <span class="math inline">\(t &gt; a\)</span> and <span class="math inline">\(\dot{x} = 0 = \sqrt{0} = \sqrt{x}\)</span> for <span class="math inline">\(t \leq a\)</span>.</p>
+</section>
+<section id="slide-6---lipschitz-continuity" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="slide-6---lipschitz-continuity"><span class="header-section-number">5.5</span> Slide 6 - Lipschitz Continuity</h2>
+<p><em>Definition</em>: A function <span class="math inline">\(f: \mathbb{R}^n \to \mathbb{R}^n\)</span> is Lipschitz continuous if there exists a constant <span class="math inline">\(c &gt; 0\)</span> such that for all <span class="math inline">\(\underline{x}, \underline{y} \in \mathbb{R}^n\)</span>,</p>
+<p><span class="math display">\[\|F(\underline{x}) - F(\underline{y})\| \leq c \|\underline{x} - \underline{y}\|\]</span></p>
+<ul>
+<li>If <span class="math inline">\(F\)</span> is Lipschitz continuous, then the solution to <span class="math inline">\(\underline{\dot{x}} = F(\underline{x})\)</span> is unique.</li>
+<li>If <span class="math inline">\(F\)</span> is continuously differentiable, then <span class="math inline">\(F\)</span> is Lipschitz continuous</li>
+<li>If <span class="math inline">\(\nabla F\)</span> is uniformly bounded, then <span class="math inline">\(F\)</span> is Lipschitz continuous</li>
+</ul>
+</section>
+<section id="slide-7---examples-of-lipschitz-continuity" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="slide-7---examples-of-lipschitz-continuity"><span class="header-section-number">5.6</span> Slide 7 - Examples of Lipschitz Continuity</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Draw a figure in state space showing two points <span class="math inline">\(\underline{x}\)</span> and <span class="math inline">\(\underline{y}\)</span> and the corresponding vectors <span class="math inline">\(F(\underline{x})\)</span> and <span class="math inline">\(F(\underline{y})\)</span>. Show the distance between the points and the distance between the vectors, illustrating the Lipschitz condition.</p>
+<p>In the case of the example <span class="math inline">\(\dot{x} = x^2\)</span>, <span class="math inline">\(F(x) = x^2\)</span> is <em>not</em> Lipschitz continuous since <span class="math inline">\(\frac{dF}{dx} = 2x\)</span> is unbounded as <span class="math inline">\(x \to \infty\)</span>.</p>
+<p>In the case of the example <span class="math inline">\(\dot{x} = 2\sqrt{x}\)</span>, <span class="math inline">\(F(x) = 2\sqrt{x}\)</span> is not Lipschitz continuous at <span class="math inline">\(x = 0\)</span> since <span class="math inline">\(\frac{dF}{dx} = \frac{1}{\sqrt{x}}\)</span> is unbounded as <span class="math inline">\(x \to 0\)</span>.</p>
+</div>
+</div>
+<p>More from Wikipedia on <a href="https://en.wikipedia.org/wiki/Uniform_boundedness">Uniform boundedness</a></p>
+</section>
+<section id="slide-8---qualitatie-analysis---phase-portraits" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="slide-8---qualitatie-analysis---phase-portraits"><span class="header-section-number">5.7</span> Slide 8 - Qualitatie Analysis - Phase Portraits</h2>
+<p>Notice <span class="math inline">\(\underline{\dot{x}} = F(\underline{x})\)</span> is a <em>vector field</em> in <span class="math inline">\(\mathbb{R}^n\)</span> and can be visualized as a <em>phase portrait</em> in <span class="math inline">\(\mathbb{R}^n\)</span>.</p>
+<p>If we start at a point <span class="math inline">\(\underline{x}_0\)</span> in the phase portrait, we can follow the vector field to see how the state evolves over time. This is a <em>trajectory</em> in the phase portrait.</p>
+<p>The phase portrate is a collection of trajectories in the state space.</p>
+</section>
+<section id="slide-9---equilibrium-points" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="slide-9---equilibrium-points"><span class="header-section-number">5.8</span> Slide 9 - Equilibrium Points</h2>
+<p><em>Definition</em>: The point in the state-space graph, <span class="math inline">\(\underline{x}_e\)</span> is an <em>equilibrium point</em> of the dynamic system <span class="math inline">\(\underline{\dot{x}} = F(\underline{x})\)</span> if <span class="math inline">\(F(\underline{x}_e) = 0\)</span> for all <span class="math inline">\(t \geq t_0\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Example: MSD - for the system <span class="math inline">\(\ddot{x} + 2\zeta\omega_n\dot{x} + \omega_n^2 x = 0\)</span>, the equilibrium point is at <span class="math inline">\(x = 0\)</span> and <span class="math inline">\(\dot{x} = 0\)</span>.</p>
+<p>Since <span class="math inline">\(\dot{\underline{x}} = \begin{bmatrix} \dot{x} \\ \ddot{x} \end{bmatrix} = \begin{bmatrix} \dot{x} \\ -2\zeta\omega_n\dot{x} - \omega_n^2 x \end{bmatrix}\)</span>, we have <span class="math inline">\(F(\underline{x}) = 0\)</span> when <span class="math inline">\(\dot{x} = 0\)</span> and <span class="math inline">\(x = 0\)</span>. Therefore, the equilibrium point is at <span class="math inline">\(\underline{x}_e = \begin{bmatrix} 0 \\ 0 \end{bmatrix}\)</span>.</p>
+</div>
+</div>
+</section>
+<section id="slide-10---examples" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="slide-10---examples"><span class="header-section-number">5.9</span> Slide 10 - Examples</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use Matlab pplane to plot the following:</p>
+<ul>
+<li><span class="math inline">\(\ddot{x} + 2\zeta\omega_n\dot{x} + \omega_n^2 x = 0\)</span> for various values of <span class="math inline">\(\zeta\)</span> and <span class="math inline">\(\omega_n\)</span>.</li>
+<li><span class="math inline">\(\ddot{x} + \sin{x} = 0\)</span></li>
+<li><span class="math inline">\(\ddot{x} - \sin{x} = 0\)</span></li>
+<li><span class="math inline">\(\ddot{x} + \dot{x} + \sin{x} = 0\)</span></li>
+<li><span class="math inline">\(\ddot{x} + (1-x^2)\dot{x} + x = 0\)</span> (Van der Pol Oscillator)</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Notice: - The single equilibrium point at the origin for the MSD system. - The infinite number of equilibrium points for the pendulum system. - The limit cycle for the Van der Pol oscillator.</p>
+</div>
+</div>
+</section>
+<section id="slide-11---summary" class="level2" data-number="5.10">
+<h2 data-number="5.10" class="anchored" data-anchor-id="slide-11---summary"><span class="header-section-number">5.10</span> Slide 11 - Summary</h2>
+<p>There is always more:</p>
+<ul>
+<li>For linear systems, things are straight forward
+<ul>
+<li>Single isolated equilibrium points that can be transformed to any coordinate frame</li>
+</ul></li>
+<li>For non-linear systems, not so much</li>
+<li>We will develop tools to analyze non-linear systems and see how they apply to the subset of linear systems</li>
+</ul>
 
 
 </section>
@@ -675,13 +805,13 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/04-time-response.html" class="pagination-link" aria-label="Fundamentals of Linear Algebra and Analysis for Control Systems">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fundamentals of Linear Algebra and Analysis for Control Systems</span></span>
+      <a href="../chapters/02_1-state-space-modeling.html" class="pagination-link" aria-label="State Space Modeling">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">State Space Modeling</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/06-root-locus.html" class="pagination-link" aria-label="Root Locus">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Root Locus</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/06-linear-systems.html" class="pagination-link" aria-label="Linear Systems">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Linear Systems</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -71,7 +71,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/04-time-response.html" rel="next">
+<link href="../chapters/03_0-dynamic-behavior.html" rel="next">
 <link href="../chapters/02_0-system-modeling.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -209,14 +209,14 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/04-time-response.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fundamentals of Linear Algebra and Analysis for Control Systems</span></span></a>
+  <a href="../chapters/03_0-dynamic-behavior.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Dynamic Behavior - Stabilty</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/05-feedback.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dynamic Behavior - Stabilty</span></span></a>
+  <a href="../chapters/06-linear-systems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Linear Systems</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -322,7 +322,7 @@ y = \underline{h}(\underline{x},\underline{u},t) \end{matrix}\]</span></p>
 <p>We have the LTI State Space Model:</p>
 <p><span class="math display">\[\begin{matrix}\dot{\underline{x}} = A \underline{x} + B \underline{u} \\
 \underline{y} = C \underline{x} + D \underline{u} \end{matrix}\]</span></p>
-<p>Where <span class="math inline">\(A \in \mathbb{R}^{n \times n}\)</span> is the state or dynamics matrix, <span class="math inline">\(B \in \mathbb{R}^{n \times q}\)</span> is the input or control matrix, <span class="math inline">\(C \in \mathbb{R}^{p \times n}\)</span> is the output or measurement matrix, and <span class="math inline">\(D \in \mathbb{R}^{p \times q}\)</span> is the feedthrough or direct matrix.</p>
+<p>Where <span class="math inline">\(A \in \mathbb{R}^{n \times n}\)</span> is the state or dynamics matrix, <span class="math inline">\(B \in \mathbb{R}^{n \times q}\)</span> is the input or control matrix, <span class="math inline">\(C \in \mathbb{R}^{p \times n}\)</span> is the output or measurement matrix, and <span class="math inline">\(D \in \mathbb{R}^{p \times q}\)</span> is the feed through or direct matrix.</p>
 <p>The matrices <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span>, and <span class="math inline">\(D\)</span> are constant for LTI systems.</p>
 </section>
 <section id="slide-7---example---the-inverted-pendulum" class="level2" data-number="4.4">
@@ -850,8 +850,8 @@ Note
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/04-time-response.html" class="pagination-link" aria-label="Fundamentals of Linear Algebra and Analysis for Control Systems">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fundamentals of Linear Algebra and Analysis for Control Systems</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/03_0-dynamic-behavior.html" class="pagination-link" aria-label="Dynamic Behavior - Stabilty">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Dynamic Behavior - Stabilty</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
@@ -894,7 +894,7 @@ Note
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>$$\begin{matrix}\dot{\underline{x}} = A \underline{x} + B \underline{u} <span class="sc">\\</span></span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>\underline{y} = C \underline{x} + D \underline{u} \end{matrix}$$</span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>Where $A \in \mathbb{R}^{n \times n}$ is the state or dynamics matrix, $B \in \mathbb{R}^{n \times q}$ is the input or control matrix, $C \in \mathbb{R}^{p \times n}$ is the output or measurement matrix, and $D \in \mathbb{R}^{p \times q}$ is the feedthrough or direct matrix.</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>Where $A \in \mathbb{R}^{n \times n}$ is the state or dynamics matrix, $B \in \mathbb{R}^{n \times q}$ is the input or control matrix, $C \in \mathbb{R}^{p \times n}$ is the output or measurement matrix, and $D \in \mathbb{R}^{p \times q}$ is the feed through or direct matrix.</span>
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>The matrices $A$, $B$, $C$, and $D$ are constant for LTI systems.</span>
 <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
