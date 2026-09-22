@@ -1,0 +1,11 @@
+{
+  "hash": "ed14194094fd3ca5d65d99c969969a99",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Linear Systems\"\nformat: \n  html:\n    theme: cosmo\n    toc: true\n    toc-depth: 2\n    code-fold: true\n    code-tools: true\njupyter: python3\n---\n\n## Modal Example - 2 MSD system\n\n::: {.cell execution_count=1}\n``` {.python .cell-code}\nimport numpy as np\nimport scipy.linalg as la\nimport matplotlib.pyplot as plt\n\n# Mass Matrtix\nm_1 = 1.0\nm_2 = 1.0\nM = np.array([[m_1, 0], [0, m_2]])\n\n# Stiffness Matrix\nk_1 = 1\nk_2 = 1\nK = np.array([[k_1 + k_2, -k_2], [-k_2, k_1 + k_2]])\n\n# Step 1 - Compute the Modal Matrix\nP = la.sqrtm(la.inv(M)) @ K @ la.sqrtm(la.inv(M))\n\n# Step 2 - Compute the Eigenvalues and Eigenvectors of P\nLambda, Psi_bar = la.eig(P)\n\n# Step 3 - Compute the Mode Shapes\nPsi_0 = la.sqrtm(la.inv(M)) @ Psi_bar\n\nprint(\"Eigenvalues (Mode Frequencies):\")\nprint(Lambda)\n\nprint(\"Mode Shapes:\")\nprint(Psi_0)\n```\n\n::: {.cell-output .cell-output-stdout}\n```\nEigenvalues (Mode Frequencies):\n[3.+0.j 1.+0.j]\nMode Shapes:\n[[ 0.70710678  0.70710678]\n [-0.70710678  0.70710678]]\n```\n:::\n:::\n\n\n### Modal Decomposition Process\n\n1.  $P=M_0^{\\frac{1}{2}} K M_0^{\\frac{1}{2}}$\n2.  Find the Eigenvalues and Eigenvectors of $P$, $\\{\\bar{\\Psi_0}, \\ \\bar{\\Lambda_0}\\}= \\texttt{eig} (P)$.\n    - Mode frequencies are the Eigenvalues of $P$ in $\\bar{\\Lambda_0}$.\n3.  Find the Mode Shapes, $\\Psi_0 = M_0^{\\frac{1}{2}} \\bar{\\Psi_0}$\n\n",
+    "supporting": [
+      "06-linear-systems_files\\figure-pdf"
+    ],
+    "filters": []
+  }
+}
