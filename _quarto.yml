@@ -11,8 +11,8 @@ book:
     - chapters/01_1-classical-control-highlights.qmd
     - chapters/02_0-system-modeling.qmd
     - chapters/02_1-state-space-modeling.qmd
-    - chapters/04-time-response.qmd
-    - chapters/05-feedback.qmd
+    - chapters/03_0-dynamic-behavior.qmd
+    - chapters/06-linear-systems.qmd
     - chapters/06-root-locus.qmd
     - chapters/07-frequency-response.qmd
     - chapters/08-pid-design.qmd
