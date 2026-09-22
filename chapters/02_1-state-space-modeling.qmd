@@ -37,7 +37,7 @@ We have the LTI State Space Model:
 $$\begin{matrix}\dot{\underline{x}} = A \underline{x} + B \underline{u} \\
 \underline{y} = C \underline{x} + D \underline{u} \end{matrix}$$
 
-Where $A \in \mathbb{R}^{n \times n}$ is the state or dynamics matrix, $B \in \mathbb{R}^{n \times q}$ is the input or control matrix, $C \in \mathbb{R}^{p \times n}$ is the output or measurement matrix, and $D \in \mathbb{R}^{p \times q}$ is the feedthrough or direct matrix.
+Where $A \in \mathbb{R}^{n \times n}$ is the state or dynamics matrix, $B \in \mathbb{R}^{n \times q}$ is the input or control matrix, $C \in \mathbb{R}^{p \times n}$ is the output or measurement matrix, and $D \in \mathbb{R}^{p \times q}$ is the feed through or direct matrix.
 
 The matrices $A$, $B$, $C$, and $D$ are constant for LTI systems.
 

@@ -1,0 +1,105 @@
+# Dynamic Behavior - Stabilty
+
+## Motivation
+
+- Understanding Dynamic Systems
+  - There are several ways of looking at and analyzing dynamic systems
+  - Each approach reveals different behaviors
+  - We will look at:
+    - Existence and Uniqueness of solutions
+    - Phase portraits, equilibrium and limit cycles
+    - Stability
+
+## Slide 3 - Solving
+
+Recall the general form of a dynamic system: $\underline{\dot{x}} = f(\underline{x}, \underline{u}, t)$ and $\underline{y} = h(\underline{x}, \underline{u}, t)$
+
+Let $\underline{u} = \alpha{\underline{x}}$ i.e. a function of the state which is a common case in control systems.
+
+*Definition*: $\underline{x}(t)$ is a solution to the state equation with initial condition $\underline{x}(0) = \underline{x}_0$ for all $t \in \mathbb{R}$ if $\underline{x}(t_0) = \underline{x}_0$ and $\underline{\dot{x}}(t) = f(\underline{x}, \alpha(\underline{x})) = \underline{F}(\underline{x})$ for all $t_0 \leq t \leq t_1$. In this case, $\{t_0, \ t_1\}$ can be open or closed at $t_1$.
+
+## Slide 4 - Examples - Finite Escape Time
+
+$\dot{x} = x^2$ with $x(0) = 1$ has a solution $x(t) = \frac{1}{1-t}$ which is valid for $t \in [0, 1)$ and has a finite escape time at $t = 1$.
+
+In this case, $x(t) \to \infty$ as $t \to 1$.
+
+## Slide 5 - Non-uniqueness of Solutions
+
+$\dot{x} = 2\sqrt{x}$ with $x(0) = 0$ has an infinite number of solutions.
+
+$$x(t) = \begin{cases} 0, & t \in [0, a] \\ (t-a)^2, & t \in (a, \infty) \end{cases}$$
+
+Where $a$ is any positive number.
+
+For verification, $\frac{dx}{dt}(t-a)^2 = 2(t-a) = 2\sqrt{(t-a)^2} = 2\sqrt{x}$ for $t > a$ and $\dot{x} = 0 = \sqrt{0} = \sqrt{x}$ for $t \leq a$.
+
+## Slide 6 - Lipschitz Continuity
+
+*Definition*: A function $f: \mathbb{R}^n \to \mathbb{R}^n$ is Lipschitz continuous if there exists a constant $c > 0$ such that for all $\underline{x}, \underline{y} \in \mathbb{R}^n$,
+
+$$\|F(\underline{x}) - F(\underline{y})\| \leq c \|\underline{x} - \underline{y}\|$$
+
+- If $F$ is Lipschitz continuous, then the solution to $\underline{\dot{x}} = F(\underline{x})$ is unique.
+- If $F$ is continuously differentiable, then $F$ is Lipschitz continuous
+- If $\nabla F$ is uniformly bounded, then $F$ is Lipschitz continuous
+
+## Slide 7 - Examples of Lipschitz Continuity
+
+::: callout-note
+Draw a figure in state space showing two points $\underline{x}$ and $\underline{y}$ and the corresponding vectors $F(\underline{x})$ and $F(\underline{y})$. Show the distance between the points and the distance between the vectors, illustrating the Lipschitz condition.
+
+In the case of the example $\dot{x} = x^2$, $F(x) = x^2$ is *not* Lipschitz continuous since $\frac{dF}{dx} = 2x$ is unbounded as $x \to \infty$.
+
+In the case of the example $\dot{x} = 2\sqrt{x}$, $F(x) = 2\sqrt{x}$ is not Lipschitz continuous at $x = 0$ since $\frac{dF}{dx} = \frac{1}{\sqrt{x}}$ is unbounded as $x \to 0$.
+:::
+
+More from Wikipedia on [Uniform boundedness](https://en.wikipedia.org/wiki/Uniform_boundedness)
+
+## Slide 8 - Qualitatie Analysis - Phase Portraits
+
+Notice $\underline{\dot{x}} = F(\underline{x})$ is a *vector field* in $\mathbb{R}^n$ and can be visualized as a *phase portrait* in $\mathbb{R}^n$.
+
+If we start at a point $\underline{x}_0$ in the phase portrait, we can follow the vector field to see how the state evolves over time. This is a *trajectory* in the phase portrait.
+
+The phase portrate is a collection of trajectories in the state space.
+
+## Slide 9 - Equilibrium Points
+
+*Definition*: The point in the state-space graph, $\underline{x}_e$ is an *equilibrium point* of the dynamic system $\underline{\dot{x}} = F(\underline{x})$ if $F(\underline{x}_e) = 0$ for all $t \geq t_0$.
+
+::: callout-note
+Example: MSD - for the system $\ddot{x} + 2\zeta\omega_n\dot{x} + \omega_n^2 x = 0$, the equilibrium point is at $x = 0$ and $\dot{x} = 0$.
+
+Since $\dot{\underline{x}} = \begin{bmatrix} \dot{x} \\ \ddot{x} \end{bmatrix} = \begin{bmatrix} \dot{x} \\ -2\zeta\omega_n\dot{x} - \omega_n^2 x \end{bmatrix}$, we have $F(\underline{x}) = 0$ when $\dot{x} = 0$ and $x = 0$.  Therefore, the equilibrium point is at $\underline{x}_e = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$.
+:::
+
+## Slide 10 - Examples
+
+::: callout-note
+Use Matlab pplane to plot the following:
+
+- $\ddot{x} + 2\zeta\omega_n\dot{x} + \omega_n^2 x = 0$ for various values of $\zeta$ and $\omega_n$.
+- $\ddot{x} + \sin{x} = 0$
+- $\ddot{x} - \sin{x} = 0$
+- $\ddot{x} + \dot{x} + sin{x} = 0$
+- $\ddot{x} + (1-x^2)\dot{x} + x = 0$ (Van der Pol Oscillator)
+:::
+
+::: callout-note
+Notice:
+- The single equilibrium point at the origin for the MSD system.
+- The infinite number of equilibrium points for the pendulum system.
+- The limit cycle for the Van der Pol oscillator.
+:::
+
+## Slide 11 - Summary
+
+There is always more:
+
+- For linear systems, things are straight forward
+    - Single isolated equilibrium points that can be transformed to 
+any coordinate frame
+- For non-linear systems, not so much
+- We will develop tools to analyze non-linear systems and 
+see how they apply to the subset of linear systems
