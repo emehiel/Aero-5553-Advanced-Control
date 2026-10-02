@@ -1,0 +1,128 @@
+---
+title: "State Feedback - Reachability"
+format: 
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    code-tools: true
+jupyter: python3
+---
+
+## Slide 2 - Motivation
+
+- Reachability is a fundamental concept in control theory that determines whether a system can be driven from any initial state to any desired final state within a finite time interval using appropriate control inputs.
+
+## Slide 3 - Reachability - The Definition
+
+Figure 7.1: Reachability of a system
+
+Define the reachable set $\mathcal{R}(t_0, \leq T)$ as the set of all states, $\underline{x}_f$ that can be reached from the initial state $\underline{x}(t_0)=\underline{x}_0$ at time $t_0$ to the final state $\underline{x}(T)=\underline{x}_f$ at time $T$ using admissible control inputs $\underline{u}(t)$ on the interval $[0, T]$.
+
+**Definition 7.1** : (Reachability) A linear system is *reachable* if for any $x_0, x_f \in \mathbb{R}^n$ there exists a finite time $T>0$ and an admissible control input $\underline{u}(t): [0,T] \to \mathbb{R}$ such that if $\underline{x}(0)=\underline{x}_0$ then the corresponding solution satisfies $\underline{x}(T)=\underline{x}_f$.
+
+This means the system can be driven from $\underline{x}(t_0) = \underline{x}_0$ to $\underline{x}(T) = \underline{x}_f$ in finite time, $T$.
+
+## Slide 4 - Reachability - The Concept
+
+*Important Point*: The definition of reachability addresses whether it is possible to reach all points in the state space in a *transient* fashion. In other words, points in the state space we can reach in finite time, but not necessarily stay at.
+
+Many texts use the term *controllability* to refer to the same concept. However, we will use the term *reachability* to avoid confusion with the concept of *asymptotic stability*, which implies the system converges to an equilibrium point in infinite time or *steady state*.
+
+It is also important to note that the set of equilibrium points we are normally interested in may or may not be reachable. For a constant control input, $\underline{u}_e \in \mathbb{R}$, the set of all possible equilibrium points is given by $\mathcal{R}_{eq}=\{\underline{x}_e: A\underline{x}_e + B\underline{u}_e=0\}$.
+
+## Slide 5 - Example of Reachability
+
+### Exmple 7.1: The Double Integrator System
+
+Consider $\dot{\underline{x}} = \begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix} \underline{x} + \begin{bmatrix} 0 \\ 1 \end{bmatrix} u$
+
+Or in state variable form, $\frac{dx_1}{dt} = x_2$ and $\frac{dx_2}{dt} = u$.
+
+How could we reach the equilibrium from some arbitrary position? We can control $x_2$ but have to rely on natural dynamics to change $x_1$. By choosing $u<0$ to start, the system moves down then up and to the left due to natural dynamics. At some point we can set $u>0$ and the system will move up then down to the right. Repeat.
+
+Notice if we get to the equilibrium, we can stay there, but if we get to some point where $x_2 \neq 0$, we can only *pass through* the point in a *transient* fashion. This is a hallmark of *reachability*.
+
+Figure 7.1b
+
+## Slide 6 - When is a system reachable?
+
+Assmue the input matrix $B \in \mathbb{R}^1$. Single Input
+
+With $\underline{x}_0 = \underline{0}$ we have,
+
+$$ x(t) = \int_{0}^{t}e^{A(t-\tau)}Bu(\tau)d\tau$$
+
+Let $u(\tau)=\delta(\tau)$, therefore
+
+$$x(t) = \int_{0}^{t}e^{A(t-\tau)}B\delta(\tau)d\tau=e^{At}B$$
+
+The response to derivative of impulse is,
+
+$$\frac{dx_\delta}{dt}=Ae^{At}B$$
+
+and
+
+$$\frac{d^nx_\delta}{dt^n}=A^ne^{At}B$$
+
+Let $u(t) = α_1\delta(t) +α_2\dot{\delta(t)} + α_3\ddot{\delta(t)} + ··· + α_n\delta^{(n−1)}(t)$
+
+Notice the input is a linear combination of the impulse and its derivatives where the impuse and its derivatives are linearly independent. Therefore, by choosing the appropriate $\alpha_i$, we can choose any input we want. The response to this input is
+
+$$x(t) = α_1e^{At}B +α_2Ae^{At}B + α_3A^2e^{At}B + ··· + α_nA^{n-1}e^{At}B$$
+
+Again, notice that the response is a linear combination of powers of $A$ multiplied by $e^{At}B$.
+
+Why is this important? Because if the vectors $A^n e^{At}B$ are linearly independent, those vectors form a basis (or spanning set), of the state space. Therefore,we can choose the $\alpha_i$ to reach any point in the state space at any finite time, $t=T$.
+
+::: {.callout-tip}
+## Linear Independence and Basis
+Aside: A set of vectors $\{v_1, v_2, ···, v_n\}$ is linearly independent if the only solution to $α_1v_1 + α_2v_2 + ··· + α_nv_n = 0$ is $α_1 = α_2 = ··· = α_n = 0$. Otherwise, the set of vectors is linearly dependent. What is means if that any in the set of vectors can be expressed as a linear combination of the other vectors in the set.
+
+We use this idea all the time. Consider the standard basis vectors in $\mathbb{R}^3$, $e_1 = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}$, $e_2 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}$, and $e_3 = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}$. These vectors are linearly independent and form a basis for $\mathbb{R}^3$. Any vector in $\mathbb{R}^3$ can be expressed as a linear combination of these three vectors by chooseing the appropriate coefficients. For example, $\begin{bmatrix} 2 \\ 3 \\ 4 \end{bmatrix} = 2e_1 + 3e_2 + 4e_3$.
+
+A set of linearly independent vectors that span the state space is called a *basis* for the state space. The number of vectors in the basis is called the *dimension* of the state space. In this case, the dimension of the state space is $n$.
+
+The basis vectors can be functions of time, $t$, but they must be linearly independent for all $t$.
+:::
+
+Taking the limit as $t \to 0$ gives $$\lim_{t \to 0}x(t) = α_1B +α_2AB + α_3A^2B + ··· + α_nA^{n-1}B$$
+
+Define the *reachability matrix* as $$\mathcal{W_r} = [B, AB, A^2B, ···, A^{n-1}B]$$
+
+## Slide 7 - Reachability Rank Theorem
+
+If the rank of the reachability matrix is $n$, then the system is reachable. Other wise, it is not reachable.
+
+Some set of $\alpha_i$ can be found so that the system can be driven from any initial state to any final state in finite time since $x(t)$ is a linear combination of the columns of the reachability matrix.
+
+**Theorem 7.1** (Reachability rank condition). A linear system of the form (7.1) is reachable if and only if the reachability matrix $W_r$ is invertible (full column rank).
+
+## Slide 8 - Example 7.2 - Reachability of a System
+
+Example 7.2
+
+Linear Dynamics:
+
+$$A=\begin{bmatrix} 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & \frac{m^2l^2g}{\mu} & 0 & 0 \\ 0 & \frac{M_tmgl}{\mu} & 0 & 0\end{bmatrix}, B=\begin{bmatrix} 0 \\ 0 \\ \frac{J_t}{\mu} \\ \frac{lm}{\mu} \end{bmatrix}$$
+
+$$W_r = \begin{bmatrix} B & AB & A^2B & A^3B \end{bmatrix}$$
+
+and
+
+$$det(W_r) = -\frac{g^2l^4m^4}{\mu^6}(MJ+mJ+Mml^2)^2 \neq 0$$
+
+## Slide 9 - When is a system unreachable?
+
+- Dynamics in parallel
+
+- States that cannot be controlled and that are decoupled from controlled states
+
+## Slide 9 - Reachability and Coordinate Invariance
+
+## Slide 10 - Example 7.3 - Reachability Transformation
+
+## Slide 11 - Reachability Theorem
+
+## Slide 12 - Summary

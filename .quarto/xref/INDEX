@@ -52,5 +52,8 @@
   },
   "chapters/06-linear-systems.qmd": {
     "06-linear-systems.html": "9a48df6b"
+  },
+  "chapters/07_1-reachability.qmd": {
+    "07_1-reachability.html": "b985515a"
   }
 }

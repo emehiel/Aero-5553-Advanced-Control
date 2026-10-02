@@ -34,13 +34,39 @@ P = la.sqrtm(la.inv(M)) @ K @ la.sqrtm(la.inv(M))
 Lambda, Psi_bar = la.eig(P)
 
 # Step 3 - Compute the Mode Shapes
-Psi_0 = la.sqrtm(la.inv(M)) @ Psi_bar
+Psi_0 = la.sqrtm(la.inv(M)) @ Psi_bar.T
 
 print("Eigenvalues (Mode Frequencies):")
 print(Lambda)
 
 print("Mode Shapes:")
 print(Psi_0)
+
+# Now plot the modal response of the system
+
+def dual_mass_system(t, x0, M, K):
+    # Define the system of equations
+    def system(t, x):
+        return np.concatenate((x[2:], -np.linalg.inv(M) @ K @ x[:2]))
+
+    from scipy.integrate import solve_ivp
+    sol = solve_ivp(system, [t[0], t[-1]], x0, t_eval=t)
+    return sol.y
+
+fig = plt.figure(figsize=(10, 6))
+# Initial conditions: [x1, x2, v1, v2]
+x0 = [1, -1, 0.0, 0.0]
+t = np.linspace(0, 10, 1000)
+response = dual_mass_system(t, x0, M, K)
+
+plt.plot(t, response[0], label='Mass 1 Displacement')
+plt.plot(t, response[1], label='Mass 2 Displacement')
+
+plt.xlabel('Time')
+plt.ylabel('Displacement')
+plt.title('Modal Response of the Dual Mass System')
+plt.legend()
+plt.grid(True)
 
 ```
 
@@ -50,4 +76,3 @@ print(Psi_0)
 2.  Find the Eigenvalues and Eigenvectors of $P$, $\{\bar{\Psi_0}, \ \bar{\Lambda_0}\}= \texttt{eig} (P)$.
     - Mode frequencies are the Eigenvalues of $P$ in $\bar{\Lambda_0}$.
 3.  Find the Mode Shapes, $\Psi_0 = M_0^{\frac{1}{2}} \bar{\Psi_0}$
-

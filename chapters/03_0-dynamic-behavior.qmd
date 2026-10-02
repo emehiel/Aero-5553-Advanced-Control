@@ -46,7 +46,7 @@ $$\|F(\underline{x}) - F(\underline{y})\| \leq c \|\underline{x} - \underline{y}
 
 ## Slide 7 - Examples of Lipschitz Continuity
 
-::: callout-note
+::: callout-important
 Draw a figure in state space showing two points $\underline{x}$ and $\underline{y}$ and the corresponding vectors $F(\underline{x})$ and $F(\underline{y})$. Show the distance between the points and the distance between the vectors, illustrating the Lipschitz condition.
 
 In the case of the example $\dot{x} = x^2$, $F(x) = x^2$ is *not* Lipschitz continuous since $\frac{dF}{dx} = 2x$ is unbounded as $x \to \infty$.

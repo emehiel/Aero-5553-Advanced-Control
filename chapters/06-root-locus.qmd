@@ -1,5 +1,0 @@
-# Root Locus
-
-## Learning Objectives
-
-- Sketch root loci

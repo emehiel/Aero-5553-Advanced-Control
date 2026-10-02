@@ -1,0 +1,110 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"Linear Systems\"\n",
+        "format: \n",
+        "  html:\n",
+        "    theme: cosmo\n",
+        "    toc: true\n",
+        "    toc-depth: 2\n",
+        "    code-fold: true\n",
+        "    code-tools: true\n",
+        "jupyter: python3\n",
+        "---\n",
+        "\n",
+        "## Modal Example - 2 MSD system"
+      ],
+      "id": "f15c15d8"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import numpy as np\n",
+        "import scipy.linalg as la\n",
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "# Mass Matrtix\n",
+        "m_1 = 1.0\n",
+        "m_2 = 1.0\n",
+        "M = np.array([[m_1, 0], [0, m_2]])\n",
+        "\n",
+        "# Stiffness Matrix\n",
+        "k_1 = 1\n",
+        "k_2 = 1\n",
+        "K = np.array([[k_1 + k_2, -k_2], [-k_2, k_1 + k_2]])\n",
+        "\n",
+        "# Step 1 - Compute the Modal Matrix\n",
+        "P = la.sqrtm(la.inv(M)) @ K @ la.sqrtm(la.inv(M))\n",
+        "\n",
+        "# Step 2 - Compute the Eigenvalues and Eigenvectors of P\n",
+        "Lambda, Psi_bar = la.eig(P)\n",
+        "\n",
+        "# Step 3 - Compute the Mode Shapes\n",
+        "Psi_0 = la.sqrtm(la.inv(M)) @ Psi_bar.T\n",
+        "\n",
+        "print(\"Eigenvalues (Mode Frequencies):\")\n",
+        "print(Lambda)\n",
+        "\n",
+        "print(\"Mode Shapes:\")\n",
+        "print(Psi_0)\n",
+        "\n",
+        "# Now plot the modal response of the system\n",
+        "\n",
+        "def dual_mass_system(t, x0, M, K):\n",
+        "    # Define the system of equations\n",
+        "    def system(t, x):\n",
+        "        return np.concatenate((x[2:], -np.linalg.inv(M) @ K @ x[:2]))\n",
+        "\n",
+        "    from scipy.integrate import solve_ivp\n",
+        "    sol = solve_ivp(system, [t[0], t[-1]], x0, t_eval=t)\n",
+        "    return sol.y\n",
+        "\n",
+        "fig = plt.figure(figsize=(10, 6))\n",
+        "# Initial conditions: [x1, x2, v1, v2]\n",
+        "x0 = [1, -1, 0.0, 0.0]\n",
+        "t = np.linspace(0, 10, 1000)\n",
+        "response = dual_mass_system(t, x0, M, K)\n",
+        "\n",
+        "plt.plot(t, response[0], label='Mass 1 Displacement')\n",
+        "plt.plot(t, response[1], label='Mass 2 Displacement')\n",
+        "\n",
+        "plt.xlabel('Time')\n",
+        "plt.ylabel('Displacement')\n",
+        "plt.title('Modal Response of the Dual Mass System')\n",
+        "plt.legend()\n",
+        "plt.grid(True)"
+      ],
+      "id": "cce2884b",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### Modal Decomposition Process\n",
+        "\n",
+        "1.  $P=M_0^{\\frac{1}{2}} K M_0^{\\frac{1}{2}}$\n",
+        "2.  Find the Eigenvalues and Eigenvectors of $P$, $\\{\\bar{\\Psi_0}, \\ \\bar{\\Lambda_0}\\}= \\texttt{eig} (P)$.\n",
+        "    - Mode frequencies are the Eigenvalues of $P$ in $\\bar{\\Lambda_0}$.\n",
+        "3.  Find the Mode Shapes, $\\Psi_0 = M_0^{\\frac{1}{2}} \\bar{\\Psi_0}$"
+      ],
+      "id": "aa27196c"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "C:\\Users\\emehiel\\AppData\\Local\\Python\\pythoncore-3.14-64\\share\\jupyter\\kernels\\python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

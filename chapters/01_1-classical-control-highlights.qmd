@@ -24,8 +24,8 @@ jupyter: python3
 ### Learning Outcomes
 
 - Review the Laplace domain and its use in control systems
-- Relate solutions of linear ODEs to concepts like, stabilty and peroformance
-- Look into the concepts of propotional, integral, and derivative control
+- Relate solutions of linear ODEs to concepts like, stability and performance
+- Look into the concepts of proportional, integral, and derivative control
 
 ## Slide 3 - Functions of a Complex Variable
 
@@ -138,7 +138,7 @@ The equation of motion for a mass-spring-damper system is given by:
 
 $$ m\ddot{x}(t) + c\dot{x}(t) + kx(t) = F(t)$$
 
-Let $\omega_n^2 = {k/m}$ where $\omega_n$ is the natural frequency, and $\frac{c}{m} = 2\zeta\omega_n$, so $\zeta = \frac{c}{2\sqrt{mk}}$ is the damping ratio, and $F=k u(t)$ is the force required to displace the mass some distance, $u(t)$ acoring to Hook's law. Finally, divide both sides by $m$ to get:
+Let $\omega_n^2 = {k/m}$ where $\omega_n$ is the natural frequency, and $\frac{c}{m} = 2\zeta\omega_n$, so $\zeta = \frac{c}{2\sqrt{mk}}$ is the damping ratio, and $F=k u(t)$ is the force required to displace the mass some distance, $u(t)$ according to Hook's law. Finally, divide both sides by $m$ to get:
 
 $$ \ddot{x}(t) + 2\zeta\omega_n \dot{x}(t) + \omega_n^2 x(t) = \omega_n^2 u(t) $$
 
@@ -202,7 +202,7 @@ The adjugate of a matrix is the conjugate transpose of the cofactor matrix.
 
 This is the least efficient way to compute the inverse of a matrix, but it is useful for theoretical analysis.
 
-Notice the adugate is a matrix of polynomials in $s$, and is $n \times n$ where $n$ is the order of the system. The determinant is a polynomial in $s$ of order $n$. Therefore, we can write,
+Notice the adjugate is a matrix of polynomials in $s$, and is $n \times n$ where $n$ is the order of the system. The determinant is a polynomial in $s$ of order $n$. Therefore, we can write,
 
 $$ (sI - A)^{-1} = \frac{adj(sI - A)}{det(sI - A)}$$
 
@@ -337,7 +337,7 @@ Performance:
 | Overshoot     | $M_p=e^{-\pi\zeta/\sqrt{1-\zeta^2}}$ |
 | Settling Time | $t_s\approx\frac{4}{\zeta\omega_n}$  |
 
-Key point: $\zeta$ and $\omega_n$ tell us about performance and stability of the sytem.
+Key point: $\zeta$ and $\omega_n$ tell us about performance and stability of the system.
 
 If we can use feedback to effectively change the poles of the system, we can improve performance and stability.
 
@@ -423,7 +423,7 @@ $$G_c(s) = \frac{(k_d s^2 + k_p s + k_i)\omega_n^2}{s^3 + (2\zeta\omega_n + k_d\
 
 Notice we added two zeros and a pole. Where are the new poles and zeros located? How does this change the transient response of the system?
 
-Plot the pzmap of the new closed-loop transfer function and discuss how the poles and zeros have changed.
+Plot the $\texttt{pzmap()}$ of the new closed-loop transfer function and discuss how the poles and zeros have changed.
 
 But applying the Final Value Theorem, we can see that the steady-state error is now zero:
 

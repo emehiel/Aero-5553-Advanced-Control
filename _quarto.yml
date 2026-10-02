@@ -13,7 +13,7 @@ book:
     - chapters/02_1-state-space-modeling.qmd
     - chapters/03_0-dynamic-behavior.qmd
     - chapters/06-linear-systems.qmd
-    - chapters/06-root-locus.qmd
+    - chapters/07_1-reachability.qmd
     - chapters/07-frequency-response.qmd
     - chapters/08-pid-design.qmd
   appendices: 
