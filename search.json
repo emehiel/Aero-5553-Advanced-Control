@@ -750,23 +750,13 @@
     ]
   },
   {
-    "objectID": "chapters/07-frequency-response.html",
-    "href": "chapters/07-frequency-response.html",
-    "title": "8  Frequency Response",
+    "objectID": "chapters/07_2-stabilization.html",
+    "href": "chapters/07_2-stabilization.html",
+    "title": "8  State Feedback - Stabilization",
     "section": "",
-    "text": "8.1 Learning Objectives",
+    "text": "8.1 Slide 2 - Motivation",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Frequency Response</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/07-frequency-response.html#learning-objectives",
-    "href": "chapters/07-frequency-response.html#learning-objectives",
-    "title": "8  Frequency Response",
-    "section": "",
-    "text": "Bode plots\nNyquist criterion",
-    "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Frequency Response</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>State Feedback - Stabilization</span>"
     ]
   },
   {
