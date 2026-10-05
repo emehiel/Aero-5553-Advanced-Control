@@ -154,7 +154,7 @@
     "href": "chapters/01_1-classical-control-highlights.html#slide-2---motivation-and-learning-outcomes",
     "title": "2  Classical Control Highlights",
     "section": "",
-    "text": "Motivation\n\nProportional, Integral, Derivative Control\nFor “single-input, single-output” systems, PID is often sufficient\nPID has been around a long time and is well understood\nPID is relatively easy to tune with decent performance for linear systems\nClassical Control is done in the “s-domain” (or frequency or Laplace Domain)\nHowever, PID is not the best choice for non-linear, time-varying, or multi-input, multi-output, or complex systems\n\n\n\nLearning Outcomes\n\nReview the Laplace domain and its use in control systems\nRelate solutions of linear ODEs to concepts like, stabilty and peroformance\nLook into the concepts of propotional, integral, and derivative control",
+    "text": "Motivation\n\nProportional, Integral, Derivative Control\nFor “single-input, single-output” systems, PID is often sufficient\nPID has been around a long time and is well understood\nPID is relatively easy to tune with decent performance for linear systems\nClassical Control is done in the “s-domain” (or frequency or Laplace Domain)\nHowever, PID is not the best choice for non-linear, time-varying, or multi-input, multi-output, or complex systems\n\n\n\nLearning Outcomes\n\nReview the Laplace domain and its use in control systems\nRelate solutions of linear ODEs to concepts like, stability and performance\nLook into the concepts of proportional, integral, and derivative control",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Classical Control Highlights</span>"
     ]
@@ -214,7 +214,7 @@
     "href": "chapters/01_1-classical-control-highlights.html#slide-8---why-laplace",
     "title": "2  Classical Control Highlights",
     "section": "2.7 Slide 8 - Why Laplace?",
-    "text": "2.7 Slide 8 - Why Laplace?\nOne way to think about the Laplace transform is that it is a generalization of the Fourier transform. The Fourier transform is a special case of the Laplace transform where \\(s=j\\omega\\) and \\(\\sigma=0\\). The Laplace transform allows us to analyze systems with exponential growth or decay, which is common in control systems.\nThe Laplace Transform is helpful because it transforms differential equations into algebraic equations, making it easier to analyze and design control systems.\nIf we can solve the algebraic equations in the Laplace domain, we can then use the inverse Laplace transform to find the solution in the time domain.\n\nExample - Mass-Spring-Damper System (MSD)\nFigure of MSD\nThe equation of motion for a mass-spring-damper system is given by:\n\\[ m\\ddot{x}(t) + c\\dot{x}(t) + kx(t) = F(t)\\]\nLet \\(\\omega_n^2 = {k/m}\\) where \\(\\omega_n\\) is the natural frequency, and \\(\\frac{c}{m} = 2\\zeta\\omega_n\\), so \\(\\zeta = \\frac{c}{2\\sqrt{mk}}\\) is the damping ratio, and \\(F=k u(t)\\) is the force required to displace the mass some distance, \\(u(t)\\) acoring to Hook’s law. Finally, divide both sides by \\(m\\) to get:\n\\[ \\ddot{x}(t) + 2\\zeta\\omega_n \\dot{x}(t) + \\omega_n^2 x(t) = \\omega_n^2 u(t) \\]\nNow, define the state vector as \\(\\underline{x}(t) = \\begin{bmatrix} x(t) \\\\ \\dot{x}(t) \\end{bmatrix}\\), and we can write the system in state-space form as:\n\\[ \\dot{\\underline{x}}(t) = \\begin{bmatrix} 0 & 1 \\\\ -\\omega_n^2 & -2\\zeta\\omega_n \\end{bmatrix} \\underline{x}(t) + \\begin{bmatrix} 0 \\\\ \\omega_n^2 \\end{bmatrix} \\underline{u}(t) \\]\nIn more compact form, we can write this as:\n\\[ \\dot{\\underline{x}}(t) = A\\underline{x}(t) + B \\underline{u}(t) \\]\nThis is known as the state-space representation or state equation of the system, where \\(A\\) is the system matrix and \\(B\\) is the input matrix.\nwhere \\(A = \\begin{bmatrix} 0 & 1 \\\\ -\\omega_n^2 & -2\\zeta\\omega_n \\end{bmatrix}\\) and \\(B = \\begin{bmatrix} 0 \\\\ \\omega_n^2 \\end{bmatrix}\\).\nAssuming we measure the position of the mass, we can define the output as \\[y(t) = C\\underline{x}(t)\\]\nwhere \\(C = \\begin{bmatrix} 1 & 0 \\end{bmatrix}\\). This is know as the output or measurement equation of the system.\nIn control theory, we can generally let the output be a function of the input, i.e., \\(\\underline{y}(t) = C\\underline{x}(t) + D\\underline{u}(t)\\), where \\(D\\) is a feed through term. In this case, we have no feed through, so \\(D=0\\).\nNow, we can take the Laplace transform of the state-space equations to get:\n\\[\\mathcal{L}\\{\\dot{\\underline{x}}(t)\\} = \\mathcal{L}\\{A\\underline{x}(t) + B\\underline{u}(t)\\}\\]\n\\[ s\\underline{X}(s) - \\underline{x}(0) = A\\underline{X}(s) + B\\underline{U}(s) \\]\nwhere \\(\\underline{X}(s)\\) is the Laplace transform of the state vector \\(\\underline{x}(t)\\), and \\(\\underline{U}(s)\\) is the Laplace transform of the input vector \\(\\underline{u}(t)\\).\nAssuming \\(\\underline{x}(0) = 0\\), we can solve for \\(\\underline{X}(s)\\):\n\\[ \\underline{X}(s) = (sI - A)^{-1}B\\underline{U}(s) \\]\nFinally, we can find the output in the Laplace domain: \\[ \\underline{Y}(s) = C\\underline{X}(s) = C(sI - A)^{-1}B\\underline{U}(s) \\]\nWe define the transfer function of the system \\(G(s)\\) as the ratio of the output to the input in the Laplace domain:\n\\[ G(s) = \\frac{\\underline{Y}(s)}{\\underline{U}(s)} = C(sI - A)^{-1}B \\]\nFrom before we notice,\n\\[ G(s) = \\frac{N(s)}{D(s)}\\]\nTherefore,\n\\[ Y(s) = G(s)U(s) = C(sI - A)^{-1}BU(s) = \\frac{N(s)}{D(s)}\\]",
+    "text": "2.7 Slide 8 - Why Laplace?\nOne way to think about the Laplace transform is that it is a generalization of the Fourier transform. The Fourier transform is a special case of the Laplace transform where \\(s=j\\omega\\) and \\(\\sigma=0\\). The Laplace transform allows us to analyze systems with exponential growth or decay, which is common in control systems.\nThe Laplace Transform is helpful because it transforms differential equations into algebraic equations, making it easier to analyze and design control systems.\nIf we can solve the algebraic equations in the Laplace domain, we can then use the inverse Laplace transform to find the solution in the time domain.\n\nExample - Mass-Spring-Damper System (MSD)\nFigure of MSD\nThe equation of motion for a mass-spring-damper system is given by:\n\\[ m\\ddot{x}(t) + c\\dot{x}(t) + kx(t) = F(t)\\]\nLet \\(\\omega_n^2 = {k/m}\\) where \\(\\omega_n\\) is the natural frequency, and \\(\\frac{c}{m} = 2\\zeta\\omega_n\\), so \\(\\zeta = \\frac{c}{2\\sqrt{mk}}\\) is the damping ratio, and \\(F=k u(t)\\) is the force required to displace the mass some distance, \\(u(t)\\) according to Hook’s law. Finally, divide both sides by \\(m\\) to get:\n\\[ \\ddot{x}(t) + 2\\zeta\\omega_n \\dot{x}(t) + \\omega_n^2 x(t) = \\omega_n^2 u(t) \\]\nNow, define the state vector as \\(\\underline{x}(t) = \\begin{bmatrix} x(t) \\\\ \\dot{x}(t) \\end{bmatrix}\\), and we can write the system in state-space form as:\n\\[ \\dot{\\underline{x}}(t) = \\begin{bmatrix} 0 & 1 \\\\ -\\omega_n^2 & -2\\zeta\\omega_n \\end{bmatrix} \\underline{x}(t) + \\begin{bmatrix} 0 \\\\ \\omega_n^2 \\end{bmatrix} \\underline{u}(t) \\]\nIn more compact form, we can write this as:\n\\[ \\dot{\\underline{x}}(t) = A\\underline{x}(t) + B \\underline{u}(t) \\]\nThis is known as the state-space representation or state equation of the system, where \\(A\\) is the system matrix and \\(B\\) is the input matrix.\nwhere \\(A = \\begin{bmatrix} 0 & 1 \\\\ -\\omega_n^2 & -2\\zeta\\omega_n \\end{bmatrix}\\) and \\(B = \\begin{bmatrix} 0 \\\\ \\omega_n^2 \\end{bmatrix}\\).\nAssuming we measure the position of the mass, we can define the output as \\[y(t) = C\\underline{x}(t)\\]\nwhere \\(C = \\begin{bmatrix} 1 & 0 \\end{bmatrix}\\). This is know as the output or measurement equation of the system.\nIn control theory, we can generally let the output be a function of the input, i.e., \\(\\underline{y}(t) = C\\underline{x}(t) + D\\underline{u}(t)\\), where \\(D\\) is a feed through term. In this case, we have no feed through, so \\(D=0\\).\nNow, we can take the Laplace transform of the state-space equations to get:\n\\[\\mathcal{L}\\{\\dot{\\underline{x}}(t)\\} = \\mathcal{L}\\{A\\underline{x}(t) + B\\underline{u}(t)\\}\\]\n\\[ s\\underline{X}(s) - \\underline{x}(0) = A\\underline{X}(s) + B\\underline{U}(s) \\]\nwhere \\(\\underline{X}(s)\\) is the Laplace transform of the state vector \\(\\underline{x}(t)\\), and \\(\\underline{U}(s)\\) is the Laplace transform of the input vector \\(\\underline{u}(t)\\).\nAssuming \\(\\underline{x}(0) = 0\\), we can solve for \\(\\underline{X}(s)\\):\n\\[ \\underline{X}(s) = (sI - A)^{-1}B\\underline{U}(s) \\]\nFinally, we can find the output in the Laplace domain: \\[ \\underline{Y}(s) = C\\underline{X}(s) = C(sI - A)^{-1}B\\underline{U}(s) \\]\nWe define the transfer function of the system \\(G(s)\\) as the ratio of the output to the input in the Laplace domain:\n\\[ G(s) = \\frac{\\underline{Y}(s)}{\\underline{U}(s)} = C(sI - A)^{-1}B \\]\nFrom before we notice,\n\\[ G(s) = \\frac{N(s)}{D(s)}\\]\nTherefore,\n\\[ Y(s) = G(s)U(s) = C(sI - A)^{-1}BU(s) = \\frac{N(s)}{D(s)}\\]",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Classical Control Highlights</span>"
     ]
@@ -224,7 +224,7 @@
     "href": "chapters/01_1-classical-control-highlights.html#slide-9---another-look-at-the-transfer-function",
     "title": "2  Classical Control Highlights",
     "section": "2.8 Slide 9 - Another look at the Transfer Function",
-    "text": "2.8 Slide 9 - Another look at the Transfer Function\nThe transfer function is,\n\\[ G(s) = \\frac{N(s)}{D(s)}\\]\nRecall that for any matrix \\(P\\), the inverse of \\(P\\) is given by,\n\\[ P^{-1} = \\frac{adj(P)}{det(P)}\\]\nwhere \\(adj(P)\\) is the adjugate of \\(P\\) and \\(det(P)\\) is the determinant of \\(P\\).\nThe adjugate of a matrix is the conjugate transpose of the cofactor matrix.\nThis is the least efficient way to compute the inverse of a matrix, but it is useful for theoretical analysis.\nNotice the adugate is a matrix of polynomials in \\(s\\), and is \\(n \\times n\\) where \\(n\\) is the order of the system. The determinant is a polynomial in \\(s\\) of order \\(n\\). Therefore, we can write,\n\\[ (sI - A)^{-1} = \\frac{adj(sI - A)}{det(sI - A)}\\]\nFor the MSD system the output matrix is \\(C\\) is \\(1 \\times 2\\) and the input matrix is \\(B\\) is \\(2 \\times 1\\). Therefore the denominator the transfer function is a scalar polynomial.\nAnd it is always true that \\(det(sI - A) = D(s)\\), the denominator of the transfer function. The numerator is a polynomial in \\(s\\) of order \\(n-1\\).\nWhat is interesting here is that,\n\\[ det(sI-A) = D(s) = \\Pi_{i=1}^{n} (s-p_i) = 0\\]\nwhere \\(p_i\\) are the poles of the transfer function. Therefore, the poles of the transfer function are the eigenvalues of the system matrix \\(A\\).\n\\[\\{Eigenvalues \\ of \\ A\\} = \\{ Poles \\ of the \\ transfer \\ function \\ G(s) \\}\\]",
+    "text": "2.8 Slide 9 - Another look at the Transfer Function\nThe transfer function is,\n\\[ G(s) = \\frac{N(s)}{D(s)}\\]\nRecall that for any matrix \\(P\\), the inverse of \\(P\\) is given by,\n\\[ P^{-1} = \\frac{adj(P)}{det(P)}\\]\nwhere \\(adj(P)\\) is the adjugate of \\(P\\) and \\(det(P)\\) is the determinant of \\(P\\).\nThe adjugate of a matrix is the conjugate transpose of the cofactor matrix.\nThis is the least efficient way to compute the inverse of a matrix, but it is useful for theoretical analysis.\nNotice the adjugate is a matrix of polynomials in \\(s\\), and is \\(n \\times n\\) where \\(n\\) is the order of the system. The determinant is a polynomial in \\(s\\) of order \\(n\\). Therefore, we can write,\n\\[ (sI - A)^{-1} = \\frac{adj(sI - A)}{det(sI - A)}\\]\nFor the MSD system the output matrix is \\(C\\) is \\(1 \\times 2\\) and the input matrix is \\(B\\) is \\(2 \\times 1\\). Therefore the denominator the transfer function is a scalar polynomial.\nAnd it is always true that \\(det(sI - A) = D(s)\\), the denominator of the transfer function. The numerator is a polynomial in \\(s\\) of order \\(n-1\\).\nWhat is interesting here is that,\n\\[ det(sI-A) = D(s) = \\Pi_{i=1}^{n} (s-p_i) = 0\\]\nwhere \\(p_i\\) are the poles of the transfer function. Therefore, the poles of the transfer function are the eigenvalues of the system matrix \\(A\\).\n\\[\\{Eigenvalues \\ of \\ A\\} = \\{ Poles \\ of the \\ transfer \\ function \\ G(s) \\}\\]",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Classical Control Highlights</span>"
     ]
@@ -254,7 +254,7 @@
     "href": "chapters/01_1-classical-control-highlights.html#slide-12---performance-metrics",
     "title": "2  Classical Control Highlights",
     "section": "2.11 Slide 12 - Performance Metrics",
-    "text": "2.11 Slide 12 - Performance Metrics\nPerformance:\n\n\n\nQuantity\nFormula\n\n\n\n\nRise Time\n\\(t_r=\\frac{\\pi-\\beta}{\\omega_d}\\)\n\n\nPeak Time\n\\(t_p=\\frac{\\pi}{\\omega_d}\\)\n\n\nOvershoot\n\\(M_p=e^{-\\pi\\zeta/\\sqrt{1-\\zeta^2}}\\)\n\n\nSettling Time\n\\(t_s\\approx\\frac{4}{\\zeta\\omega_n}\\)\n\n\n\nKey point: \\(\\zeta\\) and \\(\\omega_n\\) tell us about performance and stability of the sytem.\nIf we can use feedback to effectively change the poles of the system, we can improve performance and stability.",
+    "text": "2.11 Slide 12 - Performance Metrics\nPerformance:\n\n\n\nQuantity\nFormula\n\n\n\n\nRise Time\n\\(t_r=\\frac{\\pi-\\beta}{\\omega_d}\\)\n\n\nPeak Time\n\\(t_p=\\frac{\\pi}{\\omega_d}\\)\n\n\nOvershoot\n\\(M_p=e^{-\\pi\\zeta/\\sqrt{1-\\zeta^2}}\\)\n\n\nSettling Time\n\\(t_s\\approx\\frac{4}{\\zeta\\omega_n}\\)\n\n\n\nKey point: \\(\\zeta\\) and \\(\\omega_n\\) tell us about performance and stability of the system.\nIf we can use feedback to effectively change the poles of the system, we can improve performance and stability.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Classical Control Highlights</span>"
     ]
@@ -304,7 +304,7 @@
     "href": "chapters/01_1-classical-control-highlights.html#slide-17---full-pid-feedback",
     "title": "2  Classical Control Highlights",
     "section": "2.16 Slide 17 - Full PID Feedback",
-    "text": "2.16 Slide 17 - Full PID Feedback\nLet \\(C(s) = k_p + k_d s + \\frac{k_i}{s}\\), then we can write the closed-loop transfer function as:\n\\[G_c(s) = \\frac{(k_p + k_d s + \\frac{k_i}{s})\\omega_n^2}{s^2 + (2\\zeta\\omega_n + k_d\\omega_n^2)s + (1+k_p)\\omega_n^2 + k_i\\omega_n^2}\\]\nor\n\\[G_c(s) = \\frac{(k_d s^2 + k_p s + k_i)\\omega_n^2}{s^3 + (2\\zeta\\omega_n + k_d\\omega_n^2)s^2 + (1+k_p)\\omega_n^2 s + k_i\\omega_n^2}\\]\nNotice we added two zeros and a pole. Where are the new poles and zeros located? How does this change the transient response of the system?\nPlot the pzmap of the new closed-loop transfer function and discuss how the poles and zeros have changed.\nBut applying the Final Value Theorem, we can see that the steady-state error is now zero:\n\\[ \\lim_{t\\to\\infty} y(t) = \\lim_{s\\to0} G_c(s) = 1 \\]\nThere are many ways to tune a PID controller, but one of the most common methods is the Ziegler-Nichols method. This method involves finding the ultimate gain and ultimate period of the system, and then using these values to calculate the PID gains.\nWe can also use the root locus method to tune a PID controller. This method involves plotting the root locus of the system and then selecting the desired closed-loop poles based on the desired performance specifications.\nOr we can use frequency response methods, such as Bode plots or Nyquist plots, to tune a PID controller. These methods involve analyzing the frequency response of the system and then selecting the PID gains based on the desired performance specifications.\nOr we can use optimization methods, such as genetic algorithms or particle swarm optimization, to tune a PID controller. These methods involve defining a cost function based on the desired performance specifications and then using an optimization algorithm to find the PID gains that minimize the cost function.",
+    "text": "2.16 Slide 17 - Full PID Feedback\nLet \\(C(s) = k_p + k_d s + \\frac{k_i}{s}\\), then we can write the closed-loop transfer function as:\n\\[G_c(s) = \\frac{(k_p + k_d s + \\frac{k_i}{s})\\omega_n^2}{s^2 + (2\\zeta\\omega_n + k_d\\omega_n^2)s + (1+k_p)\\omega_n^2 + k_i\\omega_n^2}\\]\nor\n\\[G_c(s) = \\frac{(k_d s^2 + k_p s + k_i)\\omega_n^2}{s^3 + (2\\zeta\\omega_n + k_d\\omega_n^2)s^2 + (1+k_p)\\omega_n^2 s + k_i\\omega_n^2}\\]\nNotice we added two zeros and a pole. Where are the new poles and zeros located? How does this change the transient response of the system?\nPlot the \\(\\texttt{pzmap()}\\) of the new closed-loop transfer function and discuss how the poles and zeros have changed.\nBut applying the Final Value Theorem, we can see that the steady-state error is now zero:\n\\[ \\lim_{t\\to\\infty} y(t) = \\lim_{s\\to0} G_c(s) = 1 \\]\nThere are many ways to tune a PID controller, but one of the most common methods is the Ziegler-Nichols method. This method involves finding the ultimate gain and ultimate period of the system, and then using these values to calculate the PID gains.\nWe can also use the root locus method to tune a PID controller. This method involves plotting the root locus of the system and then selecting the desired closed-loop poles based on the desired performance specifications.\nOr we can use frequency response methods, such as Bode plots or Nyquist plots, to tune a PID controller. These methods involve analyzing the frequency response of the system and then selecting the PID gains based on the desired performance specifications.\nOr we can use optimization methods, such as genetic algorithms or particle swarm optimization, to tune a PID controller. These methods involve defining a cost function based on the desired performance specifications and then using an optimization algorithm to find the PID gains that minimize the cost function.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Classical Control Highlights</span>"
     ]
@@ -554,7 +554,7 @@
     "href": "chapters/03_0-dynamic-behavior.html#slide-7---examples-of-lipschitz-continuity",
     "title": "5  Dynamic Behavior - Stabilty",
     "section": "5.6 Slide 7 - Examples of Lipschitz Continuity",
-    "text": "5.6 Slide 7 - Examples of Lipschitz Continuity\n\n\n\n\n\n\nNote\n\n\n\nDraw a figure in state space showing two points \\(\\underline{x}\\) and \\(\\underline{y}\\) and the corresponding vectors \\(F(\\underline{x})\\) and \\(F(\\underline{y})\\). Show the distance between the points and the distance between the vectors, illustrating the Lipschitz condition.\nIn the case of the example \\(\\dot{x} = x^2\\), \\(F(x) = x^2\\) is not Lipschitz continuous since \\(\\frac{dF}{dx} = 2x\\) is unbounded as \\(x \\to \\infty\\).\nIn the case of the example \\(\\dot{x} = 2\\sqrt{x}\\), \\(F(x) = 2\\sqrt{x}\\) is not Lipschitz continuous at \\(x = 0\\) since \\(\\frac{dF}{dx} = \\frac{1}{\\sqrt{x}}\\) is unbounded as \\(x \\to 0\\).\n\n\nMore from Wikipedia on Uniform boundedness",
+    "text": "5.6 Slide 7 - Examples of Lipschitz Continuity\n\n\n\n\n\n\nImportant\n\n\n\nDraw a figure in state space showing two points \\(\\underline{x}\\) and \\(\\underline{y}\\) and the corresponding vectors \\(F(\\underline{x})\\) and \\(F(\\underline{y})\\). Show the distance between the points and the distance between the vectors, illustrating the Lipschitz condition.\nIn the case of the example \\(\\dot{x} = x^2\\), \\(F(x) = x^2\\) is not Lipschitz continuous since \\(\\frac{dF}{dx} = 2x\\) is unbounded as \\(x \\to \\infty\\).\nIn the case of the example \\(\\dot{x} = 2\\sqrt{x}\\), \\(F(x) = 2\\sqrt{x}\\) is not Lipschitz continuous at \\(x = 0\\) since \\(\\frac{dF}{dx} = \\frac{1}{\\sqrt{x}}\\) is unbounded as \\(x \\to 0\\).\n\n\nMore from Wikipedia on Uniform boundedness",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Dynamic Behavior - Stabilty</span>"
     ]
@@ -604,7 +604,7 @@
     "href": "chapters/06-linear-systems.html",
     "title": "6  Linear Systems",
     "section": "",
-    "text": "6.1 Modal Example - 2 MSD system\nCode\nimport numpy as np\nimport scipy.linalg as la\nimport matplotlib.pyplot as plt\n\n# Mass Matrtix\nm_1 = 1.0\nm_2 = 1.0\nM = np.array([[m_1, 0], [0, m_2]])\n\n# Stiffness Matrix\nk_1 = 1\nk_2 = 1\nK = np.array([[k_1 + k_2, -k_2], [-k_2, k_1 + k_2]])\n\n# Step 1 - Compute the Modal Matrix\nP = la.sqrtm(la.inv(M)) @ K @ la.sqrtm(la.inv(M))\n\n# Step 2 - Compute the Eigenvalues and Eigenvectors of P\nLambda, Psi_bar = la.eig(P)\n\n# Step 3 - Compute the Mode Shapes\nPsi_0 = la.sqrtm(la.inv(M)) @ Psi_bar\n\nprint(\"Eigenvalues (Mode Frequencies):\")\nprint(Lambda)\n\nprint(\"Mode Shapes:\")\nprint(Psi_0)\n\n\nEigenvalues (Mode Frequencies):\n[3.+0.j 1.+0.j]\nMode Shapes:\n[[ 0.70710678  0.70710678]\n [-0.70710678  0.70710678]]",
+    "text": "6.1 Modal Example - 2 MSD system\nCode\nimport numpy as np\nimport scipy.linalg as la\nimport matplotlib.pyplot as plt\n\n# Mass Matrtix\nm_1 = 1.0\nm_2 = 1.0\nM = np.array([[m_1, 0], [0, m_2]])\n\n# Stiffness Matrix\nk_1 = 1\nk_2 = 1\nK = np.array([[k_1 + k_2, -k_2], [-k_2, k_1 + k_2]])\n\n# Step 1 - Compute the Modal Matrix\nP = la.sqrtm(la.inv(M)) @ K @ la.sqrtm(la.inv(M))\n\n# Step 2 - Compute the Eigenvalues and Eigenvectors of P\nLambda, Psi_bar = la.eig(P)\n\n# Step 3 - Compute the Mode Shapes\nPsi_0 = la.sqrtm(la.inv(M)) @ Psi_bar.T\n\nprint(\"Eigenvalues (Mode Frequencies):\")\nprint(Lambda)\n\nprint(\"Mode Shapes:\")\nprint(Psi_0)\n\n# Now plot the modal response of the system\n\ndef dual_mass_system(t, x0, M, K):\n    # Define the system of equations\n    def system(t, x):\n        return np.concatenate((x[2:], -np.linalg.inv(M) @ K @ x[:2]))\n\n    from scipy.integrate import solve_ivp\n    sol = solve_ivp(system, [t[0], t[-1]], x0, t_eval=t)\n    return sol.y\n\nfig = plt.figure(figsize=(10, 6))\n# Initial conditions: [x1, x2, v1, v2]\nx0 = [1, -1, 0.0, 0.0]\nt = np.linspace(0, 10, 1000)\nresponse = dual_mass_system(t, x0, M, K)\n\nplt.plot(t, response[0], label='Mass 1 Displacement')\nplt.plot(t, response[1], label='Mass 2 Displacement')\n\nplt.xlabel('Time')\nplt.ylabel('Displacement')\nplt.title('Modal Response of the Dual Mass System')\nplt.legend()\nplt.grid(True)\n\n\nEigenvalues (Mode Frequencies):\n[3.+0.j 1.+0.j]\nMode Shapes:\n[[ 0.70710678 -0.70710678]\n [ 0.70710678  0.70710678]]",
     "crumbs": [
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Linear Systems</span>"
     ]
@@ -620,23 +620,133 @@
     ]
   },
   {
-    "objectID": "chapters/06-root-locus.html",
-    "href": "chapters/06-root-locus.html",
-    "title": "7  Root Locus",
+    "objectID": "chapters/07_1-reachability.html",
+    "href": "chapters/07_1-reachability.html",
+    "title": "7  State Feedback - Reachability",
     "section": "",
-    "text": "7.1 Learning Objectives",
+    "text": "7.1 Slide 2 - Motivation",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Root Locus</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>State Feedback - Reachability</span>"
     ]
   },
   {
-    "objectID": "chapters/06-root-locus.html#learning-objectives",
-    "href": "chapters/06-root-locus.html#learning-objectives",
-    "title": "7  Root Locus",
+    "objectID": "chapters/07_1-reachability.html#slide-2---motivation",
+    "href": "chapters/07_1-reachability.html#slide-2---motivation",
+    "title": "7  State Feedback - Reachability",
     "section": "",
-    "text": "Sketch root loci",
+    "text": "Reachability is a fundamental concept in control theory that determines whether a system can be driven from any initial state to any desired final state within a finite time interval using appropriate control inputs.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Root Locus</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>State Feedback - Reachability</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_1-reachability.html#slide-3---reachability---the-definition",
+    "href": "chapters/07_1-reachability.html#slide-3---reachability---the-definition",
+    "title": "7  State Feedback - Reachability",
+    "section": "7.2 Slide 3 - Reachability - The Definition",
+    "text": "7.2 Slide 3 - Reachability - The Definition\nFigure 7.1: Reachability of a system\nDefine the reachable set \\(\\mathcal{R}(t_0, \\leq T)\\) as the set of all states, \\(\\underline{x}_f\\) that can be reached from the initial state \\(\\underline{x}(t_0)=\\underline{x}_0\\) at time \\(t_0\\) to the final state \\(\\underline{x}(T)=\\underline{x}_f\\) at time \\(T\\) using admissible control inputs \\(\\underline{u}(t)\\) on the interval \\([0, T]\\).\nDefinition 7.1 : (Reachability) A linear system is reachable if for any \\(x_0, x_f \\in \\mathbb{R}^n\\) there exists a finite time \\(T&gt;0\\) and an admissible control input \\(\\underline{u}(t): [0,T] \\to \\mathbb{R}\\) such that if \\(\\underline{x}(0)=\\underline{x}_0\\) then the corresponding solution satisfies \\(\\underline{x}(T)=\\underline{x}_f\\).\nThis means the system can be driven from \\(\\underline{x}(t_0) = \\underline{x}_0\\) to \\(\\underline{x}(T) = \\underline{x}_f\\) in finite time, \\(T\\).",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>State Feedback - Reachability</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_1-reachability.html#slide-4---reachability---the-concept",
+    "href": "chapters/07_1-reachability.html#slide-4---reachability---the-concept",
+    "title": "7  State Feedback - Reachability",
+    "section": "7.3 Slide 4 - Reachability - The Concept",
+    "text": "7.3 Slide 4 - Reachability - The Concept\nImportant Point: The definition of reachability addresses whether it is possible to reach all points in the state space in a transient fashion. In other words, points in the state space we can reach in finite time, but not necessarily stay at.\nMany texts use the term controllability to refer to the same concept. However, we will use the term reachability to avoid confusion with the concept of asymptotic stability, which implies the system converges to an equilibrium point in infinite time or steady state.\nIt is also important to note that the set of equilibrium points we are normally interested in may or may not be reachable. For a constant control input, \\(\\underline{u}_e \\in \\mathbb{R}\\), the set of all possible equilibrium points is given by \\(\\mathcal{R}_{eq}=\\{\\underline{x}_e: A\\underline{x}_e + B\\underline{u}_e=0\\}\\).",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>State Feedback - Reachability</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_1-reachability.html#slide-5---example-of-reachability",
+    "href": "chapters/07_1-reachability.html#slide-5---example-of-reachability",
+    "title": "7  State Feedback - Reachability",
+    "section": "7.4 Slide 5 - Example of Reachability",
+    "text": "7.4 Slide 5 - Example of Reachability\n\nExmple 7.1: The Double Integrator System\nConsider \\(\\dot{\\underline{x}} = \\begin{bmatrix} 0 & 1 \\\\ 0 & 0 \\end{bmatrix} \\underline{x} + \\begin{bmatrix} 0 \\\\ 1 \\end{bmatrix} u\\)\nOr in state variable form, \\(\\frac{dx_1}{dt} = x_2\\) and \\(\\frac{dx_2}{dt} = u\\).\nHow could we reach the equilibrium from some arbitrary position? We can control \\(x_2\\) but have to rely on natural dynamics to change \\(x_1\\). By choosing \\(u&lt;0\\) to start, the system moves down then up and to the left due to natural dynamics. At some point we can set \\(u&gt;0\\) and the system will move up then down to the right. Repeat.\nNotice if we get to the equilibrium, we can stay there, but if we get to some point where \\(x_2 \\neq 0\\), we can only pass through the point in a transient fashion. This is a hallmark of reachability.\nFigure 7.1b",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>State Feedback - Reachability</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_1-reachability.html#slide-6---when-is-a-system-reachable",
+    "href": "chapters/07_1-reachability.html#slide-6---when-is-a-system-reachable",
+    "title": "7  State Feedback - Reachability",
+    "section": "7.5 Slide 6 - When is a system reachable?",
+    "text": "7.5 Slide 6 - When is a system reachable?\nAssmue the input matrix \\(B \\in \\mathbb{R}^1\\). Single Input\nWith \\(\\underline{x}_0 = \\underline{0}\\) we have,\n\\[ x(t) = \\int_{0}^{t}e^{A(t-\\tau)}Bu(\\tau)d\\tau\\]\nLet \\(u(\\tau)=\\delta(\\tau)\\), therefore\n\\[x(t) = \\int_{0}^{t}e^{A(t-\\tau)}B\\delta(\\tau)d\\tau=e^{At}B\\]\nThe response to derivative of impulse is,\n\\[\\frac{dx_\\delta}{dt}=Ae^{At}B\\]\nand\n\\[\\frac{d^nx_\\delta}{dt^n}=A^ne^{At}B\\]\nLet \\(u(t) = α_1\\delta(t) +α_2\\dot{\\delta(t)} + α_3\\ddot{\\delta(t)} + ··· + α_n\\delta^{(n−1)}(t)\\)\nNotice the input is a linear combination of the impulse and its derivatives where the impuse and its derivatives are linearly independent. Therefore, by choosing the appropriate \\(\\alpha_i\\), we can choose any input we want. The response to this input is\n\\[x(t) = α_1e^{At}B +α_2Ae^{At}B + α_3A^2e^{At}B + ··· + α_nA^{n-1}e^{At}B\\]\nAgain, notice that the response is a linear combination of powers of \\(A\\) multiplied by \\(e^{At}B\\).\nWhy is this important? Because if the vectors \\(A^n e^{At}B\\) are linearly independent, those vectors form a basis (or spanning set), of the state space. Therefore,we can choose the \\(\\alpha_i\\) to reach any point in the state space at any finite time, \\(t=T\\).\n\n\n\n\n\n\nTipLinear Independence and Basis\n\n\n\nAside: A set of vectors \\(\\{v_1, v_2, ···, v_n\\}\\) is linearly independent if the only solution to \\(α_1v_1 + α_2v_2 + ··· + α_nv_n = 0\\) is \\(α_1 = α_2 = ··· = α_n = 0\\). Otherwise, the set of vectors is linearly dependent. What is means if that any in the set of vectors can be expressed as a linear combination of the other vectors in the set.\nWe use this idea all the time. Consider the standard basis vectors in \\(\\mathbb{R}^3\\), \\(e_1 = \\begin{bmatrix} 1 \\\\ 0 \\\\ 0 \\end{bmatrix}\\), \\(e_2 = \\begin{bmatrix} 0 \\\\ 1 \\\\ 0 \\end{bmatrix}\\), and \\(e_3 = \\begin{bmatrix} 0 \\\\ 0 \\\\ 1 \\end{bmatrix}\\). These vectors are linearly independent and form a basis for \\(\\mathbb{R}^3\\). Any vector in \\(\\mathbb{R}^3\\) can be expressed as a linear combination of these three vectors by chooseing the appropriate coefficients. For example, \\(\\begin{bmatrix} 2 \\\\ 3 \\\\ 4 \\end{bmatrix} = 2e_1 + 3e_2 + 4e_3\\).\nA set of linearly independent vectors that span the state space is called a basis for the state space. The number of vectors in the basis is called the dimension of the state space. In this case, the dimension of the state space is \\(n\\).\nThe basis vectors can be functions of time, \\(t\\), but they must be linearly independent for all \\(t\\).\n\n\nTaking the limit as \\(t \\to 0\\) gives \\[\\lim_{t \\to 0}x(t) = α_1B +α_2AB + α_3A^2B + ··· + α_nA^{n-1}B\\]\nDefine the reachability matrix as \\[\\mathcal{W_r} = [B, AB, A^2B, ···, A^{n-1}B]\\]",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>State Feedback - Reachability</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_1-reachability.html#slide-7---reachability-rank-theorem",
+    "href": "chapters/07_1-reachability.html#slide-7---reachability-rank-theorem",
+    "title": "7  State Feedback - Reachability",
+    "section": "7.6 Slide 7 - Reachability Rank Theorem",
+    "text": "7.6 Slide 7 - Reachability Rank Theorem\nIf the rank of the reachability matrix is \\(n\\), then the system is reachable. Other wise, it is not reachable.\nSome set of \\(\\alpha_i\\) can be found so that the system can be driven from any initial state to any final state in finite time since \\(x(t)\\) is a linear combination of the columns of the reachability matrix.\nTheorem 7.1 (Reachability rank condition). A linear system of the form (7.1) is reachable if and only if the reachability matrix \\(W_r\\) is invertible (full column rank).",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>State Feedback - Reachability</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_1-reachability.html#slide-8---example-7.2---reachability-of-a-system",
+    "href": "chapters/07_1-reachability.html#slide-8---example-7.2---reachability-of-a-system",
+    "title": "7  State Feedback - Reachability",
+    "section": "7.7 Slide 8 - Example 7.2 - Reachability of a System",
+    "text": "7.7 Slide 8 - Example 7.2 - Reachability of a System\nExample 7.2\nLinear Dynamics:\n\\[A=\\begin{bmatrix} 0 & 0 & 1 & 0 \\\\ 0 & 0 & 0 & 1 \\\\ 0 & \\frac{m^2l^2g}{\\mu} & 0 & 0 \\\\ 0 & \\frac{M_tmgl}{\\mu} & 0 & 0\\end{bmatrix}, B=\\begin{bmatrix} 0 \\\\ 0 \\\\ \\frac{J_t}{\\mu} \\\\ \\frac{lm}{\\mu} \\end{bmatrix}\\]\n\\[W_r = \\begin{bmatrix} B & AB & A^2B & A^3B \\end{bmatrix}\\]\nand\n\\[det(W_r) = -\\frac{g^2l^4m^4}{\\mu^6}(MJ+mJ+Mml^2)^2 \\neq 0\\]",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>State Feedback - Reachability</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_1-reachability.html#slide-9---when-is-a-system-unreachable",
+    "href": "chapters/07_1-reachability.html#slide-9---when-is-a-system-unreachable",
+    "title": "7  State Feedback - Reachability",
+    "section": "7.8 Slide 9 - When is a system unreachable?",
+    "text": "7.8 Slide 9 - When is a system unreachable?\n\nDynamics in parallel\nStates that cannot be controlled and that are decoupled from controlled states",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>State Feedback - Reachability</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_1-reachability.html#slide-9---reachability-and-coordinate-invariance",
+    "href": "chapters/07_1-reachability.html#slide-9---reachability-and-coordinate-invariance",
+    "title": "7  State Feedback - Reachability",
+    "section": "7.9 Slide 9 - Reachability and Coordinate Invariance",
+    "text": "7.9 Slide 9 - Reachability and Coordinate Invariance",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>State Feedback - Reachability</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_1-reachability.html#slide-10---example-7.3---reachability-transformation",
+    "href": "chapters/07_1-reachability.html#slide-10---example-7.3---reachability-transformation",
+    "title": "7  State Feedback - Reachability",
+    "section": "7.10 Slide 10 - Example 7.3 - Reachability Transformation",
+    "text": "7.10 Slide 10 - Example 7.3 - Reachability Transformation",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>State Feedback - Reachability</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_1-reachability.html#slide-11---reachability-theorem",
+    "href": "chapters/07_1-reachability.html#slide-11---reachability-theorem",
+    "title": "7  State Feedback - Reachability",
+    "section": "7.11 Slide 11 - Reachability Theorem",
+    "text": "7.11 Slide 11 - Reachability Theorem",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>State Feedback - Reachability</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_1-reachability.html#slide-12---summary",
+    "href": "chapters/07_1-reachability.html#slide-12---summary",
+    "title": "7  State Feedback - Reachability",
+    "section": "7.12 Slide 12 - Summary",
+    "text": "7.12 Slide 12 - Summary",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>State Feedback - Reachability</span>"
     ]
   },
   {
