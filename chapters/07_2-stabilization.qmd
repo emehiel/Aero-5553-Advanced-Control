@@ -1,0 +1,13 @@
+---
+title: "State Feedback - Stabilization"
+format: 
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    code-tools: true
+jupyter: python3
+---
+
+## Slide 2 - Motivation
