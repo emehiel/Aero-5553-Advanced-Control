@@ -55,5 +55,8 @@
   },
   "chapters/07_1-reachability.qmd": {
     "07_1-reachability.html": "b985515a"
+  },
+  "chapters/07_2-stabilization.qmd": {
+    "07_2-stabilization.html": "09afc97b"
   }
 }

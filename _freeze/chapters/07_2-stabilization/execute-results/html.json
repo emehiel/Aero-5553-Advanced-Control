@@ -1,0 +1,12 @@
+{
+  "hash": "137b3b91349eb45f5d7a4c11ddbc95be",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"State Feedback - Stabilization\"\nformat: \n  html:\n    theme: cosmo\n    toc: true\n    toc-depth: 2\n    code-fold: true\n    code-tools: true\njupyter: python3\n---\n\n## Slide 2 - Motivation\n\n",
+    "supporting": [
+      "07_2-stabilization_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}
